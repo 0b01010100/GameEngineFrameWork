@@ -1,7 +1,7 @@
 #pragma once
 #include "Window.h"
 
-class AppWindow: public Window`
+class AppWindow: public Window
 {
 public:
     AppWindow();
