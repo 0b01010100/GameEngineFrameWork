@@ -1,0 +1,6 @@
+﻿  AppWindow.cpp
+C:\Users\josdd\CreatingAGameEngine\DirectXGame\DirectXGame\AppWindow.h(4,31): error C2018: unknown character '0x60'
+  main.cpp
+C:\Users\josdd\CreatingAGameEngine\DirectXGame\DirectXGame\AppWindow.h(4,31): error C2018: unknown character '0x60'
+  Window.cpp
+  Generating Code...

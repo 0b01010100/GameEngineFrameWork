@@ -1,0 +1,6 @@
+﻿  AppWindow.cpp
+  main.cpp
+  Window.cpp
+main.obj : error LNK2001: unresolved external symbol "public: __cdecl AppWindow::~AppWindow(void)" (??1AppWindow@@QEAA@XZ)
+main.obj : error LNK2001: unresolved external symbol "public: __cdecl AppWindow::AppWindow(void)" (??0AppWindow@@QEAA@XZ)
+C:\Users\josdd\CreatingAGameEngine\DirectXGame\x64\Release\DirectXGame.exe : fatal error LNK1120: 2 unresolved externals
