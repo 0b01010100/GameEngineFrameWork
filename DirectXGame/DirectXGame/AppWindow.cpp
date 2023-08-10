@@ -4,19 +4,26 @@ AppWindow::AppWindow()
 {
 }
 
+
 AppWindow::~AppWindow()
 {
 }
 
-void AppWindow::OnCreate()
+void AppWindow::onCreate()
 {
+	Window::onCreate();
+
 }
 
-void AppWindow::OnUpdate()
+void AppWindow::onUpdate()
 {
+	Window::onUpdate();
+	
 }
 
-void AppWindow::OnDestroy()
+void AppWindow::onDestroy()
 {
-	Window::OnDestroy();
+	Window::onDestroy();
+
+
 }

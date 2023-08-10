@@ -1,41 +1,53 @@
 #include "Window.h"
 
-Window* window = nullptr;
+//Window* window=nullptr;
 
 Window::Window()
 {
-	
+
 }
-LRESULT CALLBACK WindProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+
+
+LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
+	//GetWindowLong(hwnd,)
 	switch (msg)
 	{
 	case WM_CREATE:
 	{
-		// Event fired when the window is created
-		window->OnCreate();
+
+		Window* window = (Window*)((LPCREATESTRUCT)lparam)->lpCreateParams;
+		// .. and then stored for later lookup
+		SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)window);
+		window->onCreate();
 		break;
 	}
+
 	case WM_DESTROY:
 	{
 		// Event fired when the window is destroyed
-		window->OnDestroy();
+		Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+		window->onDestroy();
 		::PostQuitMessage(0);
 		break;
 	}
+
+
 	default:
 		return ::DefWindowProc(hwnd, msg, wparam, lparam);
 	}
+
 	return NULL;
-
-
-
 }
+
+
 bool Window::init()
 {
+
+
+	//Setting up WNDCLASSEX object
 	WNDCLASSEX wc;
-	if (!window)
-		window = this;
+	wc.cbClsExtra = NULL;
 	wc.cbSize = sizeof(WNDCLASSEX);
 	wc.cbWndExtra = NULL;
 	wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
@@ -45,70 +57,84 @@ bool Window::init()
 	wc.hInstance = NULL;
 	wc.lpszClassName = L"MyWindowClass";
 	wc.lpszMenuName = L"";
-    wc.style = NULL;
+	wc.style = NULL;
+	wc.lpfnWndProc = &WndProc;
 
-	wc.lpfnWndProc = &WindProc;
-
-
-	if(!::RegisterClassEx(&wc)) // If the registration of class will fail, the function will return false
-	{
+	if (!::RegisterClassEx(&wc)) // If the registration of class will fail, the function will return false
 		return false;
-	}
 
-	//Creation of the Window
-	m_hwnd=::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, L"MyWindowClass", L"DirectX Application", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,1024, 768, NULL, NULL, NULL, NULL);
-	
-	//If the creation fail return false
+	/*if (!window)
+		window = this;*/
+
+		//Creation of the window
+	m_hwnd = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, L"MyWindowClass", L"Game Engine", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 1024, 768,
+		NULL, NULL, NULL, this);
+
+	//if the creation fail return false
 	if (!m_hwnd)
 		return false;
 
-	//Show up the Window
+	//show up the window
 	::ShowWindow(m_hwnd, SW_SHOW);
 	::UpdateWindow(m_hwnd);
 
-	//Set this flag to indecate that the WIndow in initalized and running
+
+
+
+	//set this flag to true to indicate that the window is initialized and running
 	m_is_run = true;
 
 
+
 	return true;
 }
 
-bool Window::BroadCast()
+bool Window::broadcast()
 {
 	MSG msg;
-	while(::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)>0)
+
+
+	while (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0)
 	{
 		TranslateMessage(&msg);
-		DispatchMessageW(&msg);
+		DispatchMessage(&msg);
 	}
-	window->OnUpdate();
 
-	Sleep(0);
+	this->onUpdate();
+
+	Sleep(1);
 
 	return true;
 }
+
 
 bool Window::release()
 {
-	if(!::DestroyWindow(m_hwnd))
-	{
+	//Destroy the window
+	if (!::DestroyWindow(m_hwnd))
 		return false;
-	}
+
 	return true;
 }
 
 bool Window::isRun()
 {
-
 	return m_is_run;
 }
 
-void Window::OnDestroy()
+void Window::onCreate()
+{
+}
+
+void Window::onUpdate()
+{
+}
+
+void Window::onDestroy()
 {
 	m_is_run = false;
 }
 
 Window::~Window()
 {
-	
 }

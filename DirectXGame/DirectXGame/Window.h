@@ -1,27 +1,28 @@
+
 #pragma once
 #include <Windows.h>
+
 
 
 class Window
 {
 public:
 	Window();
-	//Initialize the Window
+	//Initialize the window
 	bool init();
-	//Pickes the Event messages from the operating system
-	bool BroadCast();
-	//Realese the Window
+	bool broadcast();
+	//Release the window
 	bool release();
-	//A value that holds true or false based on wheather the Window in is Running or not.
 	bool isRun();
-	
-	//Events Methods
-	virtual void OnCreate() = 0;
-	virtual void OnUpdate() = 0;
-    virtual void OnDestroy();
+
+	//EVENTS
+	virtual void onCreate();
+	virtual void onUpdate();
+	virtual void onDestroy();
+
+
 	~Window();
 protected:
-	HWND m_hwnd = NULL;
-	bool m_is_run = false;
+	HWND m_hwnd;
+	bool m_is_run;
 };
-

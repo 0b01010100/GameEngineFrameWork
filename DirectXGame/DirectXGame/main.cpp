@@ -1,4 +1,7 @@
+
 #include "AppWindow.h"
+
+
 
 int main()
 {
@@ -7,8 +10,10 @@ int main()
 	{
 		while (app.isRun())
 		{
-			app.BroadCast();
+			app.broadcast();
 		}
 	}
+
+
 	return 0;
 }
