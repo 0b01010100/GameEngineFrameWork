@@ -1,7 +1,5 @@
 #include "AppWindow.h"
 
-
-
 int main()
 {
 	AppWindow app;
@@ -12,7 +10,5 @@ int main()
 			app.broadcast();
 		}
 	}
-
-
 	return 0;
 }
