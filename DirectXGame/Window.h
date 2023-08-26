@@ -1,7 +1,6 @@
 #pragma once
 #include <Windows.h>
 
-
 //Custom Window Class 
 class Window
 {

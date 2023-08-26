@@ -1,6 +1,4 @@
-
 #include "AppWindow.h"
-
 
 
 AppWindow::AppWindow()

@@ -1,6 +1,5 @@
 #include "SwapChain.h"
 #include "GraphicsEngine.h"
-
 SwapChain::SwapChain()
 {
 }

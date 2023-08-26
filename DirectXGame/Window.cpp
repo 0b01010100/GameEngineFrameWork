@@ -1,3 +1,4 @@
+
 /*MIT License
 
 C++ 3D Game Tutorial Series (https://github.com/PardCode/CPP-3D-Game-Tutorial-Series)
@@ -26,11 +27,10 @@ SOFTWARE.*/
 //This is Very import file. This Contans most of the Functions and Variable types need the Set up a Window Application
 #include "Window.h"
 
-//Window* window=nullptr;
 //Not Using this Constructor Function becuase  the time it who be called is the worng time it would be needed to make the Program Run smootly.
 Window::Window()
 {
-	///Empty
+	//Empty
 }
 
 

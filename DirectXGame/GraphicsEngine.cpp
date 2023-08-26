@@ -1,7 +1,7 @@
 #include "GraphicsEngine.h"
 #include "SwapChain.h"
 #include "DeviceContext.h"
-#include <stdio.h>
+
 GraphicsEngine::GraphicsEngine()
 {
 }
