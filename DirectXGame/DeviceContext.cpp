@@ -1,7 +1,7 @@
 #include "DeviceContext.h"
 #include "SwapChain.h"
 
-DeviceContext::DeviceContext(ID3D11DeviceContext* device_context) : m_device_context(device_context)
+DeviceContext::DeviceContext(ID3D11DeviceContext* device_context = nullptr) : m_device_context(device_context)
 {
 }
 

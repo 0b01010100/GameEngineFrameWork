@@ -16,9 +16,9 @@ public:
 	bool release();
 	~SwapChain();
 private:
-	IDXGISwapChain* m_swap_chain;
-	ID3D11RenderTargetView* m_rtv;
+	IDXGISwapChain* m_swap_chain = NULL;
+	ID3D11RenderTargetView* m_rtv = NULL;
 private:
-	friend class DeviceContext;
+	friend class DeviceContext;//Adding DeviceContext as a friend class to Accese Private members of the class
 };
 

@@ -2,7 +2,7 @@
 #include <Windows.h>
 
 //Custom Window Class 
-class Window
+class Window abstract 
 {
 public:
 	Window();
@@ -19,11 +19,13 @@ public:
 	//Set the Gloabl Window Handler equal to the the Local Window Handler 
 	void setHWND(HWND hwnd);
 
-	///EVENTS
+	///EVENT
 	//High Level Code gose in here for when the Window is Created.
 	virtual void onCreate();//
+	///EVENT
 	//High Level code gose in here for when the window in Updated
 	virtual void onUpdate();
+	///EVENT
 	//High level code gose in here for when the window is Destroyed/Closed
 	virtual void onDestroy();
 	

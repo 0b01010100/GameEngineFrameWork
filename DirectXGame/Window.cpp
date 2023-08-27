@@ -159,10 +159,10 @@ bool Window::isRun()
 RECT Window::getClientWindowRect()
 {
 	///The RECT Variable is a Structure that holds Four variables 
-	///1. The integral hight of the left side of the Window
-	///2. The integral hight of the right side of the Window
-	///3. The integral Width of the top of the Window
-	///4. The integral Width of the Bottom of the WIndow
+	///1. The integral position of the left side of the Window
+	///2. The integral position of the right side of the Window
+	///3. The integral position of the top of the Window
+	///4. The integral position of the Bottom of the WIndow
 	RECT rc;
 	///Gets the Current RECT->TOP, BUTTOM, LEFT, RIGHT of the m_hwnd Variable and assigns that information to the rc varable
 	::GetClientRect(/*ref Input*/this->m_hwnd, /*ref OutPut*/&rc);

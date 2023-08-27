@@ -4,18 +4,22 @@
 #include "SwapChain.h"
 #include "DeviceContext.h"
 
-
-class AppWindow : public Window
+//The class for the App Window
+class  __single_inheritance AppWindow : public Window 
 {
 public:
 	AppWindow();
 	~AppWindow();
 
-	// Inherited via Window
+/*These Events Area Virtual so another class can inherit and Impliment to functions in it own way.*/
+	//This Event is Called for when the Window is Created
 	virtual void onCreate() override;
+	//Event called for when every frame if the Window is not closed
 	virtual void onUpdate() override;
+	//Event Called for when the Window is Closed
 	virtual void onDestroy() override;
 private:
-	SwapChain* m_swap_chain;
+	//A variable that helps manage the Monitor of a Screen For Prensetation on the Screen.
+	SwapChain* m_swap_chain = nullptr;
 };
 
