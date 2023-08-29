@@ -30,11 +30,9 @@ void AppWindow::onCreate()
 void AppWindow::onUpdate()
 {
 	Window::onUpdate();
+	//Clears to buffers, preparing them for rendering a new frame
 	GraphicsEngine::get()->getImmediateDeviceContext()->ClearRenderTargetColor
-	(this->m_swap_chain, 1, 1, 1, 1);
-
-
-
+	(this->m_swap_chain, 0, 0, 0, 1); //Black color with 100% Opacity.
 
 	m_swap_chain->present(false);
 }

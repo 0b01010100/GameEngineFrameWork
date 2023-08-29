@@ -1,6 +1,6 @@
 #pragma once
 #include <d3d11.h>//Importing this allows use to Access the DircetX API
-//#include "SwapChain.h"
+#include "SwapChain.h"
 
 class SwapChain;
 class DeviceContext;
@@ -17,6 +17,7 @@ public:
 public:
 	//Creates a Swap chain, which is a collections of Frame Buffers that help render frames on screen
 	SwapChain* createSwapChain();
+	//Returns a Pointer to the DeviceContext
 	DeviceContext* getImmediateDeviceContext();
 public:
 	//Returns a pointer to the Graphics Engine Instance
