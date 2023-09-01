@@ -19,6 +19,7 @@ private:
 	IDXGISwapChain* m_swap_chain = NULL;
 	//Specfies a target surface or buffer where rendering operations will be performed. 
 	ID3D11RenderTargetView* m_rtv = NULL;
+	ID3D11DepthStencilView* m_dsv;
 private:
 	friend class DeviceContext;//Adding DeviceContext as a friend class to Accese Private members of the class
 };
