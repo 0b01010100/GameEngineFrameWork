@@ -2,6 +2,3 @@ C:\Users\Jeremiah\source\repos\DirectXGame2\x64\Debug\DirectXGame2.exe
 C:\Users\josdd\DirectXGame2\x64\Debug\DirectXGame2.exe
 C:\Users\josdd\DirectXGame\x64\Debug\DirectXGame2.exe
 C:\Users\josdd\CreatingAGameEngine\DirectXGame\x64\Debug\DirectXGame2.exe
-C:\Users\josdd\CreatingAGameEngine\DirectXGame\x64\Debug\DirectXGame2.vcxproj.MdMergeInputs.cache
-C:\Users\josdd\CreatingAGameEngine\DirectXGame\x64\Debug\DirectXGame2.vcxproj.cppwinrt_plat.cache
-C:\Users\josdd\CreatingAGameEngine\DirectXGame\x64\Debug\DirectXGame2.vcxproj.cppwinrt_comp.cache

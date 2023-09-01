@@ -3,22 +3,23 @@
 #include "GraphicsEngine.h"
 #include "SwapChain.h"
 #include "DeviceContext.h"
-#include "VertexBuffer.h"
 
-class AppWindow : public Window
+//The class for the App Window
+class  __single_inheritance AppWindow : public Window 
 {
 public:
 	AppWindow();
 	~AppWindow();
 
-	/*Inherited via Window*/ 
-	//Called when the WIndow is first created
+/*These Events Area Virtual so another class can inherit and Impliment to functions in it own way.*/
+	//This Event is Called for when the Window is Created
 	virtual void onCreate() override;
-	//Called when the window is up and running
+	//Event called for when every frame if the Window is not closed
 	virtual void onUpdate() override;
-	//Called when the Window s Destoryed
+	//Event Called for when the Window is Closed
 	virtual void onDestroy() override;
 private:
-	SwapChain* m_swap_chain;
-	VertexBuffer* m_vb;
+	//A variable that helps manage the Monitor of a Screen For Prensetation on the Screen.
+	SwapChain* m_swap_chain = nullptr;
 };
+
