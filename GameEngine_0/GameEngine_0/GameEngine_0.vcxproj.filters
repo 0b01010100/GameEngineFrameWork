@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>GameEngine\App</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>GameEngine\WindowigSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsEngine.cpp">
+      <Filter>GameEngine\GraphicsEngineSystem\GraphicEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="AppWindow.cpp">
+      <Filter>GameEngine\App</Filter>
+    </ClCompile>
+    <ClCompile Include="SwapChain.cpp">
+      <Filter>GameEngine\GraphicsEngineSystem\SwapChain</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceContext.cpp">
+      <Filter>GameEngine\GraphicsEngineSystem\DeviceContext</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>GameEngine\GraphicsEngineSystem\VertexBuffer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="GameEngine">
+      <UniqueIdentifier>{5ce87104-9182-4ba5-8a02-80fa9bc1d2b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\App">
+      <UniqueIdentifier>{2b1f6e23-7cb4-43fe-8429-8bd4da6670e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\WindowigSystem">
+      <UniqueIdentifier>{b5f9f8b3-153b-4c6b-ac25-2d12e5641be8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngineSystem">
+      <UniqueIdentifier>{e931d346-ecc2-453d-a692-191ba8465e89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngineSystem\SwapChain">
+      <UniqueIdentifier>{62cdd4d1-dac7-44ea-a6f7-589369f9ec6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngineSystem\Shaders">
+      <UniqueIdentifier>{e6b7ec5d-72a9-4b4d-b9bb-34431e516555}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngineSystem\GraphicEngine">
+      <UniqueIdentifier>{15bc4239-5f6c-4d92-9650-8197628be564}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngineSystem\DeviceContext">
+      <UniqueIdentifier>{3da20ffa-2253-4fed-88c1-9c51785cb59b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngineSystem\VertexBuffer">
+      <UniqueIdentifier>{3f139f59-36f9-436a-a115-2b15c2e81faa}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Window.h">
+      <Filter>GameEngine\WindowigSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsEngine.h">
+      <Filter>GameEngine\GraphicsEngineSystem\GraphicEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="AppWindow.h">
+      <Filter>GameEngine\App</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapChain.h">
+      <Filter>GameEngine\GraphicsEngineSystem\SwapChain</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceContext.h">
+      <Filter>GameEngine\GraphicsEngineSystem\DeviceContext</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>GameEngine\GraphicsEngineSystem\VertexBuffer</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="PixelShader.hlsl">
+      <Filter>GameEngine\GraphicsEngineSystem\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>GameEngine\GraphicsEngineSystem\Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>

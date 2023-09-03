@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\josdd\CreatingAGameEngine\GameEngine_0\GameEngine_0\</FILEPATH>
+      <FILENAME>GraphicsEngine.cpp</FILENAME>
+      <LINE>7</LINE>
+      <COLUMN>16</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'GraphicsEngine::m_feature_level' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>GraphicsEngine::{ctor}</FUNCTION>
+    <DECORATED>??0GraphicsEngine@@QEAA@XZ</DECORATED>
+    <FUNCLINE>7</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>GraphicsEngine::m_feature_level</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

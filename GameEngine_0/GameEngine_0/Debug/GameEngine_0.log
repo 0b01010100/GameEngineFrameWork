@@ -1,0 +1,13 @@
+﻿  compilation object save succeeded; see C:\Users\josdd\CreatingAGameEngine\GameEngine_0\Debug\PixelShader.cso
+  compilation object save succeeded; see C:\Users\josdd\CreatingAGameEngine\GameEngine_0\Debug\VertexShader.cso
+  AppWindow.cpp
+  DeviceContext.cpp
+  GraphicsEngine.cpp
+  main.cpp
+  SwapChain.cpp
+  VertexBuffer.cpp
+  Window.cpp
+  Generating Code...
+GraphicsEngine.obj : error LNK2019: unresolved external symbol _D3D11CreateDevice@40 referenced in function "public: bool __thiscall GraphicsEngine::init(void)" (?init@GraphicsEngine@@QAE_NXZ)
+GraphicsEngine.obj : error LNK2019: unresolved external symbol _D3DCompileFromFile@36 referenced in function "public: bool __thiscall GraphicsEngine::createShaders(void)" (?createShaders@GraphicsEngine@@QAE_NXZ)
+C:\Users\josdd\CreatingAGameEngine\GameEngine_0\Debug\GameEngine_0.exe : fatal error LNK1120: 2 unresolved externals

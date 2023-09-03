@@ -1,0 +1,11 @@
+﻿  compilation object save succeeded; see C:\Users\josdd\CreatingAGameEngine\GameEngine_0\x64\Release\PixelShader.cso
+  compilation object save succeeded; see C:\Users\josdd\CreatingAGameEngine\GameEngine_0\x64\Release\VertexShader.cso
+  AppWindow.cpp
+  DeviceContext.cpp
+  GraphicsEngine.cpp
+  SwapChain.cpp
+  VertexBuffer.cpp
+  main.cpp
+GraphicsEngine.obj : error LNK2001: unresolved external symbol D3DCompileFromFile
+GraphicsEngine.obj : error LNK2001: unresolved external symbol D3D11CreateDevice
+C:\Users\josdd\CreatingAGameEngine\GameEngine_0\x64\Release\GameEngine_0.exe : fatal error LNK1120: 2 unresolved externals

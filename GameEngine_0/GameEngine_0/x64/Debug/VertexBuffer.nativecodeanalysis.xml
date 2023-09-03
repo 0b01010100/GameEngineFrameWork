@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\josdd\CreatingAGameEngine\GameEngine_0\GameEngine_0\</FILEPATH>
+      <FILENAME>VertexBuffer.cpp</FILENAME>
+      <LINE>6</LINE>
+      <COLUMN>14</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'VertexBuffer::m_size_vertex' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>VertexBuffer::{ctor}</FUNCTION>
+    <DECORATED>??0VertexBuffer@@QEAA@XZ</DECORATED>
+    <FUNCLINE>6</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>VertexBuffer::m_size_vertex</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\josdd\CreatingAGameEngine\GameEngine_0\GameEngine_0\</FILEPATH>
+      <FILENAME>VertexBuffer.cpp</FILENAME>
+      <LINE>6</LINE>
+      <COLUMN>14</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'VertexBuffer::m_size_list' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>VertexBuffer::{ctor}</FUNCTION>
+    <DECORATED>??0VertexBuffer@@QEAA@XZ</DECORATED>
+    <FUNCLINE>6</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>VertexBuffer::m_size_list</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>
