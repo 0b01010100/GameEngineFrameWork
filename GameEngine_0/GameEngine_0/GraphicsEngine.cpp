@@ -90,12 +90,17 @@ VertexBuffer* GraphicsEngine::createVertexBuffer()
 
 bool GraphicsEngine::createShaders()
 {
+	//A variable the hold messages corresponding to errors 
 	ID3DBlob* errblob = nullptr;
 	
-	
+	//The D3DCompileFromFile Compile the shader code or recipe for creating a shader to binary so a shader can be created and initazlize 
+	//@m_vsblob is a Referrence to the Compiled Vertex shader code
 	D3DCompileFromFile(L"VertexShader.hlsl", nullptr, nullptr, "vsmain", "vs_5_0", NULL, NULL, &m_vsblob, &errblob);
+	//@m_psblob is a Referrence to the Compiled Pixel shader code.
 	D3DCompileFromFile(L"PixelShader.hlsl", nullptr, nullptr, "psmain", "ps_5_0", NULL, NULL, &m_psblob, &errblob);
+	//Creates a shader object from the Precompiled shader code, which I can use to manipulate vertices in the 3D Grahpics rendering pipline
 	m_d3d_device->CreateVertexShader(m_vsblob->GetBufferPointer(), m_vsblob->GetBufferSize(), nullptr, &m_vs);
+
 	m_d3d_device->CreatePixelShader(m_psblob->GetBufferPointer(), m_psblob->GetBufferSize(), nullptr, &m_ps);
 	return true;
 }
@@ -105,6 +110,7 @@ bool GraphicsEngine::setShaders()
 	m_imm_context->VSSetShader(m_vs, nullptr, 0);
 	m_imm_context->PSSetShader(m_ps, nullptr, 0);
 	return true;
+	//
 }
 
 void GraphicsEngine::getShaderBufferAndSize(void** bytecode, UINT* size)

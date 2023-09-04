@@ -71,6 +71,9 @@
     <ClInclude Include="VertexBuffer.h">
       <Filter>GameEngine\GraphicsEngineSystem\VertexBuffer</Filter>
     </ClInclude>
+    <ClInclude Include="VecLib.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShader.hlsl">

@@ -13,32 +13,33 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	//GetWindowLong(hwnd,)
 	switch (msg)
 	{
-	case WM_CREATE:
-	{
-		// Event fired when the window is created
-		// collected here..
-		Window* window = (Window*)((LPCREATESTRUCT)lparam)->lpCreateParams;
-		// .. and then stored for later lookup
-		SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)window);
-		window->setHWND(hwnd);
-		window->onCreate();
-		break;
+		case WM_CREATE:
+		{
+			// Event fired when the window is created
+			// collected here..
+			Window* window = (Window*)((LPCREATESTRUCT)lparam)->lpCreateParams;
+			// .. and then stored for later lookup
+			SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)window);
+			window->setHWND(hwnd);
+			window->onCreate();
+			break;
+		}
+
+		case WM_DESTROY:
+		{
+			// Event fired when the window is destroyed
+			Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+			window->onDestroy();
+			::PostQuitMessage(0);
+			break;
+		}
+
+
+		default:
+		{
+			return ::DefWindowProc(hwnd, msg, wparam, lparam);
+		}
 	}
-
-	case WM_DESTROY:
-	{
-		// Event fired when the window is destroyed
-		Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
-		window->onDestroy();
-		::PostQuitMessage(0);
-		break;
-	}
-
-
-	default:
-		return ::DefWindowProc(hwnd, msg, wparam, lparam);
-	}
-
 	return NULL;
 }
 
