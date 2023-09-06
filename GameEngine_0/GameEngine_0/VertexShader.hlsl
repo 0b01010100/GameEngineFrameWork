@@ -1,4 +1,4 @@
-float4 ChangePos(float4 position)
+float4 ChangePos(float4 position : POSITIONT) : SV_POSITION
 {
     if (position.y > 0)
     {
