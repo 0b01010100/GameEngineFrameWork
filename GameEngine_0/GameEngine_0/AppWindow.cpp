@@ -1,5 +1,5 @@
 #include "AppWindow.h"
-#include "VecLib.h"
+#include "VecLib.h"//A local Libray with the Vertex and Vectex struct.
 
 AppWindow::AppWindow()
 {
@@ -12,51 +12,55 @@ AppWindow::~AppWindow()
 
 void AppWindow::onCreate()
 {
+	//An event that is called when the class is Created
 	Window::onCreate();
+	//This will Initilize the GraphicsEngine class, which is a class that helps manage how things are rendered on the screen.
 	GraphicsEngine::get()->init();
+	//Assinging the Swap Chain in the GraphicsEngine to the this classes Swap Chain Variable 
 	m_swap_chain = GraphicsEngine::get()->createSwapChain();
-
 	RECT rc = this->getClientWindowRect();
+	//initializing the swap chain and setting it width and height
 	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
-	//Shape
+
 	vertex list[] =
 	{
 		//X - Y - Z
-		//{-0.5f,-0.5f,0.0f}, // POS1
-		//{-0.5f,0.5f,0.0f}, // POS2
-		//{ 0.5f,-0.5f,0.0f},
-		//{ 0.5f,0.5f,0.0f}
-		{-0.5, 0, 0},
-		{0,0.5,0},
-		{0.5, 0 ,0 },
-		{-0.5, 0, 0},
-		{0,-0.5,0},
-		{0.5, 0 ,0 },
+		{-0.5f,-0.5f,0.0f}, // POS1
+		{-0.5f,0.5f,0.0f}, // POS2
+		{ 0.5f,-0.5f,0.0f },// POS2
+		{ 0.5f,0.5f,0.0f}
 	};
+
 	m_vb = GraphicsEngine::get()->createVertexBuffer();
 	UINT size_list = ARRAYSIZE(list);
 
 	GraphicsEngine::get()->createShaders();
 
 	void* shader_byte_code = nullptr;
-	UINT size_shader = 0;
-	GraphicsEngine::get()->getShaderBufferAndSize(&shader_byte_code, &size_shader);
-	
+	size_t size_shader = 0;
+	GraphicsEngine::get()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
+
+	m_vs = GraphicsEngine::get()->createVertexShader(shader_byte_code, size_shader);
 	m_vb->load(list, sizeof(vertex), size_list, shader_byte_code, size_shader);
 
+	GraphicsEngine::get()->releaseCompiledShader();
 }
 
 void AppWindow::onUpdate()
 {
 	Window::onUpdate();
-	//CLEAR THE RENDER TARGET 
-	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain,
-		0, 0.3f, 0.4f, 1);
+	//Clears to buffers, preparing them for rendering a new frame
+	//Black color with 100% Opacity.
+	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor
+	(this->m_swap_chain, 0, 0, 0, 1); 
 	//SET VIEWPORT OF RENDER TARGET IN WHICH WE HAVE TO DRAW
 	RECT rc = this->getClientWindowRect();
 	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
 	//SET DEFAULT SHADER IN THE GRAPHICS PIPELINE TO BE ABLE TO DRAW
 	GraphicsEngine::get()->setShaders();
+	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(m_vs);
+
+
 	//SET THE VERTICES OF THE TRIANGLE TO DRAW
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
 
@@ -72,5 +76,4 @@ void AppWindow::onDestroy()
 	m_swap_chain->release();
 	GraphicsEngine::get()->release();
 }
-
 

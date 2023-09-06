@@ -1,9 +1,8 @@
-﻿  compilation object save succeeded; see C:\Users\josdd\CreatingAGameEngine\GameEngine_0\x64\Debug\VertexShader.cso
-  AppWindow.cpp
-  DeviceContext.cpp
+﻿  AppWindow.cpp
   GraphicsEngine.cpp
   SwapChain.cpp
   VertexBuffer.cpp
+  VertexShader.cpp
   main.cpp
   Generating Code...
   GameEngine_0.vcxproj -> C:\Users\josdd\CreatingAGameEngine\GameEngine_0\x64\Debug\GameEngine_0.exe

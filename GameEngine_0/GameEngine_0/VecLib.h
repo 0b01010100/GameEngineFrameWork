@@ -1,23 +1,24 @@
 #pragma once
-typedef struct vect3
+typedef struct vector3
 {
+	struct vector3(){	}
 	float x, y, z;
 } vec3;
 
 struct vertex
 {
-	vertex()
+	struct vertex()
 	{
 		
 	}
 	vec3 position;
-	vertex(float x, float y, float z)
+	struct vertex(float x, float y, float z)
 	{
 		position.x = x;
 		position.y = y;
 		position.z = z;
 	}
-	vertex(float* x, float* y, float* z)
+	struct vertex(float* x, float* y, float* z)
 	{
 		position.x = *x;
 		position.y = *y;

@@ -1,12 +1,12 @@
-#include <d3d11.h>
 #include "DeviceContext.h"
 #include "SwapChain.h"
 #include "VertexBuffer.h"
-
+#include "VertexShader.h"
+//Gets A reference to the Divec Context when variable is Constructed.
 DeviceContext::DeviceContext(ID3D11DeviceContext* device_context) :m_device_context(device_context)
 {
 }
-
+//Clears the Render Texture 
 void DeviceContext::clearRenderTargetColor(SwapChain* swap_chain, float red, float green, float blue, float alpha)
 {
 	FLOAT clear_color[] = { red,green,blue,alpha };
@@ -21,13 +21,12 @@ void DeviceContext::setVertexBuffer(VertexBuffer* vertex_buffer)
 	m_device_context->IASetVertexBuffers(0, 1, &vertex_buffer->m_buffer, &stride, &offset);
 	m_device_context->IASetInputLayout(vertex_buffer->m_layout);
 }
-
+//Draws Trianlges Using Vextices. 
 void DeviceContext::drawTriangleList(UINT vertex_count, UINT start_vertex_index)
 {
 	m_device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	m_device_context->Draw(vertex_count, start_vertex_index);
 }
-
 void DeviceContext::drawTriangleStrip(UINT vertex_count, UINT start_vertex_index)
 {
 	m_device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
@@ -42,6 +41,11 @@ void DeviceContext::setViewportSize(UINT width, UINT height)
 	vp.MinDepth = 0.0f;
 	vp.MaxDepth = 1.0f;
 	m_device_context->RSSetViewports(1, &vp);
+}
+
+void DeviceContext::setVertexShader(VertexShader* vertex_shader)
+{
+	m_device_context->VSSetShader(vertex_shader->m_vs, nullptr, 0);
 }
 
 

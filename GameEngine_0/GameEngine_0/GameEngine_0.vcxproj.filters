@@ -22,6 +22,9 @@
     <ClCompile Include="VertexBuffer.cpp">
       <Filter>GameEngine\GraphicsEngineSystem\VertexBuffer</Filter>
     </ClCompile>
+    <ClCompile Include="VertexShader.cpp">
+      <Filter>GameEngine\GraphicsEngineSystem\VertexShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameEngine">
@@ -51,6 +54,12 @@
     <Filter Include="GameEngine\GraphicsEngineSystem\VertexBuffer">
       <UniqueIdentifier>{3f139f59-36f9-436a-a115-2b15c2e81faa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\Shapes">
+      <UniqueIdentifier>{19f354f3-9174-49f5-9a63-1267cadb8909}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngineSystem\VertexShader">
+      <UniqueIdentifier>{b4fac325-b535-46b9-80ca-ae6ed3580406}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -73,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="VecLib.h">
       <Filter>GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexShader.h">
+      <Filter>GameEngine\GraphicsEngineSystem\VertexShader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
