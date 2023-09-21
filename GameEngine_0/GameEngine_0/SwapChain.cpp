@@ -51,7 +51,7 @@ bool SwapChain::init(HWND hwnd, UINT width, UINT height)
 
 	return true;
 }
-
+//Tells the swap chain to present the texture on the screen.
 bool SwapChain::present(bool vsync)
 {
 	m_swap_chain->Present(vsync, NULL);

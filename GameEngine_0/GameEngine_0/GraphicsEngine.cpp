@@ -1,3 +1,4 @@
+#pragma comment(lib, "d3dcompiler.lib")
 #include "GraphicsEngine.h"
 #include "SwapChain.h"
 #include "DeviceContext.h"

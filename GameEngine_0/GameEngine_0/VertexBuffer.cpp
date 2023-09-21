@@ -18,9 +18,9 @@ bool VertexBuffer::load(void* list_vertices, UINT size_vertex, UINT size_list, v
 	buff_desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;//This enables this to act as a Vertex buffer. Vertex Buffers provide the input data for vertex shaders and are manily used to store the posiotions, colors, normals, and other data about a vertex.
 	buff_desc.CPUAccessFlags = 0; // No CPU access are need, GPU only.
 	buff_desc.MiscFlags = 0;//Additionall information gose here
-
+	//This class is used to Create and Update classes related to the directX
 	D3D11_SUBRESOURCE_DATA init_data = {};
-	init_data.pSysMem = list_vertices;//Data I want to Copy
+	init_data.pSysMem = list_vertices;//adds the Vertices class list to a Pointer to raw data for. The location that the pSysMem pointer is pointing at is specifically for the DircetsX buffers or Vertex Classes.  
 
 	m_size_vertex = size_vertex; // The Size of the Vertex Class 
 	m_size_list = size_list; // The Size of all of the Vertex Classes.

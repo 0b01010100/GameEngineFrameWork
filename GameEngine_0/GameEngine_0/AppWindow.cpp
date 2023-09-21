@@ -8,7 +8,7 @@ AppWindow::AppWindow()
 
 AppWindow::~AppWindow()
 {
-}
+} 
 
 void AppWindow::onCreate()
 {
@@ -52,7 +52,7 @@ void AppWindow::onUpdate()
 	//Clears to buffers, preparing them for rendering a new frame
 	//Black color with 100% Opacity.
 	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor
-	(this->m_swap_chain, 0, 0, 0, 1); 
+	(this->m_swap_chain, 0, 2, 0, 1); 
 	//SET VIEWPORT OF RENDER TARGET IN WHICH WE HAVE TO DRAW
 	RECT rc = this->getClientWindowRect();
 	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);

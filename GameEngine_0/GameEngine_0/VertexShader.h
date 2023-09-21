@@ -1,4 +1,5 @@
 #pragma once
+#pragma comment(lib, "d3d11.lib")
 #include <d3d11.h>
 
 
@@ -17,6 +18,6 @@ private:
 	ID3D11VertexShader* m_vs;
 private:
 	friend class GraphicsEngine;
-	friend class DeviceContext;
+	friend class DeviceContext;;
 };
 

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="WinMain.cpp">
       <Filter>GameEngine\App</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
@@ -42,9 +42,6 @@
     <Filter Include="GameEngine\GraphicsEngineSystem\SwapChain">
       <UniqueIdentifier>{62cdd4d1-dac7-44ea-a6f7-589369f9ec6c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameEngine\GraphicsEngineSystem\Shaders">
-      <UniqueIdentifier>{e6b7ec5d-72a9-4b4d-b9bb-34431e516555}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameEngine\GraphicsEngineSystem\GraphicEngine">
       <UniqueIdentifier>{15bc4239-5f6c-4d92-9650-8197628be564}</UniqueIdentifier>
     </Filter>
@@ -59,6 +56,12 @@
     </Filter>
     <Filter Include="GameEngine\GraphicsEngineSystem\VertexShader">
       <UniqueIdentifier>{b4fac325-b535-46b9-80ca-ae6ed3580406}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\VertexShaders">
+      <UniqueIdentifier>{438a4f9b-54d0-45c4-893a-af02cb74081f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngineSystem\VertexShader\Shaders">
+      <UniqueIdentifier>{e6b7ec5d-72a9-4b4d-b9bb-34431e516555}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -89,10 +92,10 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShader.hlsl">
-      <Filter>GameEngine\GraphicsEngineSystem\Shaders</Filter>
+      <Filter>GameEngine\GraphicsEngineSystem\VertexShader\Shaders</Filter>
     </FxCompile>
     <FxCompile Include="VertexShader.hlsl">
-      <Filter>GameEngine\GraphicsEngineSystem\Shaders</Filter>
+      <Filter>GameEngine\GraphicsEngineSystem\VertexShader\Shaders</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

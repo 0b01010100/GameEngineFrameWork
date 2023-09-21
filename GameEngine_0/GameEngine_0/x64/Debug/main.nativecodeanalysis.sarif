@@ -8,7 +8,7 @@
         "driver": {
           "name": "PREfast",
           "fullName": "PREfast Code Analysis",
-          "version": "14.34.31946.0",
+          "version": "14.37.32822.0",
           "informationUri": "https://aka.ms/cpp/ca"
         }
       },
@@ -34,7 +34,7 @@
             "uri": "file:///c:/users/josdd/creatingagameengine/gameengine_0/gameengine_0/appwindow.h"
           },
           "hashes": {
-            "sha-256": "9e19c9ae4c0cc958f9ed73c8a3b36a4cd20932b7fb3a63d862bd382d18947aca"
+            "sha-256": "6bc2e19a03c62471146829df8e6e3f59f60090352c6b671772cb189adee6c84c"
           }
         },
         {
@@ -50,7 +50,7 @@
             "uri": "file:///c:/users/josdd/creatingagameengine/gameengine_0/gameengine_0/graphicsengine.h"
           },
           "hashes": {
-            "sha-256": "6d463b95e47924a8333cddc9194f130578273c42a0a337424200adaae0dabf38"
+            "sha-256": "54567148f08c69f7168037fed84573e207d0634aa170f896d34df010ea05b9b6"
           }
         },
         {
@@ -58,15 +58,7 @@
             "uri": "file:///c:/users/josdd/creatingagameengine/gameengine_0/gameengine_0/swapchain.h"
           },
           "hashes": {
-            "sha-256": "5eb2d44883972c0a2fb8ba03765e5219e87da0bb3c13452a9434f8dce1d09b88"
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///c:/users/josdd/creatingagameengine/gameengine_0/gameengine_0/vertexbuffer.h"
-          },
-          "hashes": {
-            "sha-256": "ee506dec3d38844cdbf380804144b0e78a32660b8669e86dbb7930662d33a6c1"
+            "sha-256": "56a270bda420fb0170c40a46c05283210ab1a66fd3866a056d80e2151019fdd9"
           }
         },
         {
@@ -74,7 +66,23 @@
             "uri": "file:///c:/users/josdd/creatingagameengine/gameengine_0/gameengine_0/devicecontext.h"
           },
           "hashes": {
-            "sha-256": "f8d63a2ffb321cf469265d24ec364470f48d5bc6d103cef4fb26d351139d5f63"
+            "sha-256": "b49e33663205c6a84b493673f2804d58e6502702c132ebaec8e3031d8a2a4f21"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/josdd/creatingagameengine/gameengine_0/gameengine_0/vertexbuffer.h"
+          },
+          "hashes": {
+            "sha-256": "06e537bbc59a99c7ec8cc65b9cc4286a3d7e80ac11bb7d87c7885d5d38696f38"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/josdd/creatingagameengine/gameengine_0/gameengine_0/vertexshader.h"
+          },
+          "hashes": {
+            "sha-256": "cf10487ffcf0bdabb6516a98dfa3506ed0f9226ebfa6f81b8d3fe36558732284"
           }
         }
       ]
