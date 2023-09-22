@@ -1,3 +1,4 @@
+//HLSL
 //The Shader/Pixel shader handles the color calculations for each pixel on the screen by
 //taking some data from the Vetex shader. 
 float4 psmain(float4 pos : SV_POSITION) : SV_Target
