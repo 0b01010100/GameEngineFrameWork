@@ -55,7 +55,7 @@ bool Window::init()
 	wc.cbClsExtra = NULL;// This is Only Used if Extra Computer Memory should be used for the class, in bytes
 	wc.cbSize = sizeof(WNDCLASSEX);//Size of the Window Class
 	wc.cbWndExtra = NULL;//Extra memory to allocate for each window Instance of this Window class type, in bytes.
-	wc.hbrBackground = (HBRUSH)COLOR_MENUBAR;///Color Of Window;
+	wc.hbrBackground = NULL;///Color Of Window;
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);///Type of Mouse Cursor;
 	wc.hIcon = LoadIcon(NULL, IDI_ERROR);///The Top Left Icon of the WIndow;
 	wc.hIconSm = LoadIcon(NULL, IDI_ASTERISK);///The Icon which is Shown on the Taskbar;

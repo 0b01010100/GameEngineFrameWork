@@ -4,6 +4,8 @@
 #include "DeviceContext.h"
 #include "VertexBuffer.h"
 #include "VertexShader.h"
+#include "PixelShader.h"
+
 #include <d3dcompiler.h>
 
 GraphicsEngine::GraphicsEngine()
@@ -54,6 +56,7 @@ bool GraphicsEngine::init()
 	//The purpose of this code is to obtain the DXGI(DirectX Graphics Infrastructure) device interface from the existing Direct3D device.
 	m_d3d_device->QueryInterface(__uuidof(IDXGIDevice), (void**)&m_dxgi_device);
 	//Helps gather informations about the Grahpics Adapter
+	////m_dxgi_device->GetAdapter(&m_dxgi_adapter);
 	m_dxgi_device->GetParent(__uuidof(IDXGIAdapter), (void**)&m_dxgi_adapter);
 	//Helps use obtain the IDXGIFactory interface, which is responsible for creating and managing resources related to graphics adapters, such as swap chains, rendering targets, and more. 
 	m_dxgi_adapter->GetParent(__uuidof(IDXGIFactory), (void**)&m_dxgi_factory);
@@ -110,6 +113,18 @@ VertexShader* GraphicsEngine::createVertexShader(const void* shader_byte_code, s
 
 	return vs;
 }
+PixelShader* GraphicsEngine::createPixelShader(const void* shader_byte_code, size_t byte_code_size)
+{
+	PixelShader* ps = new PixelShader();
+
+	if (!ps->init(shader_byte_code, byte_code_size))
+	{
+		ps->release();
+		return nullptr;
+	}
+
+	return ps;
+}
 /*Compiles the Instructions on how to make a Vextex shader from HLSL to Binary so the code can be read*/
 bool GraphicsEngine::compileVertexShader(const wchar_t* file_name, const char* entry_point_name, void** shader_byte_code, size_t* byte_code_size)
 {
@@ -128,27 +143,30 @@ bool GraphicsEngine::compileVertexShader(const wchar_t* file_name, const char* e
 	return true;
 }
 
+bool GraphicsEngine::compilePixelShader(const wchar_t* file_name, const char* entry_point_name, void** shader_byte_code, size_t* byte_code_size)
+{
+	//Hold Messages related to Erros in the Compilelations
+	ID3DBlob* error_blob = nullptr;
+	//Cancles the COmpilations Process if it Failed
+	if (!SUCCEEDED(D3DCompileFromFile(file_name, nullptr, nullptr, entry_point_name, "ps_5_0", 0, 0, &m_blob, &error_blob)))
+	{
+		if (error_blob) error_blob->Release();
+		return false;
+	}
+
+	*shader_byte_code = m_blob->GetBufferPointer();
+	*byte_code_size = m_blob->GetBufferSize();
+
+	return true;
+}
+
 void GraphicsEngine::releaseCompiledShader()
 {
 	if (m_blob)m_blob->Release();
 }
 //Compile the Instructions for making a Pixel shader From HLSL to Binary, so code can be read.
-bool GraphicsEngine::createShaders()
-{
-	//Hold Messages related to Erros in the Compilelations
-	ID3DBlob* errblob = nullptr;
-	D3DCompileFromFile(L"PixelShader.hlsl", nullptr, nullptr, "psmain", "ps_5_0", NULL, NULL, &m_psblob, &errblob);
-	//Now using that set of compiled instructions to create a PixelShader
-	m_d3d_device->CreatePixelShader(m_psblob->GetBufferPointer(), m_psblob->GetBufferSize(), nullptr, &m_ps);
-	return true;
-}
-//Sets the PixelShader pointer in the Device Context to have the address of m_ps variable which is a pix
-bool GraphicsEngine::setShaders()
-{
-	m_imm_context->PSSetShader(m_ps, nullptr, 0);
-	return true;
-}
 
+//Sets the PixelShader pointer in the Device Context to have the address of m_ps variable which is a pix
 
 GraphicsEngine* GraphicsEngine::get()
 {

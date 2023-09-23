@@ -23,7 +23,10 @@
       <Filter>GameEngine\GraphicsEngineSystem\VertexBuffer</Filter>
     </ClCompile>
     <ClCompile Include="VertexShader.cpp">
-      <Filter>GameEngine\GraphicsEngineSystem\VertexShader</Filter>
+      <Filter>GameEngine\Shaders_\VertexShader</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelShader.cpp">
+      <Filter>GameEngine\Shaders_\PixelShader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -54,14 +57,17 @@
     <Filter Include="GameEngine\Shapes">
       <UniqueIdentifier>{19f354f3-9174-49f5-9a63-1267cadb8909}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameEngine\GraphicsEngineSystem\VertexShader">
-      <UniqueIdentifier>{b4fac325-b535-46b9-80ca-ae6ed3580406}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameEngine\VertexShaders">
+    <Filter Include="GameEngine\Shaders_">
       <UniqueIdentifier>{438a4f9b-54d0-45c4-893a-af02cb74081f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameEngine\GraphicsEngineSystem\VertexShader\Shaders">
+    <Filter Include="GameEngine\Shaders_\HLSL_Shaders">
       <UniqueIdentifier>{e6b7ec5d-72a9-4b4d-b9bb-34431e516555}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Shaders_\VertexShader">
+      <UniqueIdentifier>{b4fac325-b535-46b9-80ca-ae6ed3580406}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Shaders_\PixelShader">
+      <UniqueIdentifier>{840209a3-9676-4092-8efe-d56bb910044b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -83,19 +89,22 @@
     <ClInclude Include="VertexBuffer.h">
       <Filter>GameEngine\GraphicsEngineSystem\VertexBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="VecLib.h">
+    <ClInclude Include="VecLib.c">
       <Filter>GameEngine</Filter>
     </ClInclude>
     <ClInclude Include="VertexShader.h">
-      <Filter>GameEngine\GraphicsEngineSystem\VertexShader</Filter>
+      <Filter>GameEngine\Shaders_\VertexShader</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelShader.h">
+      <Filter>GameEngine\Shaders_\PixelShader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShader.hlsl">
-      <Filter>GameEngine\GraphicsEngineSystem\VertexShader\Shaders</Filter>
+      <Filter>GameEngine\Shaders_\HLSL_Shaders</Filter>
     </FxCompile>
     <FxCompile Include="VertexShader.hlsl">
-      <Filter>GameEngine\GraphicsEngineSystem\VertexShader\Shaders</Filter>
+      <Filter>GameEngine\Shaders_\HLSL_Shaders</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

@@ -5,14 +5,7 @@
       <FullPath>C:\Users\josdd\CreatingAGameEngine\GameEngine_0\x64\Debug\GameEngine_0.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
-  <ContentFiles>
-    <ContentFile>
-      <FullPath>C:\Users\josdd\CreatingAGameEngine\GameEngine_0\x64\Debug\PixelShader.cso</FullPath>
-    </ContentFile>
-    <ContentFile>
-      <FullPath>C:\Users\josdd\CreatingAGameEngine\GameEngine_0\x64\Debug\VertexShader.cso</FullPath>
-    </ContentFile>
-  </ContentFiles>
+  <ContentFiles />
   <SatelliteDlls />
   <NonRecipeFileRefs />
 </Project>

@@ -2,6 +2,7 @@
 #include "SwapChain.h"
 #include "VertexBuffer.h"
 #include "VertexShader.h"
+#include "PixelShader.h"
 //Gets A reference to the Divec Context when variable is Constructed.
 DeviceContext::DeviceContext(ID3D11DeviceContext* device_context) :m_device_context(device_context)
 {
@@ -10,7 +11,9 @@ DeviceContext::DeviceContext(ID3D11DeviceContext* device_context) :m_device_cont
 void DeviceContext::clearRenderTargetColor(SwapChain* swap_chain, float red, float green, float blue, float alpha)
 {
 	FLOAT clear_color[] = { red,green,blue,alpha };
+	//Clears the color of the render target
 	m_device_context->ClearRenderTargetView(swap_chain->m_rtv, clear_color);
+	//Used To bind the Render target to the shader 
 	m_device_context->OMSetRenderTargets(1, &swap_chain->m_rtv, NULL);
 }
 
@@ -46,6 +49,11 @@ void DeviceContext::setViewportSize(UINT width, UINT height)
 void DeviceContext::setVertexShader(VertexShader* vertex_shader)
 {
 	m_device_context->VSSetShader(vertex_shader->m_vs, nullptr, 0);
+}
+
+void DeviceContext::setPixelShader(PixelShader* pixel_shader)
+{
+	m_device_context->PSSetShader(pixel_shader->m_ps, nullptr, 0);
 }
 
 
