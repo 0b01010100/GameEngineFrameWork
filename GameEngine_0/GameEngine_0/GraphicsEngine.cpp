@@ -2,12 +2,18 @@
 #include "GraphicsEngine.h"
 #include "SwapChain.h"
 #include "DeviceContext.h"
+#include "SwapChain.h"
 #include "VertexBuffer.h"
+#include "ConstantBuffer.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
 
 #include <d3dcompiler.h>
 
+__interface IInterface
+{
+	
+};
 GraphicsEngine::GraphicsEngine()
 {
 }
@@ -15,7 +21,7 @@ GraphicsEngine::GraphicsEngine()
 bool GraphicsEngine::init()
 {
 	//Drivers for the Grahics Devive AKA: Graphic card which will help provide good rendering performance for most computers
-	D3D_DRIVER_TYPE driver_types[] =
+	D3D_DRIVER_TYPE driver_types[]
 	{
 		//Drawing is mainly Executed to the GPU when using this Driver
 		D3D_DRIVER_TYPE_HARDWARE,
@@ -99,6 +105,10 @@ DeviceContext* GraphicsEngine::getImmediateDeviceContext()
 VertexBuffer* GraphicsEngine::createVertexBuffer()
 {
 	return new VertexBuffer();
+}
+ConstantBuffer* GraphicsEngine::createConstantBuffer()
+{
+	return new ConstantBuffer();
 }
 //Creates a Vetex Shader
 VertexShader* GraphicsEngine::createVertexShader(const void* shader_byte_code, size_t byte_code_size)

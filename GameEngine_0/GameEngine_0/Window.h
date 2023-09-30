@@ -21,7 +21,6 @@ public:
 	virtual void onUpdate();
 	virtual void onDestroy();
 
-
 	~Window();
 protected:
 	HWND m_hwnd;

@@ -10,11 +10,12 @@ public:
 	//Initialize SwapChain for a window
 	bool init(HWND hwnd, UINT width, UINT height);
 
+    bool release();
 
 	bool present(bool vsync);
 
 	//Release the swap chain
-	bool release();
+	
 	~SwapChain();
 private:
 	IDXGISwapChain* m_swap_chain;

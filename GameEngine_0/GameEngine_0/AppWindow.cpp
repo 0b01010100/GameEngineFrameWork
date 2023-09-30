@@ -1,5 +1,7 @@
 #include "AppWindow.h"
-#include "VecLib.c"//A local Libray with the Vertex and Vectex struct.
+#include <Windows.h>
+#include "VecLib.c"
+
 
 AppWindow::AppWindow()
 {
@@ -8,27 +10,29 @@ AppWindow::AppWindow()
 
 AppWindow::~AppWindow()
 {
-} 
+}
 
 void AppWindow::onCreate()
 {
-	//An event that is called when the class is Created
 	Window::onCreate();
-	//This will Initilize the GraphicsEngine class, which is a class that helps manage how things are rendered on the screen.
 	GraphicsEngine::get()->init();
-	//Assinging the Swap Chain in the GraphicsEngine to the this classes Swap Chain Variable 
 	m_swap_chain = GraphicsEngine::get()->createSwapChain();
+
 	RECT rc = this->getClientWindowRect();
-	//initializing the swap chain and setting it width and height
 	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
-	
-	vertex list[] =
+
+	vertex list[] 
 	{
 		//X - Y - Z
-		{ -0.5f,-0.5f,0.0f, 1.f, 0.f, 0.f}, // POS1
-		{-0.5f,0.5f,0.0f,   0.f, 1.f, 0.f}, // POS2
-		{ 0.5f,-0.5f,0.0f,   0.f, 0.f, 1.f},// POS2
-		{ 0.5f,0.5f,0.0f,     1.f,  1.f, 0.f}
+		{-0.5f,-0.5f,0.0f,    -0.32f,-0.11f,0.0f,   0,0,0,  0,1,0 }, // POS1
+		{-0.5f,0.5f,0.0f,     -0.11f,0.78f,0.0f,    1,1,0,  0,1,1 }, // POS2
+		{ 0.5f,-0.5f,0.0f,     0.75f,-0.73f,0.0f,   0,0,1,  1,0,0 },// POS2
+		{ 0.5f,0.5f,0.0f,      0.88f,0.77f,0.0f,    1,1,1,  0,0,1 },
+
+		{-0.5f,-0.5f,0.0f,    -0.5f,-0.11f,0.0f,   0,22,0,  0,1,0 }, // POS1
+		{-0.5f,0.5f,0.0f,     -0.21f,0.78f,0.0f,    1,1,220,  0,1,1 }, // POS2
+		{ 0.5f,-0.5f,0.0f,     1.f,-0.73f,0.0f,   0,0,1,  1,0,0 },// POS2
+		{ 0.5f,0.5f,0.0f,      0.2f,0.77f,0.0f,    1,1,1,  0,0,1 }
 	};
 
 	m_vb = GraphicsEngine::get()->createVertexBuffer();
@@ -44,24 +48,43 @@ void AppWindow::onCreate()
 	GraphicsEngine::get()->releaseCompiledShader();
 
 
-	void* shader_byte_codee = nullptr;
-	size_t size_shaderr = 0;
-	GraphicsEngine::get()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_codee, &size_shaderr);
-
-	m_ps = GraphicsEngine::get()->createPixelShader(shader_byte_codee, size_shaderr);
+	GraphicsEngine::get()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
+	m_ps = GraphicsEngine::get()->createPixelShader(shader_byte_code, size_shader);
 	GraphicsEngine::get()->releaseCompiledShader();
+
+	constant cc;
+	cc.m_angle = 0;
+
+	m_cb = GraphicsEngine::get()->createConstantBuffer();
+	m_cb->load(&cc, sizeof(constant));
+
 }
 
 void AppWindow::onUpdate()
 {
 	Window::onUpdate();
-	//Clears to buffers, preparing them for rendering a new frame
-	//Black color with 100% Opacity.
-	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor
-	(this->m_swap_chain, 0, 2, 0, 1); 
+	//CLEAR THE RENDER TARGET 
+	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain,
+		0, 0.3f, 0.4f, 1);
 	//SET VIEWPORT OF RENDER TARGET IN WHICH WE HAVE TO DRAW
 	RECT rc = this->getClientWindowRect();
 	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
+
+	unsigned long new_time = 0;
+	if (m_old_time)
+		new_time = ::GetTickCount() - m_old_time;
+	m_delta_time = new_time / 1000.0f;
+	m_old_time = ::GetTickCount();
+
+	m_angle += 1.57f * m_delta_time;
+	constant cc;
+	cc.m_angle = m_angle;
+
+	m_cb->update(GraphicsEngine::get()->getImmediateDeviceContext(), &cc);
+
+	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_vs, m_cb);
+	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_ps, m_cb);
+
 	//SET DEFAULT SHADER IN THE GRAPHICS PIPELINE TO BE ABLE TO DRAW
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(m_vs);
 	GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(m_ps);
@@ -71,7 +94,7 @@ void AppWindow::onUpdate()
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
 
 	// FINALLY DRAW THE TRIANGLE
-	GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleStrip(m_vb->getSizeVertexList(), 0);
+	GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleList(m_vb->getSizeVertexList(), 0);
 	m_swap_chain->present(true);
 }
 
@@ -84,4 +107,3 @@ void AppWindow::onDestroy()
 	m_ps->release();
 	GraphicsEngine::get()->release();
 }
-

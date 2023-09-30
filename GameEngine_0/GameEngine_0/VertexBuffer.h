@@ -1,6 +1,5 @@
 #pragma once
 #include <d3d11.h>
-#include "DeviceContext.h"
 class DeviceContext;
 
 class VertexBuffer

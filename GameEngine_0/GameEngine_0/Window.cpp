@@ -57,8 +57,8 @@ bool Window::init()
 	wc.cbWndExtra = NULL;//Extra memory to allocate for each window Instance of this Window class type, in bytes.
 	wc.hbrBackground = NULL;///Color Of Window;
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);///Type of Mouse Cursor;
-	wc.hIcon = LoadIcon(NULL, IDI_ERROR);///The Top Left Icon of the WIndow;
-	wc.hIconSm = LoadIcon(NULL, IDI_ASTERISK);///The Icon which is Shown on the Taskbar;
+	wc.hIcon = 0;//LoadIcon(NULL, IDI_ERROR);///The Top Left Icon of the WIndow;
+	wc.hIconSm = 0;//LoadIcon(NULL, IDI_ASTERISK);///The Icon which is Shown on the Taskbar;
 	wc.hInstance = NULL;//The hInstance parameter allows different instances of an application to be identified and managed, for example when you have to Microsoft edge webrowsers. There has the be a Way to Destingish one from another. 
 	wc.lpszClassName = L"MyWindowClass";///The Name of the Application, THis Text is Shown on the top of the Window;
 	wc.lpszMenuName = L"";//Use this to help specfiy what type of Menu you want on your Window.
@@ -107,8 +107,6 @@ bool Window::broadcast()
 		//Based on the Message this Could be used the trgger certian Window Events in the WnProc's Switch cases.
 		DispatchMessage(&msg);
 	}
-
-
 	///Gives the Computer a 1 Milli-second to realeve some streess on the CPU a bit before conutinuing
 	Sleep(1);
 
@@ -163,6 +161,7 @@ void Window::onDestroy()
 {
 	m_is_run = false;
 }
+
 //Not Using this Destructor FUnction becuase  the time it who be called is the worng time it would be needed to make the Program Run smootly.
 Window::~Window()
 {

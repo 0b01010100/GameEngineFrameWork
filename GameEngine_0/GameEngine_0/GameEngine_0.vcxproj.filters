@@ -28,6 +28,9 @@
     <ClCompile Include="PixelShader.cpp">
       <Filter>GameEngine\Shaders_\PixelShader</Filter>
     </ClCompile>
+    <ClCompile Include="ConstantBuffer.cpp">
+      <Filter>GameEngine\ConstantBuffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameEngine">
@@ -69,6 +72,12 @@
     <Filter Include="GameEngine\Shaders_\PixelShader">
       <UniqueIdentifier>{840209a3-9676-4092-8efe-d56bb910044b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{f1b2dd66-04b8-45ab-aeef-e1d89b0eea88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\ConstantBuffer">
+      <UniqueIdentifier>{1d7518a3-7a15-4360-a1b8-d1847dd892fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -89,14 +98,20 @@
     <ClInclude Include="VertexBuffer.h">
       <Filter>GameEngine\GraphicsEngineSystem\VertexBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="VecLib.c">
-      <Filter>GameEngine</Filter>
-    </ClInclude>
     <ClInclude Include="VertexShader.h">
       <Filter>GameEngine\Shaders_\VertexShader</Filter>
     </ClInclude>
     <ClInclude Include="PixelShader.h">
       <Filter>GameEngine\Shaders_\PixelShader</Filter>
+    </ClInclude>
+    <ClInclude Include="ChiliWin.h">
+      <Filter>GameEngine\WindowigSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="VecLib.c">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBuffer.h">
+      <Filter>GameEngine\ConstantBuffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,18 +1,32 @@
-struct input
+struct VS_INPUT
 {
-    float4 pos : POSITION;
+    float4 position : POSITION;
+    float4 position1 : POSITION1;
     float3 color : COLOR;
+    float3 color1 : COLOR1;
 };
-struct Output
+
+struct VS_OUTPUT
 {
-    float4 pos : SV_POSITION;
+    float4 position : SV_POSITION;
     float3 color : COLOR;
+    float3 color1 : COLOR1;
 };
-//Vertex shaders a responsilbe for processing each vertex before it is reasterized or put on the screen, They handle positioning and color of a vertex.
-Output vsmain(input input)
+
+
+cbuffer constant : register(b0)
 {
-    Output output;
-    output.pos = input.pos;
+    float m_angle;
+};
+
+
+
+VS_OUTPUT vsmain(VS_INPUT input)
+{
+    VS_OUTPUT output = (VS_OUTPUT) 0;
+	
+    output.position = lerp(input.position, input.position1, (sin(m_angle) + 1.0f) / 2.0f);
     output.color = input.color;
+    output.color1 = input.color1;
     return output;
 }

@@ -8,7 +8,7 @@ VertexShader::VertexShader()
 
 void VertexShader::release()
 {
-	m_vs->Release();
+	if(m_vs)m_vs->Release();
 	delete this;
 }
 ///Init function allows us to pass in the compiled shader code during initalizion to create a new shader
