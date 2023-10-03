@@ -27,7 +27,7 @@ public:
 	ConstantBuffer* createConstantBuffer();
 	//
 	//Creates a Vertex Shader 
-	VertexShader* createVertexShader(const void* shader_byte_code, size_t byte_code_size);
+	VertexShader* createVertexShader(const void* shader_byte_code, size_t& byte_code_size);
 	PixelShader* createPixelShader(const void* shader_byte_code, size_t byte_code_size);
 public:
 	bool compileVertexShader(const wchar_t* file_name, const char* entry_point_name, void** shader_byte_code, size_t* byte_code_size);

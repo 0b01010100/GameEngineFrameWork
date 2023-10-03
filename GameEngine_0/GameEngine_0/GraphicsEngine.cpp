@@ -10,10 +10,6 @@
 
 #include <d3dcompiler.h>
 
-__interface IInterface
-{
-	
-};
 GraphicsEngine::GraphicsEngine()
 {
 }
@@ -111,7 +107,7 @@ ConstantBuffer* GraphicsEngine::createConstantBuffer()
 	return new ConstantBuffer();
 }
 //Creates a Vetex Shader
-VertexShader* GraphicsEngine::createVertexShader(const void* shader_byte_code, size_t byte_code_size)
+VertexShader* GraphicsEngine::createVertexShader(const void* shader_byte_code, size_t& byte_code_size)
 {
 	VertexShader* vs = new VertexShader();
 

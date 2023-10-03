@@ -13,6 +13,7 @@ void DeviceContext::clearRenderTargetColor(SwapChain* swap_chain, float red, flo
 {
 	FLOAT clear_color[] = { red,green,blue,alpha };
 	m_device_context->ClearRenderTargetView(swap_chain->m_rtv, clear_color);
+
 	m_device_context->OMSetRenderTargets(1, &swap_chain->m_rtv, NULL);
 }
 
@@ -43,6 +44,8 @@ void DeviceContext::setViewportSize(UINT width, UINT height)
 	vp.Height = (FLOAT)height;
 	vp.MinDepth = 0.0f;
 	vp.MaxDepth = 1.0f;
+	
+	//vp.TopLeftY = 300.f;
 	m_device_context->RSSetViewports(1, &vp);
 }
 
