@@ -1,13 +1,17 @@
-//This is Very import file. This Contans most of the Functions and Variable types need the Set up a Window Application
+﻿//This is Very import file. This Contans most of the Functions and Variable types need the Set up a Window Application
 #include "Window.h"
 
 //Not Using this Constructor Function becuase  the time it who be called is the worng time it would be needed to make the Program Run smootly.
 Window::Window()
 {
+	//空的
+	//Kong de
 	//Empty
 }
 
-
+//这         函数    是      用      于      处理          事件
+//this   function   is     used   for	   handling    Envents
+//zhe   han shu   shi   yong   yu      chu           shijain
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	//The WndProc a function that processes messages sent to a window and determines how the application responds to different events using these messages.

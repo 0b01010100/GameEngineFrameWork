@@ -13,10 +13,11 @@ class AppWindow : public Window
 public:
 	AppWindow();
 
-	void updateQuadPos();
+	void updateQuadPosition();
 
 	~AppWindow();
-	//
+
+	// Inherited via Window
 	virtual void onCreate() override;
 	virtual void onUpdate() override;
 	virtual void onDestroy() override;
@@ -26,10 +27,14 @@ private:
 	VertexShader* m_vs;
 	PixelShader* m_ps;
 	ConstantBuffer* m_cb;
+private:
+	long m_old_delta;
+	long m_new_delta;
+	float m_delta_time;
 
-	unsigned long m_old_time = 0;
-	float m_delta_time = 0;
-	float m_angle = 0;
+	float m_delta_pos;
+	float m_delta_scale;
+	float m_delta_rot;
 };
 
 

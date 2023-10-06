@@ -1,13 +1,1 @@
-﻿  AppWindow.cpp
-C:\Users\josdd\CreatingAGameEngine\GameEngine_0\GameEngine_0\Vector3.h(41,26): warning C4099: 'Vector3D': type name first seen using 'class' now seen using 'struct'
-C:\Users\josdd\CreatingAGameEngine\GameEngine_0\GameEngine_0\Vector3.h(3,7): message : see declaration of 'Vector3D'
-C:\Users\josdd\CreatingAGameEngine\GameEngine_0\GameEngine_0\Vector3.h(42,27): warning C4099: 'Vector3D': type name first seen using 'class' now seen using 'struct'
-C:\Users\josdd\CreatingAGameEngine\GameEngine_0\GameEngine_0\Vector3.h(3,7): message : see declaration of 'Vector3D'
-C:\Users\josdd\CreatingAGameEngine\GameEngine_0\GameEngine_0\Vector3.h(43,23): warning C4099: 'Vector3D': type name first seen using 'class' now seen using 'struct'
-C:\Users\josdd\CreatingAGameEngine\GameEngine_0\GameEngine_0\Vector3.h(3,7): message : see declaration of 'Vector3D'
-C:\Users\josdd\CreatingAGameEngine\GameEngine_0\GameEngine_0\Vector3.h(44,24): warning C4099: 'Vector3D': type name first seen using 'class' now seen using 'struct'
-C:\Users\josdd\CreatingAGameEngine\GameEngine_0\GameEngine_0\Vector3.h(3,7): message : see declaration of 'Vector3D'
-C:\Users\josdd\CreatingAGameEngine\GameEngine_0\GameEngine_0\AppWindow.cpp(24,33): warning C4244: '=': conversion from 'ULONGLONG' to 'unsigned long', possible loss of data
-C:\Users\josdd\CreatingAGameEngine\GameEngine_0\GameEngine_0\AppWindow.cpp(26,31): warning C4244: '=': conversion from 'ULONGLONG' to 'unsigned long', possible loss of data
-C:\Users\josdd\CreatingAGameEngine\GameEngine_0\GameEngine_0\AppWindow.cpp(32,30): warning C4244: '=': conversion from 'ULONGLONG' to 'unsigned int', possible loss of data
-  GameEngine_0.vcxproj -> C:\Users\josdd\CreatingAGameEngine\GameEngine_0\x64\Debug\GameEngine_0.exe
+﻿  GameEngine_0.vcxproj -> C:\Users\josdd\CreatingAGameEngine\GameEngine_0\x64\Debug\GameEngine_0.exe
