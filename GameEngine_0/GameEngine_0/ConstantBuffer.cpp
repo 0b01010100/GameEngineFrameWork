@@ -8,7 +8,7 @@ ConstantBuffer::ConstantBuffer()
 
 bool ConstantBuffer::load(void* buffer, UINT size_buffer)
 {
-	
+
 	if (m_buffer)m_buffer->Release();
 	//Allows us to customize the behavior of our buffer
 	D3D11_BUFFER_DESC buff_desc = {};
@@ -39,7 +39,7 @@ bool ConstantBuffer::release()
 {
 	if (m_buffer)m_buffer->Release();
 	delete this;
-    return true;
+	return true;
 }
 
 ConstantBuffer::~ConstantBuffer()

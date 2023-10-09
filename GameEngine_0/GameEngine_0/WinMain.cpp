@@ -1,5 +1,5 @@
 #include "AppWindow.h"
-int WinMain(HINSTANCE hInstance, HINSTANCE InstancePrv, LPSTR,int Cmd)
+int WinMain(HINSTANCE hInstance, HINSTANCE InstancePrv, LPSTR, int Cmd)
 {
 	AppWindow app;
 	if (app.init())
@@ -9,6 +9,6 @@ int WinMain(HINSTANCE hInstance, HINSTANCE InstancePrv, LPSTR,int Cmd)
 			app.broadcast();
 		}
 	}
-	
+
 	return 0;
 }

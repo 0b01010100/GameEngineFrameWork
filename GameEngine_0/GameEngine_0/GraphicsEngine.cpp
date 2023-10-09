@@ -1,9 +1,8 @@
-#pragma comment(lib, "d3dcompiler.lib")
 #include "GraphicsEngine.h"
 #include "SwapChain.h"
 #include "DeviceContext.h"
-#include "SwapChain.h"
 #include "VertexBuffer.h"
+#include "IndexBuffer.h"
 #include "ConstantBuffer.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
@@ -17,7 +16,7 @@ GraphicsEngine::GraphicsEngine()
 bool GraphicsEngine::init()
 {
 	//Drivers for the Grahics Devive AKA: Graphic card which will help provide good rendering performance for most computers
-	D3D_DRIVER_TYPE driver_types[]
+	D3D_DRIVER_TYPE driver_types[]=
 	{
 		//Drawing is mainly Executed to the GPU when using this Driver
 		D3D_DRIVER_TYPE_HARDWARE,
@@ -30,7 +29,7 @@ bool GraphicsEngine::init()
 	//called num_driver_types
 	UINT num_driver_types = ARRAYSIZE(driver_types);
 	//The rendering feature from DirectX to target 
-	D3D_FEATURE_LEVEL feature_levels[] =
+	D3D_FEATURE_LEVEL feature_levels[]=
 	{
 		D3D_FEATURE_LEVEL_11_0
 	};
@@ -40,21 +39,24 @@ bool GraphicsEngine::init()
 	//An integral Variable which will somehow make sure that The
 	//Variables below are handled corretly before exiting the function
 	HRESULT res = 0;
+	
 	for (UINT driver_type_index = 0; driver_type_index < num_driver_types;)
 	{
 		//This Functions allows us the Create a Divece which will allow use the draw things on the Screen.
-		res = D3D11CreateDevice(NULL, driver_types[driver_type_index], NULL, NULL, feature_levels,
+		res =D3D11CreateDevice(NULL, driver_types[driver_type_index], NULL, NULL, feature_levels,
 			num_feature_levels, D3D11_SDK_VERSION, &m_d3d_device, &m_feature_level, &m_imm_context);
 		//Loops throw the Prossece of trying to Create a device unitl the Device is Created 
 		if (SUCCEEDED(res))//Checks to See if the Prossece of creating the device SUCCEEDED
 			break;
-		++driver_type_index;//index number advances
+			++driver_type_index;
 	}
 	if (FAILED(res))
 	{
 		return false;
 	}
-	m_imm_device_context = new DeviceContext(m_imm_context);
+
+	m_imm_device_context=new DeviceContext(m_imm_context);
+	
 	//The purpose of this code is to obtain the DXGI(DirectX Graphics Infrastructure) device interface from the existing Direct3D device.
 	m_d3d_device->QueryInterface(__uuidof(IDXGIDevice), (void**)&m_dxgi_device);
 	//Helps gather informations about the Grahpics Adapter
@@ -62,8 +64,10 @@ bool GraphicsEngine::init()
 	m_dxgi_device->GetParent(__uuidof(IDXGIAdapter), (void**)&m_dxgi_adapter);
 	//Helps use obtain the IDXGIFactory interface, which is responsible for creating and managing resources related to graphics adapters, such as swap chains, rendering targets, and more. 
 	m_dxgi_adapter->GetParent(__uuidof(IDXGIFactory), (void**)&m_dxgi_factory);
+
 	return true;
 }
+
 //Realses the Resources 
 bool GraphicsEngine::release()
 {
@@ -88,26 +92,33 @@ GraphicsEngine::~GraphicsEngine()
 {
 }
 //Creates a Swap Chain so we can do Double Buffering 
-SwapChain* GraphicsEngine::createSwapChain()
+SwapChain * GraphicsEngine::createSwapChain()
 {
 	return new SwapChain();
 }
+
 //Return the Current DeviceContex Variable 
-DeviceContext* GraphicsEngine::getImmediateDeviceContext()
+DeviceContext * GraphicsEngine::getImmediateDeviceContext()
 {
 	return this->m_imm_device_context;
 }
-
-VertexBuffer* GraphicsEngine::createVertexBuffer()
+//Creates a Vetex Shader
+VertexBuffer * GraphicsEngine::createVertexBuffer()
 {
 	return new VertexBuffer();
 }
-ConstantBuffer* GraphicsEngine::createConstantBuffer()
+
+IndexBuffer * GraphicsEngine::createIndexBuffer()
+{
+	return new IndexBuffer();
+}
+
+ConstantBuffer * GraphicsEngine::createConstantBuffer()
 {
 	return new ConstantBuffer();
 }
-//Creates a Vetex Shader
-VertexShader* GraphicsEngine::createVertexShader(const void* shader_byte_code, size_t& byte_code_size)
+
+VertexShader * GraphicsEngine::createVertexShader(const void * shader_byte_code, size_t byte_code_size)
 {
 	VertexShader* vs = new VertexShader();
 
@@ -119,7 +130,8 @@ VertexShader* GraphicsEngine::createVertexShader(const void* shader_byte_code, s
 
 	return vs;
 }
-PixelShader* GraphicsEngine::createPixelShader(const void* shader_byte_code, size_t byte_code_size)
+
+PixelShader * GraphicsEngine::createPixelShader(const void * shader_byte_code, size_t byte_code_size)
 {
 	PixelShader* ps = new PixelShader();
 
@@ -132,7 +144,7 @@ PixelShader* GraphicsEngine::createPixelShader(const void* shader_byte_code, siz
 	return ps;
 }
 /*Compiles the Instructions on how to make a Vextex shader from HLSL to Binary so the code can be read*/
-bool GraphicsEngine::compileVertexShader(const wchar_t* file_name, const char* entry_point_name, void** shader_byte_code, size_t* byte_code_size)
+bool GraphicsEngine::compileVertexShader(const wchar_t* file_name,const char* entry_point_name,void** shader_byte_code,size_t* byte_code_size)
 {
 	//Hold Messages related to Erros in the Compilelations
 	ID3DBlob* error_blob = nullptr;
@@ -148,12 +160,10 @@ bool GraphicsEngine::compileVertexShader(const wchar_t* file_name, const char* e
 
 	return true;
 }
-
-bool GraphicsEngine::compilePixelShader(const wchar_t* file_name, const char* entry_point_name, void** shader_byte_code, size_t* byte_code_size)
+//Compile the Instructions for making a Pixel shader From HLSL to Binary, so code can be read.
+bool GraphicsEngine::compilePixelShader(const wchar_t * file_name, const char * entry_point_name, void ** shader_byte_code, size_t * byte_code_size)
 {
-	//Hold Messages related to Erros in the Compilelations
 	ID3DBlob* error_blob = nullptr;
-	//Cancles the COmpilations Process if it Failed
 	if (!SUCCEEDED(D3DCompileFromFile(file_name, nullptr, nullptr, entry_point_name, "ps_5_0", 0, 0, &m_blob, &error_blob)))
 	{
 		if (error_blob) error_blob->Release();
@@ -170,11 +180,10 @@ void GraphicsEngine::releaseCompiledShader()
 {
 	if (m_blob)m_blob->Release();
 }
-//Compile the Instructions for making a Pixel shader From HLSL to Binary, so code can be read.
 
-//Sets the PixelShader pointer in the Device Context to have the address of m_ps variable which is a pix
 
-GraphicsEngine* GraphicsEngine::get()
+
+GraphicsEngine * GraphicsEngine::get()
 {
 	static GraphicsEngine engine;
 	return &engine;

@@ -1,17 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="WinMain.cpp">
-      <Filter>GameEngine\App</Filter>
-    </ClCompile>
     <ClCompile Include="Window.cpp">
       <Filter>GameEngine\WindowigSystem</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsEngine.cpp">
       <Filter>GameEngine\GraphicsEngineSystem\GraphicEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="AppWindow.cpp">
-      <Filter>GameEngine\App</Filter>
     </ClCompile>
     <ClCompile Include="SwapChain.cpp">
       <Filter>GameEngine\GraphicsEngineSystem\SwapChain</Filter>
@@ -30,6 +24,15 @@
     </ClCompile>
     <ClCompile Include="ConstantBuffer.cpp">
       <Filter>GameEngine\ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>GameEngine\GraphicsEngineSystem\IndexBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="AppWindow.cpp">
+      <Filter>GameEngine\App</Filter>
+    </ClCompile>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>GameEngine\App</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +81,9 @@
     <Filter Include="GameEngine\ConstantBuffer">
       <UniqueIdentifier>{1d7518a3-7a15-4360-a1b8-d1847dd892fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\GraphicsEngineSystem\IndexBuffer">
+      <UniqueIdentifier>{c64e4db0-87a6-464e-b115-a0701a777080}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -115,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="Matrix4x4.h">
       <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>GameEngine\GraphicsEngineSystem\IndexBuffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
