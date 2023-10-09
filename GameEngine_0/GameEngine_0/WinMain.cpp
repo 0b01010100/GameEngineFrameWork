@@ -1,5 +1,11 @@
 #include "AppWindow.h"
-int WinMain(HINSTANCE hInstance, HINSTANCE InstancePrv, LPSTR, int Cmd)
+int __stdcall WinMain
+(
+	HINSTANCE hInstance,
+	HINSTANCE InstancePrv,
+	LPSTR, 
+	int nCmd
+)
 {
 	AppWindow app;
 	if (app.init())

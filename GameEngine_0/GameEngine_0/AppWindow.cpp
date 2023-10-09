@@ -44,7 +44,7 @@ void AppWindow::updateQuadPosition()
 
 	//cc.m_world *= temp;
 
-	cc.m_world.setScale(Vector3D(1, 1, 1));
+	cc.m_world.setScale(Vector3D(2, 1, 2));
 
 	temp.setIdentity();
 	temp.setRotationZ(m_delta_scale);
