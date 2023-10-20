@@ -34,6 +34,7 @@
     <ClCompile Include="WinMain.cpp">
       <Filter>GameEngine\App</Filter>
     </ClCompile>
+    <ClCompile Include="InputSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameEngine">
@@ -84,6 +85,9 @@
     <Filter Include="GameEngine\GraphicsEngineSystem\IndexBuffer">
       <UniqueIdentifier>{c64e4db0-87a6-464e-b115-a0701a777080}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\InputSystem">
+      <UniqueIdentifier>{0197d269-5c44-4162-b0a1-dd8eb7f53995}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -125,6 +129,10 @@
     <ClInclude Include="IndexBuffer.h">
       <Filter>GameEngine\GraphicsEngineSystem\IndexBuffer</Filter>
     </ClInclude>
+    <ClInclude Include="InputListener.h">
+      <Filter>GameEngine\InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShader.hlsl">
