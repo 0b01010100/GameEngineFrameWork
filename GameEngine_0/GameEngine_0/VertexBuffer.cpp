@@ -20,7 +20,7 @@ bool VertexBuffer::load(void* list_vertices,UINT size_vertex,UINT size_list,void
 
 	D3D11_SUBRESOURCE_DATA init_data = {};
 	init_data.pSysMem = list_vertices;
-
+	
 	m_size_vertex = size_vertex;
 	m_size_list = size_list;
 
