@@ -42,9 +42,25 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 		::PostQuitMessage(0);
 		break;//End of Case
 	}
+
+	case WM_SETFOCUS:
+	{
+		Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+		//Fire Event When focus on this window is Gained
+		window->onFocus();
+		break;
+	}
+	case WM_KILLFOCUS:
+	{
+		Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+		//Fire Event When focus on this window is lost
+		window->onKillFocus();
+		break;
+	}
 	///If none Of the Events are meet or Some Other Event is meet Which is not Listed; For Example WM_MOVING whcih Triggers a Even when the USer moves the WIndow then the swicth will default.
 	default:
 		return ::DefWindowProc(hwnd, msg, wparam, lparam);///Returning the data Back to let the Processor know that the Events Weren't Met;
+
 	}
 
 	return NULL;///Returning Number zero, Letting the the Computer Know that the Events in the Swicth were met;
@@ -164,6 +180,16 @@ void Window::onUpdate()
 void Window::onDestroy()
 {
 	m_is_run = false;
+}
+
+void Window::onFocus()
+{
+
+}
+
+void Window::onKillFocus()
+{
+
 }
 
 //Not Using this Destructor FUnction becuase  the time it who be called is the worng time it would be needed to make the Program Run smootly.

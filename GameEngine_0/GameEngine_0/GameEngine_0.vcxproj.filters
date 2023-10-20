@@ -34,7 +34,9 @@
     <ClCompile Include="WinMain.cpp">
       <Filter>GameEngine\App</Filter>
     </ClCompile>
-    <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="InputSystem.cpp">
+      <Filter>GameEngine\InputSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameEngine">
@@ -132,7 +134,12 @@
     <ClInclude Include="InputListener.h">
       <Filter>GameEngine\InputSystem</Filter>
     </ClInclude>
-    <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="Point.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSystem.h">
+      <Filter>GameEngine\InputSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShader.hlsl">
