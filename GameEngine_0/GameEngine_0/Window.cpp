@@ -64,8 +64,8 @@ bool Window::init()
 	wc.hIcon = 0;//LoadIcon(NULL, IDI_ERROR);///The Top Left Icon of the WIndow;
 	wc.hIconSm = 0;//LoadIcon(NULL, IDI_ASTERISK);///The Icon which is Shown on the Taskbar;
 	wc.hInstance = NULL;//The hInstance parameter allows different instances of an application to be identified and managed, for example when you have to Microsoft edge webrowsers. There has the be a Way to Destingish one from another. 
-	wc.lpszClassName = "MyWindowClass";///The Name of the Application, THis Text is Shown on the top of the Window;
-	wc.lpszMenuName = "";//Use this to help specfiy what type of Menu you want on your Window.
+	wc.lpszClassName = L"MyWindowClass";///The Name of the Application, THis Text is Shown on the top of the Window;
+	wc.lpszMenuName = L"";//Use this to help specfiy what type of Menu you want on your Window.
 	wc.style = CS_HREDRAW | CS_VREDRAW; ///Specifys how the WIndow Intracts with user for example should we Redraw the Window when we resized it vertically, USing the CS_VREDRAW command
 	wc.lpfnWndProc = &WndProc;//Referencing the WndProc the a Function pointer, which will constantly call WndProc, allowing the the WndProc the check for events
 	///If the registration of WIndow class fail, the function will return false;
@@ -74,7 +74,7 @@ bool Window::init()
 
 
 	///Creates a new window
-	m_hwnd = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, "MyWindowClass", "Joshua's DirectX Application", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 1024, 768,
+	m_hwnd = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, L"MyWindowClass", L"Joshua's DirectX Application", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 1024, 768,
 		NULL, NULL, NULL, this);
 
 	///if the creation fail return false

@@ -84,9 +84,6 @@
     <Filter Include="GameEngine\GraphicsEngineSystem\IndexBuffer">
       <UniqueIdentifier>{c64e4db0-87a6-464e-b115-a0701a777080}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameEngine\InputSystem">
-      <UniqueIdentifier>{85ef73bb-fcb1-4048-b93a-3caf890a25a1}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -112,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="PixelShader.h">
       <Filter>GameEngine\Shaders_\PixelShader</Filter>
+    </ClInclude>
+    <ClInclude Include="ChiliWin.h">
+      <Filter>GameEngine\WindowigSystem</Filter>
     </ClInclude>
     <ClInclude Include="ConstantBuffer.h">
       <Filter>GameEngine\ConstantBuffer</Filter>
