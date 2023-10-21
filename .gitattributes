@@ -1,0 +1,5 @@
+*.ipch filter=lfs diff=lfs merge=lfs -text
+*46d28a8e01a193f4361a6aaee42a9868001defe82f39a3f4f225731c6a2b1a04 filter=lfs diff=lfs merge=lfs -text
+.ipch filter=lfs diff=lfs merge=lfs -text
+*GameEngine_0/.vs/GameEngine_0/v17/ipch/AutoPCH/7a8e17ad8f935799/APPWINDOW.ipch filter=lfs diff=lfs merge=lfs -text
+*GameEngine_0/.vs/GameEngine_0/v17/ipch/AutoPCH/4273dea023bdb0/WINDOW.ipch filter=lfs diff=lfs merge=lfs -text
