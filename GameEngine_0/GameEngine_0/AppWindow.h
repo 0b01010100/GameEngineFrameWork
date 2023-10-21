@@ -34,6 +34,7 @@ public:
 	virtual void onLeftMouseUp(const Point& mouse_pos)override;
 	virtual void onRightMouseDown(const Point& mouse_pos)override;
 	virtual void onRightMouseUp(const Point& mouse_pos)override;
+	virtual void onMouseWheelTurn(int axis)override;
 
 private:
 	SwapChain* m_swap_chain;

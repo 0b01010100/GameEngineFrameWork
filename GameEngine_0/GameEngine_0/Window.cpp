@@ -1,6 +1,7 @@
 ﻿//This is Very import file. This Contans most of the Functions and Variable types need the Set up a Window Application
 #include "Window.h"
-
+#include "string"
+#include <sstream>
 //Not Using this Constructor Function becuase  the time it who be called is the worng time it would be needed to make the Program Run smootly.
 Window::Window()
 {
@@ -17,6 +18,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	//The WndProc a function that processes messages sent to a window and determines how the application responds to different events using these messages.
 	switch (msg)
 	{
+	
 		///Event For When the Window Is Created
 	case WM_CREATE:
 	{
@@ -55,6 +57,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 		Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
 		//Fire Event When focus on this window is lost
 		window->onKillFocus();
+		break;
+	}
+	case WM_MOUSEWHEEL:
+	{
+		int wheelDelta = GET_WHEEL_DELTA_WPARAM(wparam);
+		int linesToScroll = wheelDelta / WHEEL_DELTA;
+		Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+		window->onMouseWheelTurn(linesToScroll);
 		break;
 	}
 	///If none Of the Events are meet or Some Other Event is meet Which is not Listed; For Example WM_MOVING whcih Triggers a Even when the USer moves the WIndow then the swicth will default.
@@ -190,6 +200,10 @@ void Window::onFocus()
 void Window::onKillFocus()
 {
 
+}
+
+void Window::onMouseWheelTurn(int Axis)
+{
 }
 
 //Not Using this Destructor FUnction becuase  the time it who be called is the worng time it would be needed to make the Program Run smootly.

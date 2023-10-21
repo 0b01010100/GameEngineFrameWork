@@ -202,7 +202,7 @@ void AppWindow::onUpdate()
 
 
 	m_old_delta = m_new_delta;
-	m_new_delta = ::GetTickCount();
+	m_new_delta = ::GetTickCount64();
 
 	m_delta_time = (m_old_delta) ? ((m_new_delta - m_old_delta) / 1000.0f) : 0;
 }
@@ -282,3 +282,16 @@ void AppWindow::onRightMouseUp(const Point& mouse_pos)
 {
 	m_slcale_cube = 2.0f;
 }
+
+void AppWindow::onMouseWheelTurn(int axis) 
+{
+	if(axis < 0)
+	{
+		SetWindowText(m_hwnd, L"-1");
+	}
+	if (axis > 0)
+	{
+		SetWindowText(m_hwnd, L"1");
+	}
+}
+
