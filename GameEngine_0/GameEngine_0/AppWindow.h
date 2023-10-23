@@ -9,14 +9,14 @@
 #include "VertexShader.h"
 #include "PixelShader.h"
 #include "InputListener.h"
-
-
+#include "Matrix4x4.h"
+#include "Vector2D.h"
 class AppWindow : public Window, public InputListener
 {
 public:
 	AppWindow();
 
-	void updateQuadPosition();
+	void update();
 
 	~AppWindow();
 
@@ -29,12 +29,12 @@ public:
 	// Inherited via InputListener
 	virtual void onKeyDown(int key) override;
 	virtual void onKeyUp(int key) override;
-	virtual void onMouseMove(const Point& delta_mouse_pos) override;
+	virtual void onMouseMove(const Point& mouse_pos) override;
 	virtual void onLeftMouseDown(const Point& mouse_pos)override;
 	virtual void onLeftMouseUp(const Point& mouse_pos)override;
 	virtual void onRightMouseDown(const Point& mouse_pos)override;
 	virtual void onRightMouseUp(const Point& mouse_pos)override;
-	virtual void onMouseWheelTurn(int axis)override;
+	virtual void onMouseWheelTurn(int axis) override;
 
 private:
 	SwapChain* m_swap_chain;
@@ -51,9 +51,10 @@ private:
 	float m_delta_pos;
 	float m_delta_scale;
 	float m_delta_rot;
-
+	bool m_MouseRightDown = false;
 	float m_rot_x = 0.0f;
 	float m_rot_y = 0.0f;
-
-	float m_slcale_cube = 1;
+	//float m_forward = 0.0f;
+	Vector2D m_cam_dir;
+	Matrix4x4 m_world_cam;
 };
