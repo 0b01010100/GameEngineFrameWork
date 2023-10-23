@@ -9,14 +9,14 @@ bool SwapChain::init(HWND hwnd, UINT width, UINT height)
 	ID3D11Device* device = GraphicsEngine::get()->m_d3d_device;
 	DXGI_SWAP_CHAIN_DESC desc;
 	ZeroMemory(&desc, sizeof(desc));//Allows use to fill the memory being used with zero
-	desc.BufferCount = 1;
+	desc.BufferCount = 1;//AMount of back buffers
 	desc.BufferDesc.Width = width; // width of the Window
 	desc.BufferDesc.Height = height; //height of the Window
-	desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;//Dettermins how much color should be in Every pixel on the Screen.
+	desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; //This part of the format specifies the color channels for each pixel.
 	desc.BufferDesc.RefreshRate.Numerator = 60;// Refresh rate
 	desc.BufferDesc.RefreshRate.Denominator = 1;
 	desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	desc.OutputWindow = hwnd;
+	desc.OutputWindow = hwnd;//Window to present on
 	desc.SampleDesc.Count = 1;
 	desc.SampleDesc.Quality = 0;
 	desc.Windowed = TRUE;//The mode of the Window for example is the Window full screen or not.

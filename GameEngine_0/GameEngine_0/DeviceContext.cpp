@@ -40,7 +40,7 @@ void DeviceContext::setVertexBuffer(VertexBuffer * vertex_buffer)
 }
 ///Prep for Input Assembler Stage
 //to specify which vertex buffers to use during rendering.
-void DeviceContext::setIndexBuffer(IndexBuffer * index_buffer)
+void DeviceContext::setIndexBuffer(IndexBuffer* index_buffer)
 {
 
 	//Give the GPU the IndexBuffer class while indicating how much computer memory(RAM) was allocated using by the Verties 

@@ -1,6 +1,5 @@
 #pragma once
 
-#pragma once
 #include "InputListener.h"
 #include <unordered_set>
 #include "Point.h"
@@ -14,6 +13,8 @@ public:
 	void addListener(InputListener* listener);
 	void removeListener(InputListener* listener);
 
+	void SetCursorPosition(const Point& pos);
+	void showCursor(bool show);
 public:
 	static InputSystem* get();
 private:
