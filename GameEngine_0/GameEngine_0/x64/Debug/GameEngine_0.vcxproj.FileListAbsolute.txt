@@ -1,3 +1,0 @@
-C:\Users\josdd\CreatingAGameEngine\GameEngine_0\GameEngine_0\x64\Debug\GameEngine_0.vcxproj.MdMergeInputs.cache
-C:\Users\josdd\CreatingAGameEngine\GameEngine_0\GameEngine_0\x64\Debug\GameEngine_0.vcxproj.cppwinrt_plat.cache
-C:\Users\josdd\CreatingAGameEngine\GameEngine_0\GameEngine_0\x64\Debug\GameEngine_0.vcxproj.cppwinrt_comp.cache
