@@ -11,10 +11,6 @@
 
 RenderSystem::RenderSystem()
 {
-}
-
-bool RenderSystem::init()
-{
 	//Drivers for the Grahics Devive AKA: Graphic card which will help provide good rendering performance for most computers
 	D3D_DRIVER_TYPE driver_types[] =
 	{
@@ -52,10 +48,10 @@ bool RenderSystem::init()
 	}
 	if (FAILED(res))
 	{
-		return false;
+		throw std::exception("RenderSystem not Created successfully");
 	}
 
-	m_imm_device_context = new DeviceContext(m_imm_context, this);
+	m_imm_device_context = std::make_shared<DeviceContext>(m_imm_context, this);
 
 	//The purpose of this code is to obtain the DXGI(DirectX Graphics Infrastructure) device interface from the existing Direct3D device.
 	m_d3d_device->QueryInterface(__uuidof(IDXGIDevice), (void**)&m_dxgi_device);
@@ -65,11 +61,10 @@ bool RenderSystem::init()
 	//Helps use obtain the IDXGIFactory interface, which is responsible for creating and managing resources related to graphics adapters, such as swap chains, rendering targets, and more. 
 	m_dxgi_adapter->GetParent(__uuidof(IDXGIFactory), (void**)&m_dxgi_factory);
 
-	return true;
 }
 
 //Realses the Resources 
-bool RenderSystem::release()
+RenderSystem::~RenderSystem()
 {
 	if (m_vs)m_vs->Release();
 	if (m_ps)m_ps->Release();
@@ -81,24 +76,17 @@ bool RenderSystem::release()
 	m_dxgi_adapter->Release();
 	m_dxgi_factory->Release();
 
-	delete m_imm_device_context;
-
 
 	m_d3d_device->Release();
-	return true;
-}
-
-RenderSystem::~RenderSystem()
-{
 }
 //Creates a Swap Chain so we can do Double Buffering 
-SwapChain* RenderSystem::createSwapChain(HWND hwnd, UINT width, UINT height)
+SwapChainPtr RenderSystem::createSwapChain(HWND hwnd, UINT width, UINT height)
 {
-	SwapChain* sc = nullptr;
+	SwapChainPtr sc;
 
 	try
 	{
-		sc = new SwapChain(this, hwnd, width, height);
+		sc = std::make_shared<SwapChain>(hwnd, width, height, this);
 	}
 	catch (...)
 	{
@@ -108,34 +96,34 @@ SwapChain* RenderSystem::createSwapChain(HWND hwnd, UINT width, UINT height)
 }
 
 //Return the Current DeviceContex Variable 
-DeviceContext* RenderSystem::getImmediateDeviceContext()
+DeviceContextPtr RenderSystem::getImmediateDeviceContext()
 {
 	return this->m_imm_device_context;
 }
 //Creates a Vetex Shader
-VertexBuffer* RenderSystem::createVertexBuffer(void* list_vertices, UINT size_vertex, UINT size_list,
+VertexBufferPtr RenderSystem::createVertexBuffer(void* list_vertices, UINT size_vertex, UINT size_list,
 	void* shader_byte_code, size_t size_byte_shader)
 {
-	VertexBuffer* vb = nullptr;
+	VertexBufferPtr vb = nullptr;
 	try
 	{
-		vb = new VertexBuffer(list_vertices, size_vertex, size_list, shader_byte_code, size_byte_shader, this);
+		vb = std::make_shared< VertexBuffer>(list_vertices, size_vertex, size_list, shader_byte_code, size_byte_shader, this);
 	}
-	catch (const std::exception&)
+	catch (...)
 	{
 
 	}
 	return vb;  
 }
 
-IndexBuffer* RenderSystem::createIndexBuffer(void* list_indices, UINT size_list)
+IndexBufferPtr RenderSystem::createIndexBuffer(void* list_indices, UINT size_list)
 {
-	IndexBuffer* ib = nullptr;
+	IndexBufferPtr ib = nullptr;
 	try
 	{
-		ib = new IndexBuffer(list_indices, size_list ,this);
+		ib = std::make_shared< IndexBuffer>(list_indices, size_list ,this);
 	}
-	catch (const std::exception&)
+	catch (...)
 	{
 
 	}
@@ -143,42 +131,42 @@ IndexBuffer* RenderSystem::createIndexBuffer(void* list_indices, UINT size_list)
 	return ib;
 }
 
-ConstantBuffer* RenderSystem::createConstantBuffer(void* buffer, UINT size_buffer)
+ConstantBufferPtr RenderSystem::createConstantBuffer(void* buffer, UINT size_buffer)
 {
-	ConstantBuffer* cb = nullptr;
+	ConstantBufferPtr cb = nullptr;
 	try
 	{
-		cb = new ConstantBuffer(buffer, size_buffer ,this);
+		cb = std::make_shared<ConstantBuffer>(buffer, size_buffer ,this);
 	}
-	catch (const std::exception&)
+	catch (...)
 	{
 		
 	}
 	return cb;
 }
 
-VertexShader* RenderSystem::createVertexShader(const void* shader_byte_code, size_t byte_code_size)
+VertexShaderPtr RenderSystem::createVertexShader(const void* shader_byte_code, size_t byte_code_size)
 {
-	VertexShader* vs = nullptr;
+	VertexShaderPtr vs = nullptr;
 	try
 	{
-		vs = new VertexShader(shader_byte_code, byte_code_size, this);
+		vs = std::make_shared<VertexShader>(shader_byte_code, byte_code_size, this);
 	}
-	catch (const std::exception&)
+	catch (...)
 	{
 
 	}
 	return vs;
 }
 
-PixelShader* RenderSystem::createPixelShader(const void* shader_byte_code, size_t byte_code_size)
+PixelShaderPtr RenderSystem::createPixelShader(const void* shader_byte_code, size_t byte_code_size)
 {
-	PixelShader* ps = nullptr;
+	PixelShaderPtr ps = nullptr;
 	try
 	{
-		ps = new PixelShader(shader_byte_code, byte_code_size, this);
+		ps = std::make_shared<PixelShader>(shader_byte_code, byte_code_size, this);
 	}
-	catch (const std::exception&)
+	catch (...)
 	{
 
 	}

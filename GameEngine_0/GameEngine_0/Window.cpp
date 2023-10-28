@@ -1,15 +1,7 @@
 ﻿//This is Very import file. This Contans most of the Functions and Variable types need the Set up a Window Application
 #include "Window.h"
 #include "string"
-#include <sstream>
-//Not Using this Constructor Function becuase  the time it who be called is the worng time it would be needed to make the Program Run smootly.
-Window::Window()
-{
-	//空的
-	//Kong de
-	//Empty
-}
-
+#include <exception>
 //这         函数    是      用      于      处理          事件
 //this   function   is     used   for	   handling    Envents
 //zhe   han shu   shi   yong   yu      chu           shijain
@@ -18,19 +10,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	//The WndProc a function that processes messages sent to a window and determines how the application responds to different events using these messages.
 	switch (msg)
 	{
-	
+
 		///Event For When the Window Is Created
 	case WM_CREATE:
 	{
 		/// Event fired when the window is created
 		/// collected here..
-		Window* window = (Window*)((LPCREATESTRUCT)lparam)->lpCreateParams;
-		/// .. and then stored for later lookup
-		SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)window);
-		//Set the Global hwnd to equal to the local hwnd.
-		window->setHWND(hwnd);
-		//Calls the ON create Event for Higher level code to be Excuted.
-		window->onCreate();
+
 		break;//End of Case
 	}
 	///Event For When the Winfow is Closed/Destroyed
@@ -49,7 +35,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
 		Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
 		//Fire Event When focus on this window is Gained
-		window->onFocus();
+		if(window)	window->onFocus();
+
 		break;
 	}
 	case WM_KILLFOCUS:
@@ -75,9 +62,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 
 	return NULL;///Returning Number zero, Letting the the Computer Know that the Events in the Swicth were met;
 }
-
 //This Funtion is Called For Initializing/Setting up the Window.
-bool Window::init()
+Window::Window()
 {
 	///Setting up WNDCLASSEX object
 	WNDCLASSEX wc;//Creating a Wondow Variable 
@@ -96,7 +82,7 @@ bool Window::init()
 	wc.lpfnWndProc = &WndProc;//Referencing the WndProc the a Function pointer, which will constantly call WndProc, allowing the the WndProc the check for events
 	///If the registration of WIndow class fail, the function will return false;
 	if (!::RegisterClassEx(&wc))
-		return false;
+		throw std::exception("Failed to create window");
 
 
 	///Creates a new window
@@ -105,7 +91,7 @@ bool Window::init()
 
 	///if the creation fail return false
 	if (!m_hwnd)
-		return false;
+		throw std::exception("Failed to create window");
 
 	///Shows the Window Using the SW_SHOW Command in the form or a Macro
 	::ShowWindow(m_hwnd, SW_SHOW);
@@ -114,19 +100,26 @@ bool Window::init()
 
 	///set this flag to true to indicate that the window is initialized and running
 	m_is_run = true;
-
-
-	///Returns True if All Commands were FulFilled Correctly
-	return true;
 }
+
+
+
+
+
 //This Function will do a Broadcast to check for messages.
 bool Window::broadcast()
 {
 	///Declarring/Creating a Varible Whcih Will hold the Messages from the Window
 	MSG msg;//MSG is short for message.
-	///Calls the Update Function, This Functions Is Just created for Convence so USe COders can seperat High level code from lower level code.
-		///-Low Level Code is Code the Works behied the Sences and is mostly likly harder ths understand.
-		///-Low Level Code is just Basic code and Ez to Understand.*/
+		
+	if(!this->m_is_init)
+	{
+		/// .. and then stored for later lookup
+		SetWindowLongPtr(m_hwnd, GWLP_USERDATA, (LONG_PTR)this);
+		this->onCreate();
+		this->m_is_init = true;
+	}
+
 	this->onUpdate();
 	///A message loop that continuously retrieves messages from the application's message queue
 	while (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0)
@@ -143,18 +136,13 @@ bool Window::broadcast()
 	return true;
 }
 
-//This called when the user wants to deleate or close the Window
-bool Window::release()
-{
-	//Destroy the window
-	if (!::DestroyWindow(m_hwnd))
-		return false;
 
-	return true;
-}
+
 //Return 1/True if the window is Running; If not it return 0/false 
 bool Window::isRun()
 {
+
+	if (m_is_run) broadcast();
 	return m_is_run;
 }
 
@@ -171,11 +159,6 @@ RECT Window::getClientWindowRect()
 
 	return rc;//Return RECT rc variable
 
-}
-//Sets the Gloable Window Handler to = the Local Window Handler 
-void Window::setHWND(HWND hwnd)
-{
-	this->m_hwnd = hwnd;
 }
 //higher level Code Gose in Here for when the Window is Created/Initialized 
 void Window::onCreate()
@@ -206,7 +189,9 @@ void Window::onMouseWheelTurn(int Axis)
 {
 }
 
-//Not Using this Destructor FUnction becuase  the time it who be called is the worng time it would be needed to make the Program Run smootly.
+//Called to delete resoures when not needed
 Window::~Window()
 {
+	//Destroy the window
+	DestroyWindow(m_hwnd);
 }

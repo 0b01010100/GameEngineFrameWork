@@ -3,18 +3,14 @@
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 class Window
 {
+
 public:
-	Window();
 	//Initialize the window
-	bool init();
-	bool broadcast();
-	//Release the window
-	bool release();
+	Window();
+
 	bool isRun();
 
 	RECT getClientWindowRect();
-	void setHWND(HWND hwnd);
-
 	//EVENTS
 	virtual void onCreate();
 	virtual void onUpdate();
@@ -23,9 +19,13 @@ public:
 	virtual void onKillFocus();
 
 	virtual void onMouseWheelTurn(int axis)=0;
+	//Release the window
 	~Window();
+private:
+	bool broadcast();
 protected:
 	HWND m_hwnd;
 	bool m_is_run;
+	bool m_is_init = false;
 	friend LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 };

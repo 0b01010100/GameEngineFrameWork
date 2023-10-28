@@ -1,20 +1,14 @@
 #pragma once
 #include <d3d11.h>
-
-class SwapChain;
-class VertexBuffer;
-class IndexBuffer;
-class ConstantBuffer;
-class VertexShader;
-class PixelShader;
+#include "Prerequisites.h"
 
 class DeviceContext
 {
 public:
-	DeviceContext(ID3D11DeviceContext* device_context);
-	void clearRenderTargetColor(SwapChain* swap_chain,float red, float green, float blue, float alpha);
-	void setVertexBuffer(VertexBuffer* vertex_buffer);
-	void setIndexBuffer(IndexBuffer* index_buffer);
+	DeviceContext(ID3D11DeviceContext* device_context, RenderSystem* system);
+	void clearRenderTargetColor(SwapChainPtr swap_chain,float red, float green, float blue, float alpha);
+	void setVertexBuffer(VertexBufferPtr vertex_buffer);
+	void setIndexBuffer(IndexBufferPtr index_buffer);
 
 
 	void drawTriangleList(UINT vertex_count, UINT start_vertex_index);
@@ -23,16 +17,15 @@ public:
 
 	void setViewportSize(UINT width, UINT height);
 
-	void setVertexShader(VertexShader* vertex_shader);
-	void setPixelShader(PixelShader* pixel_shader);
+	void setVertexShader(VertexShaderPtr vertex_shader);
+	void setPixelShader(PixelShaderPtr pixel_shader);
 
-	void setConstantBuffer(VertexShader* vertex_shader, ConstantBuffer* buffer);
-	void setConstantBuffer(PixelShader* pixel_shader, ConstantBuffer* buffer);
-
-	bool release();
+	void setConstantBuffer(VertexShaderPtr vertex_shader, ConstantBufferPtr buffer);
+	void setConstantBuffer(PixelShaderPtr pixel_shader, ConstantBufferPtr buffer);
 	~DeviceContext();
 private:
 	ID3D11DeviceContext * m_device_context;
+	RenderSystem* m_system = nullptr;
 private:
 	friend class ConstantBuffer;
 };

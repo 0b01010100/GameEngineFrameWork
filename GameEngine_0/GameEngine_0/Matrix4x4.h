@@ -114,8 +114,10 @@ public:
 			for (int j = 0; j < 4; j++)
 			{
 				out.m_mat[i][j] =
-					m_mat[i][0] * matrix.m_mat[0][j] + m_mat[i][1] * matrix.m_mat[1][j] + 
-					m_mat[i][2] * matrix.m_mat[2][j] + m_mat[i][3] * matrix.m_mat[3][j];
+					m_mat[i][0] * matrix.m_mat[0][j] + 
+					m_mat[i][1] * matrix.m_mat[1][j] + 
+					m_mat[i][2] * matrix.m_mat[2][j] + 
+					m_mat[i][3] * matrix.m_mat[3][j];
 			}
 		}
 		setMatrix(out);
