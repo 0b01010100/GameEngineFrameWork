@@ -1,14 +1,14 @@
 #include "AppWindow.h"
 #include <Windows.h>
 #include "Vector3D.h"
+#include "Vector2D.h"
 #include "Matrix4x4.h"
 #include "InputSystem.h"
 
 struct vertex
 {
 	Vector3D position;
-	Vector3D color;
-	Vector3D color1;
+	Vector2D texcoord;
 };
 
 
@@ -21,10 +21,15 @@ struct constant
 	unsigned int m_time;
 };
 
+
+AppWindow::AppWindow()
+{
+}
+
 void AppWindow::update()
 {
 	constant cc;
-	cc.m_time = ::GetTickCount64();
+	cc.m_time = ::GetTickCount();
 
 	m_delta_pos += m_delta_time / 10.0f;
 	if (m_delta_pos > 1.0f)
@@ -39,23 +44,22 @@ void AppWindow::update()
 
 	//temp.setTranslation(Vector3D::lerp(Vector3D(-1.5f, -1.5f, 0), Vector3D(1.5f,1.5f, 0), m_delta_pos));
 
-	//cc.m_world *= temp;;
-
-	cc.m_world.setScale(Vector3D(1, 1, 1));
-
-	//temp.setIdentity();
-	//temp.setRotationZ(0.0f);
 	//cc.m_world *= temp;
 
-	//temp.setIdentity();
-	//temp.setRotationY(m_rot_y);
-	//cc.m_world *= temp;
+	/*cc.m_world.setScale(Vector3D(m_scale_cube, m_scale_cube, m_scale_cube));
 
-	//temp.setIdentity();
-	//temp.setRotationX(m_rot_x);
-	//cc.m_world *= temp;
+	temp.setIdentity();
+	temp.setRotationZ(0.0f);
+	cc.m_world *= temp;
 
-#pragma region Camera Rotation
+	temp.setIdentity();
+	temp.setRotationY(m_rot_y);
+	cc.m_world *= temp;
+
+	temp.setIdentity();
+	temp.setRotationX(m_rot_x);
+	cc.m_world *= temp;*/
+
 	cc.m_world.setIdentity();
 
 	Matrix4x4 world_cam;
@@ -69,31 +73,36 @@ void AppWindow::update()
 	temp.setRotationY(m_rot_y);
 	world_cam *= temp;
 
-	//Move Camera on Z axis
-	Vector3D new_pos = m_world_cam.getTranslation() + world_cam.getZDirection() * (m_cam_dir.Direction.forward * 0.3);
-	//
-	new_pos = new_pos + world_cam.getXDirection() * (m_cam_dir.Direction.right * 0.3);
 
+	Vector3D new_pos = m_world_cam.getTranslation() + world_cam.getZDirection() * (m_forward * 0.1f);
+
+	new_pos = new_pos + world_cam.getXDirection() * (m_rightward * 0.1f);
 
 	world_cam.setTranslation(new_pos);
+
 	m_world_cam = world_cam;
 
 
 	world_cam.inverse();
 
+
+
+
 	cc.m_view = world_cam;
-	//cc.m_proj.setOrthoLH
-	//(
-	//	(this->getClientWindowRect().right - this->getClientWindowRect().left) / 300.0f,
-	//	(this->getClientWindowRect().bottom - this->getClientWindowRect().top) / 300.0f,
-	//	-4.0f,
-	//	4.0f
-	//);
+	/*cc.m_proj.setOrthoLH
+	(
+		(this->getClientWindowRect().right - this->getClientWindowRect().left)/300.0f,
+		(this->getClientWindowRect().bottom - this->getClientWindowRect().top)/300.0f,
+		-4.0f,
+		4.0f
+	);*/
+
 	int width = (this->getClientWindowRect().right - this->getClientWindowRect().left);
 	int height = (this->getClientWindowRect().bottom - this->getClientWindowRect().top);
 
-	cc.m_proj.setPerspectiveFovLH(1.57f, (static_cast<float>(width) / static_cast<float>(height)), 0.1f, 100.0f);
-#pragma endregion
+
+	cc.m_proj.setPerspectiveFovLH(1.57f, ((float)width / (float)height), 0.1f, 100.0f);
+
 
 	m_cb->update(GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext(), &cc);
 }
@@ -109,28 +118,78 @@ void AppWindow::onCreate()
 
 	InputSystem::get()->addListener(this);
 	InputSystem::get()->showCursor(false);
-	
+
+	m_wood_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"C:\\Users\\josdd\\CreatingAGameEngine\\GameEngine_0\\GameEngine_0\\Textures\\wall.jpg");
+
+
 	RECT rc = this->getClientWindowRect();
 	m_swap_chain = GraphicsEngine::get()->getRenderSystem()->createSwapChain(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
-	
+
+
 
 	m_world_cam.setTranslation(Vector3D(0, 0, -2));
+
+	Vector3D position_list[] =
+	{
+		{ Vector3D(-0.5f,-0.5f,-0.5f)},
+		{ Vector3D(-0.5f,0.5f,-0.5f) },
+		{ Vector3D(0.5f,0.5f,-0.5f) },
+		{ Vector3D(0.5f,-0.5f,-0.5f)},
+
+		//BACK FACE
+		{ Vector3D(0.5f,-0.5f,0.5f) },
+		{ Vector3D(0.5f,0.5f,0.5f) },
+		{ Vector3D(-0.5f,0.5f,0.5f)},
+		{ Vector3D(-0.5f,-0.5f,0.5f) }
+	};
+
+	Vector2D texcoord_list[] =
+	{
+		{ Vector2D(0.0f,0.0f) },
+		{ Vector2D(0.0f,1.0f) },
+		{ Vector2D(1.0f,0.0f) },
+		{ Vector2D(1.0f,1.0f) }
+	};
+
+
 
 	vertex vertex_list[] =
 	{
 		//X - Y - Z
 		//FRONT FACE
-		{ Vector3D(-0.5f,-0.5f,-0.5f),    Vector3D(1,0,0),  Vector3D(0.2f,0,0)  },
-		{ Vector3D(-0.5f,0.5f,-0.5f),    Vector3D(1,1,0), Vector3D(0.2f,0.2f,0)  },
-		{ Vector3D(0.5f,0.5f,-0.5f),   Vector3D(1,1,0),  Vector3D(0.2f,0.2f,0)   },
-		{ Vector3D(0.5f,-0.5f,-0.5f),     Vector3D(1,0,0), Vector3D(0.2f,0,0)    },
+		{ position_list[0],texcoord_list[1] },
+		{ position_list[1],texcoord_list[0] },
+		{ position_list[2],texcoord_list[2] },
+		{ position_list[3],texcoord_list[3] },
 
-		//BACK FACE
-		{ Vector3D(0.5f,-0.5f,0.5f),    Vector3D(0,1,0), Vector3D(0,0.2f,0)      },
-		{ Vector3D(0.5f,0.5f,0.5f),    Vector3D(0,1,1), Vector3D(0,0.2f,0.2f)    },
-		{ Vector3D(-0.5f,0.5f,0.5f),   Vector3D(0,1,1),  Vector3D(0,0.2f,0.2f)   },
-		{ Vector3D(-0.5f,-0.5f,0.5f),     Vector3D(0,1,0), Vector3D(0,0.2f,0)    }
+
+		{ position_list[4],texcoord_list[1] },
+		{ position_list[5],texcoord_list[0] },
+		{ position_list[6],texcoord_list[2] },
+		{ position_list[7],texcoord_list[3] },
+
+
+		{ position_list[1],texcoord_list[1] },
+		{ position_list[6],texcoord_list[0] },
+		{ position_list[5],texcoord_list[2] },
+		{ position_list[2],texcoord_list[3] },
+
+		{ position_list[7],texcoord_list[1] },
+		{ position_list[0],texcoord_list[0] },
+		{ position_list[3],texcoord_list[2] },
+		{ position_list[4],texcoord_list[3] },
+
+		{ position_list[3],texcoord_list[1] },
+		{ position_list[2],texcoord_list[0] },
+		{ position_list[5],texcoord_list[2] },
+		{ position_list[4],texcoord_list[3] },
+
+		{ position_list[7],texcoord_list[1] },
+		{ position_list[6],texcoord_list[0] },
+		{ position_list[1],texcoord_list[2] },
+		{ position_list[0],texcoord_list[3] }
+
 
 	};
 
@@ -147,29 +206,31 @@ void AppWindow::onCreate()
 		4,5,6,
 		6,7,4,
 		//TOP SIDE
-		1,6,5,
-		5,2,1,
+		8,9,10,
+		10,11,8,
 		//BOTTOM SIDE
-		7,0,3,
-		3,4,7,
+		12,13,14,
+		14,15,12,
 		//RIGHT SIDE
-		3,2,5,
-		5,4,3,
+		16,17,18,
+		18,19,16,
 		//LEFT SIDE
-		7,6,1,
-		1,0,7
+		20,21,22,
+		22,23,20
 	};
 
 	UINT size_index_list = ARRAYSIZE(index_list);
 	m_ib = GraphicsEngine::get()->getRenderSystem()->createIndexBuffer(index_list, size_index_list);
-	
+
+
 
 	void* shader_byte_code = nullptr;
 	size_t size_shader = 0;
 	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
 
 	m_vs = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
-	m_vb = GraphicsEngine::get()->getRenderSystem()->createVertexBuffer(vertex_list, sizeof(vertex), size_list, shader_byte_code, size_shader);
+	m_vb = GraphicsEngine::get()->getRenderSystem()->createVertexBuffer(vertex_list, sizeof(vertex), size_list, shader_byte_code, (UINT)size_shader);
+
 	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 
 
@@ -181,6 +242,7 @@ void AppWindow::onCreate()
 	cc.m_time = 0;
 
 	m_cb = GraphicsEngine::get()->getRenderSystem()->createConstantBuffer(&cc, sizeof(constant));
+
 }
 
 void AppWindow::onUpdate()
@@ -196,7 +258,13 @@ void AppWindow::onUpdate()
 	RECT rc = this->getClientWindowRect();
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
 
+
+
+
 	update();
+
+
+
 
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_vs, m_cb);
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_ps, m_cb);
@@ -205,6 +273,7 @@ void AppWindow::onUpdate()
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexShader(m_vs);
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(m_ps);
 
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setTexture(m_ps, m_wood_tex);
 
 	//SET THE VERTICES OF THE TRIANGLE TO DRAW
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
@@ -218,7 +287,7 @@ void AppWindow::onUpdate()
 
 
 	m_old_delta = m_new_delta;
-	m_new_delta = ::GetTickCount64();
+	m_new_delta = ::GetTickCount();
 
 	m_delta_time = (m_old_delta) ? ((m_new_delta - m_old_delta) / 1000.0f) : 0;
 }
@@ -238,55 +307,34 @@ void AppWindow::onKillFocus()
 	InputSystem::get()->removeListener(this);
 }
 
-
 void AppWindow::onKeyDown(int key)
 {
-	if (key == 'W' || key == VK_UP)
+	if (key == 'W')
 	{
-		//m_rot_x += 3.14f * m_delta_time;
-		//m_forward = 1.0f;
-		m_cam_dir.Direction.forward = 1.0f;
+		//m_rot_x += 3.14f*m_delta_time;
+		m_forward = 1.0f;
 	}
-	else if (key == 'S' || key == VK_DOWN)
+	else if (key == 'S')
 	{
-		//m_rot_x -= 3.14f * m_delta_time;
-		//m_forward = -1.0f;
-		m_cam_dir.Direction.forward = -1.0f;
+		//m_rot_x -= 3.14f*m_delta_time;
+		m_forward = -1.0f;
 	}
-	else if (key == 'A' || key == VK_RIGHT)
+	else if (key == 'A')
 	{
-		//m_rot_y += 3.14f * m_delta_time;
-		//m_rightward = -1.0f;
-		m_cam_dir.Direction.right = -1.0f;
+		//m_rot_y += 3.14f*m_delta_time;
+		m_rightward = -1.0f;
 	}
-	else if (key == 'D' || key == VK_LEFT)
+	else if (key == 'D')
 	{
-		//m_rot_y -= 3.14f * m_delta_time;
-		//m_rightward = 1.0f;
-		m_cam_dir.Direction.right = 1.0f;
+		//m_rot_y -= 3.14f*m_delta_time;
+		m_rightward = 1.0f;
 	}
 }
 
 void AppWindow::onKeyUp(int key)
 {
-	if(key == 'W' || key == VK_UP)
-	{
-		//m_forward = 0;
-		m_cam_dir.Direction.forward = 0;
-	}
-	else if(key == 'S' || key == VK_DOWN)
-	{
-		//m_forward = 0;
-		m_cam_dir.Direction.forward = 0;
-	}
-	else if (key == 'A' || key == VK_LEFT)
-	{
-		m_cam_dir.Direction.right = 0;
-	}
-	else if(key == 'D' || key == VK_LEFT)
-	{
-		m_cam_dir.Direction.right = 0;
-	}
+	m_forward = 0.0f;
+	m_rightward = 0.0f;
 }
 
 void AppWindow::onMouseMove(const Point& mouse_pos)
@@ -294,56 +342,38 @@ void AppWindow::onMouseMove(const Point& mouse_pos)
 	int width = (this->getClientWindowRect().right - this->getClientWindowRect().left);
 	int height = (this->getClientWindowRect().bottom - this->getClientWindowRect().top);
 
-	if(m_MouseRightDown)
-	{
-		m_rot_x += (mouse_pos.m_y - (height / 2.0f))* m_delta_time * 0.1f;
-		m_rot_y += (mouse_pos.m_x - (width / 2.0f)) * m_delta_time * 0.1f;
-		InputSystem::get()->SetCursorPosition(Point((int)width / 2.0f, (int)height / 2.0f));
-		InputSystem::get()->showCursor(false);
-	}
-	else
-	{
-		InputSystem::get()->showCursor(!false);
-	}
-	
+
+
+	m_rot_x += (mouse_pos.m_y - (height / 2.0f)) * m_delta_time * 0.1f;
+	m_rot_y += (mouse_pos.m_x - (width / 2.0f)) * m_delta_time * 0.1f;
+
+
+
+	InputSystem::get()->SetCursorPosition(Point((int)(width / 2.0f), (int)(height / 2.0f)));
+
 
 }
 
 void AppWindow::onLeftMouseDown(const Point& mouse_pos)
 {
+
 }
 
 void AppWindow::onLeftMouseUp(const Point& mouse_pos)
 {
+
 }
 
 void AppWindow::onRightMouseDown(const Point& mouse_pos)
 {
-	m_MouseRightDown = TRUE;
-}
 
+}
 
 void AppWindow::onRightMouseUp(const Point& mouse_pos)
 {
-	
-	m_MouseRightDown = false;
-	InputSystem::get()->showCursor(true);
-	
+
 }
 
-void AppWindow::onMouseWheelTurn(int axis) 
-{
-	
-	if(axis < 0)
-	{
-		SetWindowText(m_hwnd, L"-1");
-	}
-	if (axis > 0)
-	{
-		SetWindowText(m_hwnd, L"1");
-	}
-}
-
-AppWindow::AppWindow()
+void AppWindow::onMouseWheelTurn(int Axis)
 {
 }

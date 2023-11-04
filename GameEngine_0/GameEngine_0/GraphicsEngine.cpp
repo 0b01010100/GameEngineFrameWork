@@ -8,15 +8,20 @@ GraphicsEngine::GraphicsEngine()
 	{
 		m_render_system = new RenderSystem();
 	}
-	catch (const std::exception&)
+	catch (const std::exception&){ throw std::exception("RenderSystem was not created Successfully");}
+
+	try
 	{
-		throw std::exception("Graphics was not created Successfully");
+		m_tex_manager = new TextureManager();
 	}
+	catch (const std::exception&){ throw std::exception("TextureManager was not created Successfully"); }
 }
 
 GraphicsEngine::~GraphicsEngine()
 {
+	
 	GraphicsEngine::m_engine = nullptr;
+	delete m_tex_manager;
 	delete m_render_system;
 }
 
@@ -26,9 +31,9 @@ RenderSystem* GraphicsEngine::getRenderSystem()
 	return m_render_system;
 }
 
-GraphicsEngine * GraphicsEngine::get()
+TextureManager* GraphicsEngine::getTextureManager()
 {
-	return m_engine;
+	return m_tex_manager;
 }
 
 void GraphicsEngine::create()
@@ -41,4 +46,9 @@ void GraphicsEngine::release()
 {
 	if (!GraphicsEngine::m_engine) return;
 	delete GraphicsEngine::m_engine;
+}
+
+GraphicsEngine * GraphicsEngine::get()
+{
+	return m_engine;
 }

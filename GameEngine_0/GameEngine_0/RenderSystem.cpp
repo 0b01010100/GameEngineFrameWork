@@ -44,7 +44,8 @@ RenderSystem::RenderSystem()
 		//Loops throw the Prossece of trying to Create a device unitl the Device is Created 
 		if (SUCCEEDED(res))//Checks to See if the Prossece of creating the device SUCCEEDED
 			break;
-		++driver_type_index;
+		++driver_type_index; 
+
 	}
 	if (FAILED(res))
 	{
@@ -84,14 +85,8 @@ SwapChainPtr RenderSystem::createSwapChain(HWND hwnd, UINT width, UINT height)
 {
 	SwapChainPtr sc;
 
-	try
-	{
-		sc = std::make_shared<SwapChain>(hwnd, width, height, this);
-	}
-	catch (...)
-	{
-
-	}
+	try{ sc = std::make_shared<SwapChain>(hwnd, width, height, this);}
+	catch (...){}
 	return sc;
 }
 
@@ -106,7 +101,7 @@ VertexBufferPtr RenderSystem::createVertexBuffer(void* list_vertices, UINT size_
 {
 	VertexBufferPtr vb = nullptr;
 	try
-	{
+	{ 
 		vb = std::make_shared< VertexBuffer>(list_vertices, size_vertex, size_list, shader_byte_code, size_byte_shader, this);
 	}
 	catch (...)
