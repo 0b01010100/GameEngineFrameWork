@@ -38,6 +38,9 @@ private:
 
 private:
 	ID3DBlob* m_blob = nullptr;
+
+
+
 	ID3DBlob* m_vsblob = nullptr;
 	ID3DBlob* m_psblob = nullptr;
 	ID3D11VertexShader* m_vs = nullptr;
@@ -49,6 +52,6 @@ private:
 	friend class ConstantBuffer;
 	friend class VertexShader;
 	friend class PixelShader;
-	friend class Texture;
+
 };
 

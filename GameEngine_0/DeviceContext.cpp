@@ -5,7 +5,6 @@
 #include "ConstantBuffer.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
-#include "Texture.h"
 #include "RenderSystem.h"
 #include <exception>
 //Input Assembler Stage: 
@@ -22,16 +21,15 @@ DeviceContext::DeviceContext(ID3D11DeviceContext* device_context, RenderSystem* 
 {
 }
 //This will clear the Screen
-void DeviceContext::clearRenderTargetColor(const SwapChainPtr& swap_chain, float red, float green, float blue, float alpha)
+void DeviceContext::clearRenderTargetColor(SwapChainPtr swap_chain, float red, float green, float blue, float alpha)
 {
 	FLOAT clear_color[4] = {red,green,blue,alpha};
 	m_device_context->ClearRenderTargetView(swap_chain->m_rtv, clear_color);
-	m_device_context->ClearDepthStencilView(swap_chain->m_dsv, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
-	m_device_context->OMSetRenderTargets(1, &swap_chain->m_rtv, swap_chain->m_dsv);
+	m_device_context->OMSetRenderTargets(1, &swap_chain->m_rtv, NULL);
 }
 ///Prep for Input Assembler Stage
 //The will tell Our grahpihc card what and where to draw the verties
-void DeviceContext::setVertexBuffer(const VertexBufferPtr& vertex_buffer)
+void DeviceContext::setVertexBuffer(VertexBufferPtr vertex_buffer)
 {
 	//Size of the Vertex
 	UINT stride = vertex_buffer->m_size_vertex;
@@ -43,7 +41,7 @@ void DeviceContext::setVertexBuffer(const VertexBufferPtr& vertex_buffer)
 }
 ///Prep for Input Assembler Stage
 //to specify which vertex buffers to use during rendering.
-void DeviceContext::setIndexBuffer(const IndexBufferPtr& index_buffer)
+void DeviceContext::setIndexBuffer(IndexBufferPtr index_buffer)
 {
 
 	//Give the GPU the IndexBuffer class while indicating how much computer memory(RAM) was allocated using by the Verties 
@@ -92,34 +90,24 @@ void DeviceContext::setViewportSize(UINT width, UINT height)
 	m_device_context->RSSetViewports(1, &vp);
 }
 //Allows us to tell rendering deivice what VertexShader we want to to use.
-void DeviceContext::setVertexShader(const VertexShaderPtr& vertex_shader)
+void DeviceContext::setVertexShader(VertexShaderPtr vertex_shader)
 {
 	m_device_context->VSSetShader(vertex_shader->m_vs, nullptr, 0);
 }
 //Allows us to tell rendering deivice what PixelShader we want to to use.
-void DeviceContext::setPixelShader(const PixelShaderPtr& pixel_shader)
+void DeviceContext::setPixelShader(PixelShaderPtr pixel_shader)
 {
 	m_device_context->PSSetShader(pixel_shader->m_ps, nullptr, 0);
 }
 //Allows us to pass in Constant buffer has so it can be usable for the Vertex shaders in HLSL 
-void DeviceContext::setConstantBuffer(const VertexShaderPtr& vertex_shader, const ConstantBufferPtr& buffer)
+void DeviceContext::setConstantBuffer(VertexShaderPtr vertex_shader, ConstantBufferPtr buffer)
 {
 	m_device_context->VSSetConstantBuffers(0, 1, &buffer->m_buffer);
 }
 //Allows us to pass in Constant buffer has so it can be usable for the Pixel shaders in HLSL 
-void DeviceContext::setConstantBuffer(const PixelShaderPtr& pixel_shader, const ConstantBufferPtr& buffer)
+void DeviceContext::setConstantBuffer(PixelShaderPtr pixel_shader, ConstantBufferPtr buffer)
 {
 	m_device_context->PSSetConstantBuffers(0, 1, &buffer->m_buffer);
-}
-
-void DeviceContext::setTexture(const VertexShaderPtr& vertex_shader, const TexturePtr& texture)
-{
-	m_device_context->PSSetShaderResources(0, 1, &texture->m_shader_res_view);
-}
-
-void DeviceContext::setTexture(const PixelShaderPtr& pixel_shader, const TexturePtr& texture)
-{
-	m_device_context->PSSetShaderResources(0, 1, &texture->m_shader_res_view);
 }
 
 //Release resources
