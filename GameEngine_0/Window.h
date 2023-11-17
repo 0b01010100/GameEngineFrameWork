@@ -18,7 +18,7 @@ public:
 	virtual void onFocus();
 	virtual void onKillFocus();
 
-	virtual void onMouseWheelTurn(int axis)=0;
+
 	//Release the window
 	~Window();
 private:

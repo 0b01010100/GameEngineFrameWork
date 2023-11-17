@@ -51,7 +51,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 		int wheelDelta = GET_WHEEL_DELTA_WPARAM(wparam);
 		int linesToScroll = wheelDelta / WHEEL_DELTA;
 		Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
-		window->onMouseWheelTurn(linesToScroll);
+
 		break;
 	}
 	///If none Of the Events are meet or Some Other Event is meet Which is not Listed; For Example WM_MOVING whcih Triggers a Even when the USer moves the WIndow then the swicth will default.
@@ -183,10 +183,6 @@ void Window::onFocus()
 void Window::onKillFocus()
 {
 
-}
-
-void Window::onMouseWheelTurn(int Axis)
-{
 }
 
 //Called to delete resoures when not needed

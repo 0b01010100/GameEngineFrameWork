@@ -36,17 +36,8 @@ public:
 	}
 
 public:
-	union
-	{
-		struct
-		{
-			float m_x;
-			float m_y;
-		};
-		struct
-		{
-			float right;
-			float forward;
-		} Direction;
-	};
+
+		float m_x;
+		float m_y;
+
 };

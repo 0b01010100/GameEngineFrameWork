@@ -36,7 +36,7 @@ public:
 	virtual void onLeftMouseUp(const Point& mouse_pos) override;
 	virtual void onRightMouseDown(const Point& mouse_pos) override;
 	virtual void onRightMouseUp(const Point& mouse_pos) override;
-	void onMouseWheelTurn(int Axis) override;
+
 private:
 	SwapChainPtr m_swap_chain;
 	VertexBufferPtr m_vb;
@@ -45,6 +45,7 @@ private:
 	ConstantBufferPtr m_cb;
 	IndexBufferPtr m_ib;
 	TexturePtr m_wood_tex;
+	MeshPtr m_mesh;
 private:
 	long m_old_delta;
 	long m_new_delta;
@@ -56,6 +57,8 @@ private:
 
 	float m_rot_x = 0.0f;
 	float m_rot_y = 0.0f;
+
+	float m_light_rot_y = 0.0f;
 
 	float m_scale_cube = 1;
 	float m_forward = 0.0f;
