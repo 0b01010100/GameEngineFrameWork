@@ -55,7 +55,7 @@ public:
 		m_mat[1][0] = -sin(z);
 		m_mat[1][1] = cos(z);
 	}
-	
+
 	float getDeterminant()
 	{
 		Vector4D minor, v1, v2, v3;
@@ -114,9 +114,9 @@ public:
 			for (int j = 0; j < 4; j++)
 			{
 				out.m_mat[i][j] =
-					m_mat[i][0] * matrix.m_mat[0][j] + 
-					m_mat[i][1] * matrix.m_mat[1][j] + 
-					m_mat[i][2] * matrix.m_mat[2][j] + 
+					m_mat[i][0] * matrix.m_mat[0][j] +
+					m_mat[i][1] * matrix.m_mat[1][j] +
+					m_mat[i][2] * matrix.m_mat[2][j] +
 					m_mat[i][3] * matrix.m_mat[3][j];
 			}
 		}
@@ -150,11 +150,11 @@ public:
 		m_mat[0][0] = xscale;
 		m_mat[1][1] = yscale;
 		m_mat[2][2] = zfar / (zfar - znear);
-		m_mat[2][3] = 1.0f ;
-		m_mat[3][2] = (-znear*zfar) / (zfar - znear);
+		m_mat[2][3] = 1.0f;
+		m_mat[3][2] = (-znear * zfar) / (zfar - znear);
 	}
 
-	void setOrthoLH(float width,float height,float near_plane, float far_plane)
+	void setOrthoLH(float width, float height, float near_plane, float far_plane)
 	{
 		setIdentity();
 		m_mat[0][0] = 2.0f / width;

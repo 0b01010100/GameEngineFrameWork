@@ -19,6 +19,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 
 		break;//End of Case
 	}
+	case WM_SIZE: 
+	{
+		//Event fired each time the window is resized.
+		Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+		if (window) window->onSize();
+		break;
+	}
 	///Event For When the Winfow is Closed/Destroyed
 	case WM_DESTROY:
 	{
@@ -160,6 +167,13 @@ RECT Window::getClientWindowRect()
 	return rc;//Return RECT rc variable
 
 }
+RECT Window::getScreenSize()
+{
+	RECT rc = {};
+	rc.right = ::GetSystemMetrics(SM_CXSCREEN);
+	rc.bottom = ::GetSystemMetrics(SM_CYSCREEN);
+	return rc;
+}
 //higher level Code Gose in Here for when the Window is Created/Initialized 
 void Window::onCreate()
 {
@@ -181,6 +195,11 @@ void Window::onFocus()
 }
 
 void Window::onKillFocus()
+{
+
+}
+
+void Window::onSize()
 {
 
 }

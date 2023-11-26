@@ -7,8 +7,7 @@ int __stdcall WinMain
 	HINSTANCE InstancePrv,
 	LPSTR, 
 	int nCmd
-)
-{
+){
 	try
 	{
 		GraphicsEngine::create();

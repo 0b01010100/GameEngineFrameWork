@@ -211,5 +211,8 @@
     <FxCompile Include="VertexMeshLayoutShader.hlsl">
       <Filter>GameEngine\GraphicsEngine\RenderingSystem\Shaders_\HLSL_Shaders</Filter>
     </FxCompile>
+    <FxCompile Include="SkyBoxShader.hlsl">
+      <Filter>GameEngine\GraphicsEngine\RenderingSystem\Shaders_\HLSL_Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

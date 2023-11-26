@@ -2,9 +2,9 @@
 #include "RenderSystem.h"
 #include <exception>
 
-VertexBuffer::VertexBuffer(void* list_vertices, UINT size_vertex, UINT size_list, 
-	void* shader_byte_code, size_t size_byte_shader, RenderSystem* system) : 
-	m_system(system) , m_layout(0),m_buffer(0)
+VertexBuffer::VertexBuffer(void* list_vertices, UINT size_vertex, UINT size_list,
+	void* shader_byte_code, size_t size_byte_shader, RenderSystem* system) :
+	m_system(system), m_layout(0), m_buffer(0)
 {
 
 	D3D11_BUFFER_DESC buff_desc = {};
@@ -19,7 +19,7 @@ VertexBuffer::VertexBuffer(void* list_vertices, UINT size_vertex, UINT size_list
 
 	m_size_vertex = size_vertex;
 	m_size_list = size_list;
-	
+
 	if (FAILED(m_system->m_d3d_device->CreateBuffer(&buff_desc, &init_data, &m_buffer)))
 	{
 		throw std::exception("VertexBuffer not Created successfully");

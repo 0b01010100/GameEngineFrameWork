@@ -18,7 +18,7 @@ SwapChain::SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system) :
 	desc.SampleDesc.Count = 1;
 	desc.SampleDesc.Quality = 0;
 	desc.Windowed = TRUE;//The mode of the Window for example is the Window full screen or not.
-
+	desc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;//
 	//create swap chain for window indicated by HWND parameter
 	HRESULT hr = m_system->m_dxgi_factory->CreateSwapChain(device, &desc, &m_swap_chain);
 	//If the Process fails then return false 
@@ -26,6 +26,43 @@ SwapChain::SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system) :
 	{
 		throw std::exception("SwapChain not Created successfully");
 	}
+	reloadBuffers(width, height);
+
+}
+
+
+void SwapChain::setFullScreen(bool fullscreen, UINT width, UINT height)
+{
+	resize(width, height);
+	m_swap_chain->SetFullscreenState(fullscreen, nullptr);
+}
+
+void SwapChain::resize(UINT width, UINT height)
+{
+	if (m_rtv) m_rtv->Release();
+	if (m_dsv) m_dsv->Release();
+
+	m_swap_chain->ResizeBuffers(1, width, height, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
+	reloadBuffers(width , height);
+}
+
+//Tells the swap chain to present the texture on the screen.
+bool SwapChain::present(bool vsync)
+{
+	m_swap_chain->Present(vsync, NULL);
+	return true;
+}
+//Realses the Swap Chain instance
+SwapChain::~SwapChain()
+{
+	m_rtv->Release();
+	m_swap_chain->Release();
+}
+
+void SwapChain::reloadBuffers(UINT width, UINT height)
+{
+	ID3D11Device* device = m_system->m_d3d_device;
+	HRESULT hr;
 	//Get the back buffer color and create its render target view
 	ID3D11Texture2D* buffer = NULL;
 	//The Methode will retrive the buffer in the Computer monitor.
@@ -59,7 +96,7 @@ SwapChain::SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system) :
 	tex_desc.ArraySize = 1;
 	tex_desc.CPUAccessFlags = 0;
 
-	device->CreateTexture2D(&tex_desc, nullptr, & buffer);
+	device->CreateTexture2D(&tex_desc, nullptr, &buffer);
 
 
 	if (FAILED(hr))
@@ -77,19 +114,4 @@ SwapChain::SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system) :
 		throw std::exception("SwapChain not Created successfully");
 	}
 
-
-}
-
-
-//Tells the swap chain to present the texture on the screen.
-bool SwapChain::present(bool vsync)
-{
-	m_swap_chain->Present(vsync, NULL);
-	return true;
-}
-//Realses the Swap Chain instance
-SwapChain::~SwapChain()
-{
-	m_rtv->Release();
-	m_swap_chain->Release();
 }

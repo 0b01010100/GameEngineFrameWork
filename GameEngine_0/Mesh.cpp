@@ -13,7 +13,7 @@
 Mesh::Mesh(const wchar_t* full_path) : Resource(full_path)
 {
 	tinyobj::attrib_t attribs;
-	std::vector<tinyobj::shape_t> shapes; 
+	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
 
 	std::string warn;
@@ -22,7 +22,7 @@ Mesh::Mesh(const wchar_t* full_path) : Resource(full_path)
 
 	//bool res = tinyobj::LoadObj(&attribs, &shapes, &materials, &warn, &err, inputfile.c_str());
 
-	
+
 	std::string converted_str;
 	std::wstring wstr = full_path;
 	for (wchar_t UTF16 : wstr)
@@ -104,7 +104,7 @@ Mesh::Mesh(const wchar_t* full_path) : Resource(full_path)
 		msg << L"Exception: " << e.what();
 		OutputDebugStringW(msg.str().c_str());
 	}
-	
+
 
 }
 

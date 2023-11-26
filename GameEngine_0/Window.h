@@ -11,12 +11,14 @@ public:
 	bool isRun();
 
 	RECT getClientWindowRect();
+	RECT getScreenSize();
 	//EVENTS
 	virtual void onCreate();
 	virtual void onUpdate();
 	virtual void onDestroy();
 	virtual void onFocus();
 	virtual void onKillFocus();
+	virtual void onSize();
 
 
 	//Release the window

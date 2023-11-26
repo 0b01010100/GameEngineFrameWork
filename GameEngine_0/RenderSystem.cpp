@@ -62,6 +62,7 @@ RenderSystem::RenderSystem()
 	//Helps use obtain the IDXGIFactory interface, which is responsible for creating and managing resources related to graphics adapters, such as swap chains, rendering targets, and more. 
 	m_dxgi_adapter->GetParent(__uuidof(IDXGIFactory), (void**)&m_dxgi_factory);
 
+	initRasterizerState();
 }
 
 //Realses the Resources 
@@ -178,7 +179,7 @@ bool RenderSystem::compileVertexShader(const wchar_t* file_name, const char* ent
 		if (error_blob) error_blob->Release();
 		return false;
 	}
-
+	
 	*shader_byte_code = m_blob->GetBufferPointer();
 	*byte_code_size = m_blob->GetBufferSize();
 
@@ -203,5 +204,30 @@ bool RenderSystem::compilePixelShader(const wchar_t* file_name, const char* entr
 void RenderSystem::releaseCompiledShader()
 {
 	if (m_blob)m_blob->Release();
+}
+
+void RenderSystem::setRasterizerState(bool cull_front)
+{
+	if (cull_front) 
+	{
+		//Cull the front face of an object when rasterizing it
+		m_imm_context->RSSetState(m_cull_front_state);
+	}
+	else 
+		//Cull the back face of an object when rasterizing it
+		m_imm_context->RSSetState(m_cull_back_state);
+}
+
+void RenderSystem::initRasterizerState()
+{
+	D3D11_RASTERIZER_DESC desc = {};
+	desc.CullMode = D3D11_CULL_FRONT;
+	desc.DepthClipEnable = true;
+	desc.FillMode = D3D11_FILL_SOLID;
+
+	m_d3d_device->CreateRasterizerState(&desc, &m_cull_front_state);
+
+	desc.CullMode = D3D11_CULL_BACK;
+	m_d3d_device->CreateRasterizerState(&desc, &m_cull_back_state);
 }
 
