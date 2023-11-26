@@ -112,14 +112,30 @@ void DeviceContext::setConstantBuffer(const PixelShaderPtr& pixel_shader, const 
 	m_device_context->PSSetConstantBuffers(0, 1, &buffer->m_buffer);
 }
 
-void DeviceContext::setTexture(const VertexShaderPtr& vertex_shader, const TexturePtr& texture)
+void DeviceContext::setTexture(const VertexShaderPtr& vertex_shader, const TexturePtr* texture, const unsigned int num_textures)
 {
-	m_device_context->PSSetShaderResources(0, 1, &texture->m_shader_res_view);
+	ID3D11ShaderResourceView* list_res[32]{};
+	ID3D11SamplerState* list_sampler[32]{};
+	for (unsigned int i = 0; i < num_textures; i++)
+	{
+		list_res[i] = texture[i]->m_shader_res_view;
+		list_sampler[i] = texture[i]->m_sampler_state;
+	}
+	m_device_context->VSSetShaderResources(0, num_textures, list_res);
+	m_device_context->VSSetSamplers(0, num_textures, list_sampler);
 }
 
-void DeviceContext::setTexture(const PixelShaderPtr& pixel_shader, const TexturePtr& texture)
+void DeviceContext::setTexture(const PixelShaderPtr& pixel_shader, const TexturePtr* texture, const unsigned int num_textures)
 {
-	m_device_context->PSSetShaderResources(0, 1, &texture->m_shader_res_view);
+	ID3D11ShaderResourceView* list_res[32]{};
+	ID3D11SamplerState* list_sampler[32]{};
+	for (unsigned int i = 0; i < num_textures; i++)
+	{
+		list_res[i] = texture[i]->m_shader_res_view;
+		list_sampler[i] = texture[i]->m_sampler_state;
+	}
+	m_device_context->PSSetShaderResources(0, num_textures, list_res);
+	m_device_context->PSSetSamplers(0, num_textures, list_sampler);
 }
 
 //Release resources
