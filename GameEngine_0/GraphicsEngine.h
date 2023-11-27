@@ -4,7 +4,7 @@
 #include "RenderSystem.h"
 #include "TextureManager.h"
 #include "MeshManager.h"
-
+#include "Material.h"
 class GraphicsEngine
 {
 private:
@@ -17,17 +17,22 @@ public:
 	RenderSystem* getRenderSystem();
 	TextureManager* getTextureManager();
 	MeshManager* getMeshManager();
+public:
+	MaterialPtr createMaterial(const wchar_t* vertex_shader_path, const wchar_t* pixel_shader_path);
+	MaterialPtr createMaterial(const MaterialPtr& material);
+	void setMaterial(const MaterialPtr& material);
 	void getVertexMeshLayoutShaderByteCodeAndSize(void ** byte_code, size_t* size);
+
+private:
+	RenderSystem* m_render_system = nullptr;
+	TextureManager* m_tex_manager = nullptr;
+	MeshManager* m_mesh_manager = nullptr;
+	static GraphicsEngine* m_engine;
 public:
 	static GraphicsEngine* get();
 	static void create();
 	static void release();
 
-private:
-	RenderSystem* m_render_system = nullptr;
-	TextureManager* m_tex_manager = nullptr;
-	static GraphicsEngine* m_engine;
-	MeshManager* m_mesh_manager = nullptr;
 	unsigned char m_mesh_layout_byte_code[1024];
 	size_t m_mesh_layout_size = 0;
 };

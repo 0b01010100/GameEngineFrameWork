@@ -24,7 +24,7 @@ ConstantBuffer::ConstantBuffer(void* buffer, UINT size_buffer, RenderSystem* sys
 //Updates the data in GPU memory
 void ConstantBuffer::update(DeviceContextPtr context, void* buffer)
 {
-	context->m_device_context->UpdateSubresource(this->m_buffer, NULL, NULL, buffer, NULL, NULL);
+	 context->m_device_context->UpdateSubresource(this->m_buffer, NULL, NULL, buffer, NULL, NULL);
 }
 
 ConstantBuffer::~ConstantBuffer()

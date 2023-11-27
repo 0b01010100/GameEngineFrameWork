@@ -1,7 +1,7 @@
 //Retrive Earth texture
 Texture2D TextureColor : register(t0);
 sampler TextureColorSampler : register(s0);
-struct PS_INPUT
+struct PS_INPUT// Sturct to hold the vertex data 
 {
     float4 position : SV_POSITION;
     float2 texcoord : TEXCOORD0;
@@ -25,7 +25,7 @@ float4 main(PS_INPUT input) : SV_TARGET
 {
     //Sample texture's data. This will allow us to get the color of every part of the texture and to 
     //help use assinge that color to the pixels that need it one the screen.
-    float4 tex_color = TextureColor.Sample(TextureColorSampler, (1.0 - input.texcoord) * 2.0);
+    float4 tex_color = TextureColor.Sample(TextureColorSampler, (1.0 - input.texcoord));
 
 
 	//AMBIENT LIGHT
