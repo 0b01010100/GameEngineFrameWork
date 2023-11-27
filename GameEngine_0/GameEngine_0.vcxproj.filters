@@ -14,10 +14,10 @@
       <Filter>GameEngine\GraphicsEngine\RenderingSystem\VertexBuffer</Filter>
     </ClCompile>
     <ClCompile Include="VertexShader.cpp">
-      <Filter>GameEngine\GraphicsEngine\RenderingSystem\Shaders_\VertexShader</Filter>
+      <Filter>GameEngine\GraphicsEngine\RenderingSystem\VertexShader</Filter>
     </ClCompile>
     <ClCompile Include="PixelShader.cpp">
-      <Filter>GameEngine\GraphicsEngine\RenderingSystem\Shaders_\PixelShader</Filter>
+      <Filter>GameEngine\GraphicsEngine\RenderingSystem\PixelShader</Filter>
     </ClCompile>
     <ClCompile Include="ConstantBuffer.cpp">
       <Filter>GameEngine\GraphicsEngine\RenderingSystem\ConstantBuffer</Filter>
@@ -93,18 +93,6 @@
     <Filter Include="GameEngine\GraphicsEngine\RenderingSystem\DeviceContext">
       <UniqueIdentifier>{3da20ffa-2253-4fed-88c1-9c51785cb59b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameEngine\GraphicsEngine\RenderingSystem\Shaders_">
-      <UniqueIdentifier>{438a4f9b-54d0-45c4-893a-af02cb74081f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameEngine\GraphicsEngine\RenderingSystem\Shaders_\HLSL_Shaders">
-      <UniqueIdentifier>{e6b7ec5d-72a9-4b4d-b9bb-34431e516555}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameEngine\GraphicsEngine\RenderingSystem\Shaders_\VertexShader">
-      <UniqueIdentifier>{b4fac325-b535-46b9-80ca-ae6ed3580406}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameEngine\GraphicsEngine\RenderingSystem\Shaders_\PixelShader">
-      <UniqueIdentifier>{840209a3-9676-4092-8efe-d56bb910044b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameEngine\GraphicsEngine\RenderingSystem\ConstantBuffer">
       <UniqueIdentifier>{1d7518a3-7a15-4360-a1b8-d1847dd892fd}</UniqueIdentifier>
     </Filter>
@@ -116,6 +104,21 @@
     </Filter>
     <Filter Include="GameEngine\GraphicsEngine\ResourceManager\MeshManager">
       <UniqueIdentifier>{854883f6-b873-4068-9f63-fed4beb1a08b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Shaders">
+      <UniqueIdentifier>{438a4f9b-54d0-45c4-893a-af02cb74081f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Shaders\EarthShaders">
+      <UniqueIdentifier>{1a679821-662f-48a3-a951-93a3e00eaaee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\RenderingSystem\PixelShader">
+      <UniqueIdentifier>{840209a3-9676-4092-8efe-d56bb910044b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\RenderingSystem\VertexShader">
+      <UniqueIdentifier>{b4fac325-b535-46b9-80ca-ae6ed3580406}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Shaders\PointLightShaders">
+      <UniqueIdentifier>{d9704b94-f4a7-4a82-b4ec-1a564c3e5e9d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -135,10 +138,10 @@
       <Filter>GameEngine\GraphicsEngine\RenderingSystem\VertexBuffer</Filter>
     </ClInclude>
     <ClInclude Include="VertexShader.h">
-      <Filter>GameEngine\GraphicsEngine\RenderingSystem\Shaders_\VertexShader</Filter>
+      <Filter>GameEngine\GraphicsEngine\RenderingSystem\VertexShader</Filter>
     </ClInclude>
     <ClInclude Include="PixelShader.h">
-      <Filter>GameEngine\GraphicsEngine\RenderingSystem\Shaders_\PixelShader</Filter>
+      <Filter>GameEngine\GraphicsEngine\RenderingSystem\PixelShader</Filter>
     </ClInclude>
     <ClInclude Include="ChiliWin.h">
       <Filter>GameEngine\WindowigSystem</Filter>
@@ -202,17 +205,23 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="PixelShader.hlsl">
-      <Filter>GameEngine\GraphicsEngine\RenderingSystem\Shaders_\HLSL_Shaders</Filter>
-    </FxCompile>
     <FxCompile Include="VertexShader.hlsl">
-      <Filter>GameEngine\GraphicsEngine\RenderingSystem\Shaders_\HLSL_Shaders</Filter>
+      <Filter>App\Shaders\EarthShaders</Filter>
     </FxCompile>
-    <FxCompile Include="VertexMeshLayoutShader.hlsl">
-      <Filter>GameEngine\GraphicsEngine\RenderingSystem\Shaders_\HLSL_Shaders</Filter>
+    <FxCompile Include="PixelShader.hlsl">
+      <Filter>App\Shaders\EarthShaders</Filter>
     </FxCompile>
     <FxCompile Include="SkyBoxShader.hlsl">
-      <Filter>GameEngine\GraphicsEngine\RenderingSystem\Shaders_\HLSL_Shaders</Filter>
+      <Filter>App\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="VertexMeshLayoutShader.hlsl">
+      <Filter>App\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PointLightVertexShader.hlsl">
+      <Filter>App\Shaders\PointLightShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PointLightPixelShader.hlsl">
+      <Filter>App\Shaders\PointLightShaders</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

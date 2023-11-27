@@ -122,12 +122,12 @@ public:
 		}
 		setMatrix(out);
 	}
-
+	// copy the contents of a 4x4 matrix matrix into this 4x4 matrix 
 	void setMatrix(const Matrix4x4& matrix)
 	{
 		::memcpy(m_mat, matrix.m_mat, sizeof(float) * 16);
 	}
-	//Return the Z-axis that is available in the third row of the matrix
+	//Returns the Z-axis that is available in the third row of the matrix
 	Vector3D getZDirection()
 	{
 		return Vector3D(m_mat[2][0], m_mat[2][1], m_mat[2][2]);
@@ -149,7 +149,7 @@ public:
 
 		m_mat[0][0] = xscale;
 		m_mat[1][1] = yscale;
-		m_mat[2][2] = zfar / (zfar - znear);
+		m_mat[2][2]= zfar / (zfar - znear);
 		m_mat[2][3] = 1.0f;
 		m_mat[3][2] = (-znear * zfar) / (zfar - znear);
 	}

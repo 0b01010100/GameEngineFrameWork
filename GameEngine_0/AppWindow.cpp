@@ -18,9 +18,10 @@ struct constant
 	Matrix4x4 m_world;
 	Matrix4x4 m_view;
 	Matrix4x4 m_proj;
-	//unsigned int m_time;
 	Vector4D m_light_direction;
 	Vector4D m_camera_position;
+	Vector4D m_light_position = {0, 1, 0, 0};
+	float m_light_radius = 4.0f;
 	float m_time = 0.0f;
 };
 
@@ -48,13 +49,10 @@ void AppWindow::render()
 	//RENDER MODELS
 	GraphicsEngine::get()->getRenderSystem()->setRasterizerState(false);// want to render only the fornt face of the object
 
-	TexturePtr list_tex[4];
-	list_tex[0] = m_earth_color_tex;
-	list_tex[1] = m_earth_spec_tex;
-	list_tex[2] = m_clouds_tex;
-	list_tex[3] = m_earth_night_tex;
+	TexturePtr list_tex[1];
+	list_tex[0] = m_wall_tex;
 
-	drawMesh(m_mesh, m_vs, m_ps, m_cb, list_tex, 4);
+	drawMesh(m_mesh, m_vs, m_ps, m_cb, list_tex,1);
 
 	//SKY SPHERE
 	GraphicsEngine::get()->getRenderSystem()->setRasterizerState(1);// want to render only the back face of the sphere
@@ -84,21 +82,29 @@ void AppWindow::update()
 
 void AppWindow::updateModel()
 {
-	constant cc;
+	constant cc = {};
 
-	Matrix4x4 m_light_rot_matrix;
+	Matrix4x4 m_light_rot_matrix = {};
 	m_light_rot_matrix.setIdentity();
-	m_light_rot_matrix.setRotationY(m_light_rot_y);
+	m_light_rot_matrix.setRotationY(m_light_rot_y);//set the Roation in the Tranform matrix
 
-	m_light_rot_y += 0.307f * m_delta_time;
+	m_light_rot_y += 1.f * m_delta_time;//Change the rotation to play an rotation animation
 
 	cc.m_world.setIdentity();
 	cc.m_view = m_view_cam;
 	cc.m_proj = m_proj_cam;
 	cc.m_camera_position = m_world_cam.getTranslation();
-	cc.m_light_direction = m_light_rot_matrix.getZDirection();
+
+	float dist_from_origin = 1.0f;
+
+	cc.m_light_position = Vector4D(cos(m_light_rot_y) * dist_from_origin, 1.0, sin(m_light_rot_y) * dist_from_origin, 1.0);//Change the tranlation to play an rotation animation
+	
+	cc.m_light_radius = m_light_radius;//Set the radius varaible equal to the radius varaible in the class 
+
+	cc.m_light_direction = m_light_rot_matrix.getZDirection(); 
 	cc.m_time = m_time;
 
+	//Update the constant buffer in the GPU memory after changes are made. 
 	m_cb->update(GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext(), &cc);
 }
 
@@ -184,14 +190,12 @@ void AppWindow::onCreate()
 
 
 	//Texture 
-	m_earth_color_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Textures\\earth_color.jpg");
-	m_earth_spec_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Textures\\earth_spec.jpg");
-	m_clouds_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Textures\\clouds.jpg");
-	m_earth_night_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Textures\\earth_night.jpg");
+	m_wall_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Textures\\wall.jpg");
+	
 
 	m_sky_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Textures\\stars_map.jpg");
 	//Mesh
-	m_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"Meshes\\sphere_hq.obj");
+	m_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"Meshes\\scene.obj");
 	m_sky_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"Meshes\\sphere.obj");
 
 	RECT rc = this->getClientWindowRect();
@@ -201,11 +205,11 @@ void AppWindow::onCreate()
 
 	void* shader_byte_code = nullptr;
 	size_t size_shader = 0;
-	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
+	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"PointLightVertexShader.hlsl", "main", &shader_byte_code, &size_shader);
 	m_vs = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
 	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 
-	GraphicsEngine::get()->getRenderSystem()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
+	GraphicsEngine::get()->getRenderSystem()->compilePixelShader(L"PointLightPixelShader.hlsl", "main", &shader_byte_code, &size_shader);
 	m_ps = GraphicsEngine::get()->getRenderSystem()->createPixelShader(shader_byte_code, size_shader);
 	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 
@@ -277,8 +281,15 @@ void AppWindow::onKeyDown(int key)
 		//m_rot_y -= 3.14f*m_delta_time;
 		m_rightward = 1.0f;
 	}
-
-
+	else if (key == 'O')
+	{
+		m_light_radius -= 1.0f * m_delta_time;
+	}
+	else if (key == 'P')
+	{
+		//m_rot_y -= 3.14f*m_delta_time;
+		m_light_radius += 1.0f * m_delta_time;
+	}
 }
 
 void AppWindow::onKeyUp(int key)
