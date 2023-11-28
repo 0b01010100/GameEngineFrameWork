@@ -2,6 +2,15 @@
 #include "Resource.h"
 #include <d3d11.h>
 #include "IndexBuffer.h"
+#include <vector>
+
+struct MaterialSlot 
+{
+	size_t start_index = 0;
+	size_t num_indices = 0;
+	size_t material_id = 0;
+};
+
 class Mesh : public Resource
 {
 public:
@@ -10,10 +19,13 @@ public:
 	const VertexBufferPtr& getVertexBuffer();
 	const IndexBufferPtr& getIndexBuffer();
 
-
+	const MaterialSlot& getMaterialSlot(UINT slot);
+	size_t getNumMaterialSlots();
 private:
 	VertexBufferPtr m_vertex_buffer;
 	IndexBufferPtr m_index_buffer;
+
+	std::vector<struct MaterialSlot> m_material_slots;
 private:
 	friend class DeviceContext;
 };
