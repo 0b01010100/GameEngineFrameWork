@@ -12,8 +12,8 @@
 #include "VertexMesh.h"
 Mesh::Mesh(const wchar_t* full_path) : Resource(full_path)
 {
-	tinyobj::attrib_t attribs;
-	std::vector<tinyobj::shape_t> shapes;
+	tinyobj::attrib_t attribs;//Will store information on the dat in the file, like 
+	std::vector<tinyobj::shape_t> shapes;//Stores the 
 	std::vector<tinyobj::material_t> materials;
 
 	std::string warn;

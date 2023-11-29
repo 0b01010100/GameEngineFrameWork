@@ -16,9 +16,11 @@ class Mesh : public Resource
 public:
 	Mesh(const wchar_t* full_path);
 	~Mesh();
+	//Allows us to get the Vertex Buffer
 	const VertexBufferPtr& getVertexBuffer();
+	//Allows us to get the IndexBuffer
 	const IndexBufferPtr& getIndexBuffer();
-
+	//Allows us to get the material Slot at a specifc index
 	const MaterialSlot& getMaterialSlot(UINT slot);
 	size_t getNumMaterialSlots();
 private:
