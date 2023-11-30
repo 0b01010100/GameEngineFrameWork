@@ -132,6 +132,10 @@ public:
 	{
 		return Vector3D(m_mat[2][0], m_mat[2][1], m_mat[2][2]);
 	}
+	Vector3D getYDirection() 
+	{
+		return Vector3D(m_mat[1][0], m_mat[1][1], m_mat[1][2]);
+	}
 	//Return the x axis that is available in the first row of the matrix
 	Vector3D getXDirection()
 	{

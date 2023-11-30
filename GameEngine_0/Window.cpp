@@ -163,7 +163,8 @@ RECT Window::getClientWindowRect()
 	RECT rc;
 	///Gets the Current RECT->TOP, BUTTOM, LEFT, RIGHT of the m_hwnd Variable and assigns that information to the rc varable
 	::GetClientRect(/*ref Input*/this->m_hwnd, /*ref OutPut*/&rc);
-
+	::ClientToScreen(this->m_hwnd, (LPPOINT)& rc.left);
+	::ClientToScreen(this->m_hwnd, (LPPOINT)& rc.right);
 	return rc;//Return RECT rc variable
 
 }

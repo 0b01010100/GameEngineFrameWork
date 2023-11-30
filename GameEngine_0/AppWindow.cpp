@@ -250,7 +250,7 @@ void AppWindow::onCreate()
 	m_world_cam.setTranslation(Vector3D(0, 0, -1));
 
 
-	m_mat = GraphicsEngine::get()->createMaterial(L"PointLightVertexShader.hlsl", L"PointLightPixelShader.hlsl");
+	m_mat = GraphicsEngine::get()->createMaterial(L"DirectionalLightVertexShader.hlsl", L"DirectionalLightPixelShader.hlsl");
 	m_mat.get()->addTexture(m_wall_tex);
 	m_mat.get()->setCullMode(CULL_MODE_BACK);//Set different culling mode. Now only the front of the mesh can be seen.
 
@@ -278,7 +278,7 @@ void AppWindow::onCreate()
 	m_wood_mat.get()->addTexture(m_wood_tex);
 	m_wood_mat.get()->setCullMode(CULL_MODE_BACK);//Set different culling mode. Now only the front of the mesh can be seen.
 	
-	m_sky_mat = GraphicsEngine::get()->createMaterial(L"PointLightVertexShader.hlsl", L"SkyBoxShader.hlsl");
+	m_sky_mat = GraphicsEngine::get()->createMaterial(L"PointLightVertexShader.hlsl", L"SkyBoxPixelShader.hlsl");
 	m_sky_mat.get()->addTexture(m_sky_tex);
 	m_sky_mat.get()->setCullMode(CULL_MODE_FRONT);//Set different culling mode. Now only the back of the mesh can be seen.
 

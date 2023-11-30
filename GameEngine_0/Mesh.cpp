@@ -12,8 +12,8 @@
 #include "VertexMesh.h"
 Mesh::Mesh(const wchar_t* full_path) : Resource(full_path)
 {
-	tinyobj::attrib_t attribs;//Will store information on the dat in the file, like 
-	std::vector<tinyobj::shape_t> shapes;//Stores the 
+	tinyobj::attrib_t attribs;
+	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
 
 	std::string warn;
@@ -22,7 +22,7 @@ Mesh::Mesh(const wchar_t* full_path) : Resource(full_path)
 
 	//bool res = tinyobj::LoadObj(&attribs, &shapes, &materials, &warn, &err, inputfile.c_str());
 
-
+#pragma region Converting wstring to string
 	std::string converted_str;
 	std::wstring wstr = full_path;
 	for (wchar_t UTF16 : wstr)
@@ -31,6 +31,8 @@ Mesh::Mesh(const wchar_t* full_path) : Resource(full_path)
 
 		converted_str.push_back(UTF8);
 	}
+#pragma endregion
+
 
 	std::string mtldir = converted_str.substr(0, converted_str.find_last_of("\\/"));
 
@@ -46,24 +48,22 @@ Mesh::Mesh(const wchar_t* full_path) : Resource(full_path)
 		{
 			throw std::exception("Mesh was not created successfully");
 		}
-		std::vector<VertexMesh> list_vertices;
-		std::vector<unsigned int> list_indices;
-
-
+		std::vector<VertexMesh> list_vertices;//Stores the Vertex Layout
+		std::vector<unsigned int> list_indices;//Stores the list of vertices indices, to help map out which modle show be draw first
 
 		size_t size_vertex_index_lists = 0;//Is that some of the size of all the indeis list of all the shapes
 		
 		for (size_t s = 0; s < shapes.size(); s++) 
 		{
-			size_vertex_index_lists += shapes[s].mesh.indices.size();
+			size_vertex_index_lists += shapes[s].mesh.indices.size();//Finding out how many Indices there are in all
 		}
 
-		list_vertices.reserve(size_vertex_index_lists);
-		list_indices.reserve(size_vertex_index_lists);
+		list_vertices.reserve(size_vertex_index_lists);//Expaneding the campacity of the vector, so more memory dosn't have to be allocated and moved some where else in memory every time a new element is added.
+		list_indices.reserve(size_vertex_index_lists);//Expaneding the campacity of the vector, so more memory dosn't have to be allocated and moved some where else in memory every time a new element is added.
 
-		m_material_slots.resize(materials.size());
+		m_material_slots.resize(materials.size());//Resize the vectory with new memory allocated to sotre information of the materials in the file
 
-		size_t index_global_offset = 0;
+		size_t index_global_offset = 0;//
 
 		for (size_t m = 0; m < materials.size(); m++)
 		{

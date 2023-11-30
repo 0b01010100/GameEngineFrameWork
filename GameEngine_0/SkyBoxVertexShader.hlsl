@@ -45,6 +45,6 @@ VS_OUTPUT main(VS_INPUT input)
 
 
     output.texcoord = input.texcoord;
-    output.normal = normalize(mul(input.position, m_world));
+    output.normal = input.normal;
     return output;
 }

@@ -22,14 +22,14 @@ public:
 	void removeTexture(unsigned int index);
 	void setData(void* data, unsigned int size);
 
-	void setCullMode(CULL_MODE mode) noexcept;
-	const CULL_MODE getCullMode() noexcept;
+	void setCullMode(CULL_MODE mode) ;
+	const CULL_MODE getCullMode() ;
 private:
 	VertexShaderPtr m_vertex_shader = __nullptr;
 	PixelShaderPtr m_pixel_shader = __nullptr;
 	ConstantBufferPtr m_constant_buffer = __nullptr;
 	std::vector<TexturePtr> m_vec_textures;
-	CULL_MODE m_cull_mode;
+	CULL_MODE m_cull_mode = {};
 private:
 	friend class GraphicsEngine;
 };

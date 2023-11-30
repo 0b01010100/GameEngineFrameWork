@@ -6,7 +6,7 @@ Material::Material(const wchar_t* vertex_shader_path, const wchar_t* pixel_shade
 {
 	void* shader_byte_code = nullptr;
 	size_t size_shader = 0;
-	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(vertex_shader_path, "main", &shader_byte_code, &size_shader);
+	 GraphicsEngine::get()->getRenderSystem()->compileVertexShader(vertex_shader_path, "main", &shader_byte_code, &size_shader);
 	m_vertex_shader = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
 	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 
@@ -57,12 +57,11 @@ void Material::setData(void* data, unsigned int size)
 
 }
 
-void Material::setCullMode(CULL_MODE mode) noexcept
-{
+void Material::setCullMode(CULL_MODE mode) {
 	this->m_cull_mode = mode;
 }
 
-const CULL_MODE Material::getCullMode() noexcept
+const CULL_MODE Material::getCullMode() 
 {
 	return this->m_cull_mode;
 }

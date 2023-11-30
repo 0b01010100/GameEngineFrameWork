@@ -1,5 +1,4 @@
-#include "AppWindow.h"
-#include "GraphicsEngine.h"
+#include "SpaceShooterGame.h"
 #include "InputSystem.h"
 int __stdcall WinMain
 (
@@ -21,7 +20,7 @@ int __stdcall WinMain
 	{
 		try
 		{
-			AppWindow app = {};
+			SpaceShooterGame app = {};
 			while (app.isRun());
 		}
 		catch (const std::exception&)

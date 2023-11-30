@@ -9,8 +9,8 @@ struct VS_OUTPUT
 {
     float4 position : SV_POSITION;
     float2 texcoord : TEXCOORD0;
-    float3 normal : NORMAL0;
-    float3 world_pos : TEXCOORD1;
+    float3 normal : TEXCOORD1;
+    float3 direction_to_camera : TEXCOORD2;
 };
 
 
@@ -36,8 +36,8 @@ VS_OUTPUT main(VS_INPUT input)
 	
 	//WORLD SPACE
     output.position = mul(input.position, m_world);
-    output.world_pos = output.position.xyz;
-    
+    output.direction_to_camera = normalize(output.position.xyz - m_camera_position.xyz);
+	
 	//VIEW SPACE
     output.position = mul(output.position, m_view);
 	//SCREEN SPACE
@@ -45,6 +45,6 @@ VS_OUTPUT main(VS_INPUT input)
 
 
     output.texcoord = input.texcoord;
-    output.normal = normalize(mul(input.position, m_world));
+    output.normal = input.normal;
     return output;
 }
