@@ -233,6 +233,9 @@
     <ClInclude Include="AppWindow.h">
       <Filter>App\OldDemo</Filter>
     </ClInclude>
+    <ClInclude Include="MathUtils.h">
+      <Filter>GameEngine\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">

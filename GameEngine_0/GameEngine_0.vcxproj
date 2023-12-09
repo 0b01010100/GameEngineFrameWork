@@ -49,6 +49,7 @@
     <ClInclude Include="DeviceContext.h" />
     <ClInclude Include="GraphicsEngine.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="MathUtils.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshManager.h" />
     <ClInclude Include="Prerequisites.h" />

@@ -30,7 +30,7 @@ float4 main(PS_INPUT input) : SV_TARGET
 
 
 	//AMBIENT LIGHT
-    float ka = 1.5;
+    float ka = 8.5;
     float3 ia = float3(0.09, 0.082, 0.082);
     ia *= (color.rgb);
 

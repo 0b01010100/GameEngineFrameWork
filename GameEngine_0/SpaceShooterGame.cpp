@@ -5,12 +5,13 @@
 #include "Matrix4x4.h"
 #include "InputSystem.h"
 #include "Mesh.h"
+#include "MathUtils.h"
+#include <time.h> 
 struct vertex
 {
 	Vector3D position;
 	Vector2D texcoord;
 };
-
 
 __declspec(align(16))
 struct constant
@@ -39,57 +40,20 @@ void SpaceShooterGame::render()
 	RECT rc = this->getClientWindowRect();
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setViewportSize(rc.right, rc.bottom);
 
-
-
-	//for (int i = 0; i < 3; i++)
-	//{
-	//	//RENDER torus_mesh
-	//	updateModel(Vector3D(0, 2, -4 + 4 * i), m_mat);
-	//	drawMesh(m_torus_mesh, m_mat);
-
-	//	//RENDER sky_mesh
-	//	updateModel(Vector3D(4, 2, -4 + 4 * i), m_earth_mat);
-	//	drawMesh(m_sky_mesh, m_earth_mat);
-
-	//	//RENDER suzanne_mesh
-	//	updateModel(Vector3D(-4, 2, -4 + 4 * i), m_bricks_mat);
-	//	drawMesh(m_suzanne_mesh, m_bricks_mat);
-	//}
-
-	//updateModel(Vector3D(0, 0, 0), m_mat);
-	//drawMesh(m_plane_mesh, m_mat);
-
-	//m_list_materials.clear();
-	//m_list_materials.push_back(m_barrel_mat);
-	//m_list_materials.push_back(m_brick_mat);
-	//m_list_materials.push_back(m_windows_mat);
-	//m_list_materials.push_back(m_wood_mat);
-	//for (int i = 0; i < 3; i++)
-	//{
-	//	for (int j = 0; j < 3; j++)
-	//	{
-	//		updateModel(Vector3D(-14.0 + 14.0f * i, 0, -14.0 + 14.0f * j), m_list_materials);
-	//		drawMesh(m_house_mesh, m_list_materials);
-	//	}
-	//}
-
-	//m_list_materials.clear();
-	//m_list_materials.push_back(m_terrain_mat);
-	//updateModel(Vector3D(0, 0, 0), m_list_materials);
-	//drawMesh(m_terrain_mesh, m_list_materials);
-	
-
 	//RENDER SPACESHIP
 	m_list_materials.clear();
 	m_list_materials.push_back(m_spaceship_mat);
-	updateModel(m_spaceship_pos, m_spaceship_rot, Vector3D(1,1,1), m_list_materials);
+	updateModel(m_current_spaceship_pos, m_current_spaceship_rot, Vector3D(1, 1, 1), m_list_materials);
 	drawMesh(m_spaceship_mesh, m_list_materials);
 
 	//RENDER ASTEROID
 	m_list_materials.clear();
 	m_list_materials.push_back(m_asteroid_mat);
-	updateModel(Vector3D(1, 1, 20), Vector3D(0,0,0), Vector3D(1, 1, 1), m_list_materials);
-	drawMesh(m_asteroid_mesh, m_list_materials);
+	for (unsigned int i = 0; i < 200; i++)
+	{
+		updateModel(m_asterids_pos[i], m_asterids_rot[i], m_asterids_scale[i], m_list_materials);
+		drawMesh(m_asteroid_mesh, m_list_materials);
+	}
 
 
 	//SKY SPHERE
@@ -107,23 +71,24 @@ void SpaceShooterGame::render()
 
 	// If m_old_delta is non-zero, this part calculates the time difference between the current frame 
 	//m_new_delta and the previous frame m_old_delta. The difference is divided by 1000.0f, to convert it into seconds 
-	m_delta_time = (m_old_delta) ? ((m_new_delta - m_old_delta) / 1000.0f) : 0;
-
+	//m_delta_time = (m_old_delta) ? ((m_new_delta - m_old_delta) / 1000.0f) : 0;
+	m_delta_time = 1.0f / 60.0f;
 	m_time += m_delta_time;//updating the program's notion of the current 
 }
 
 void SpaceShooterGame::update()//Update
 {
+	this->updateSpaceShip();
+	this->updateThirdPersonCamera();
 	this->updateLight();
 	this->updateSkyBox();
-	this->updateSpaceShip();	
-	this->updateThirdPersonCamera();
+
 }
 
 void SpaceShooterGame::updateModel(Vector3D position, Vector3D rotation, Vector3D scale, const std::vector<MaterialPtr>& list_materials)
 {
 	constant cc = {};
-	
+
 	Matrix4x4 temp = {};
 	cc.m_world.setIdentity();
 
@@ -194,7 +159,7 @@ void SpaceShooterGame::updateCamera()
 
 
 	this->m_proj_cam.setPerspectiveFovLH(1.57f, ((float)width / (float)height), 0.1f, 600.0f);
-	
+
 }
 
 void SpaceShooterGame::updateThirdPersonCamera()
@@ -206,23 +171,44 @@ void SpaceShooterGame::updateThirdPersonCamera()
 	m_cam_rot.m_y += m_delta_mouse_x * m_delta_time * 0.1f;
 
 
-
 	if (m_cam_rot.m_x >= 1.57f)
 		m_cam_rot.m_x = 1.57f;
 
 	else if (m_cam_rot.m_x <= -1.57f)
 		m_cam_rot.m_x = -1.57f;
+	m_current_cam_rot = Vector3D::lerp(m_current_cam_rot, m_cam_rot, 3.0f * m_delta_time);
 	temp.setIdentity();
-	temp.setRotationX(m_cam_rot.m_x);
+	temp.setRotationX(m_current_cam_rot.m_x);
 	world_cam *= temp;
 
 	temp.setIdentity();
-	temp.setRotationY(m_cam_rot.m_y);
+	temp.setRotationY(m_current_cam_rot.m_y);
 	world_cam *= temp;
 
-	m_cam_pos = m_spaceship_pos;
+	if (m_forward) 
+	{
+		if (m_turbo_mode) 
+		{
+			if (m_forward > 0.0f) m_cam_distance = 25.0f;
+			else m_cam_distance = 5.0f;
+		}
+		else 
+		{
+			if (m_forward > 0.0f) m_cam_distance = 16.0f;	
+			else m_cam_distance = 9.0f;
+		}
 
-	Vector3D new_pos = m_cam_pos + world_cam.getZDirection() * (-m_cam_distance);
+	}
+	else
+	{
+		m_cam_distance = 14.0f;
+	}
+
+	m_current_cam_distance = lerp(m_current_cam_distance, m_cam_distance, 2.0f * m_delta_time);
+
+	m_cam_pos = m_current_spaceship_pos;
+
+	Vector3D new_pos = m_cam_pos + world_cam.getZDirection() * (-m_current_cam_distance);
 	new_pos = new_pos + world_cam.getYDirection() * (5.0f);
 	world_cam.setTranslation(new_pos);
 
@@ -236,7 +222,7 @@ void SpaceShooterGame::updateThirdPersonCamera()
 	int height = (this->getClientWindowRect().bottom - this->getClientWindowRect().top);
 
 
-	this->m_proj_cam.setPerspectiveFovLH(1.57f, ((float)width / (float)height), 0.1f, 100.0f);
+	this->m_proj_cam.setPerspectiveFovLH(1.57f, ((float)width / (float)height), 0.1f, 5000.0f);
 }
 
 void SpaceShooterGame::updateSkyBox()
@@ -244,7 +230,7 @@ void SpaceShooterGame::updateSkyBox()
 	constant cc;
 
 	cc.m_world.setIdentity();
-	cc.m_world.setScale(Vector3D(100.0f, 100.0f, 100.0f));
+	cc.m_world.setScale(Vector3D(4000.0f, 4000.0f, 4000.0f));
 	cc.m_world.setTranslation(m_world_cam.getTranslation());
 	cc.m_view = m_view_cam;
 	cc.m_proj = m_proj_cam;
@@ -271,8 +257,8 @@ void SpaceShooterGame::updateLight()
 
 void SpaceShooterGame::updateSpaceShip()
 {
-	Matrix4x4 world_cam, temp;
-	world_cam.setIdentity();
+	Matrix4x4 world_model, temp;
+	world_model.setIdentity();
 
 	m_spaceship_rot.m_x += m_delta_mouse_y * m_delta_time * 0.1f;
 	m_spaceship_rot.m_y += m_delta_mouse_x * m_delta_time * 0.1f;
@@ -284,17 +270,25 @@ void SpaceShooterGame::updateSpaceShip()
 
 	else if (m_spaceship_rot.m_x <= -1.57f)
 		m_spaceship_rot.m_x = -1.57f;
+
+	m_current_spaceship_rot = Vector3D::lerp(m_current_spaceship_rot, m_spaceship_rot, 5.0f * m_delta_time);
 	temp.setIdentity();
-	temp.setRotationX(m_spaceship_rot.m_x);
-	world_cam *= temp;
+	temp.setRotationX(m_current_spaceship_rot.m_x);
+	world_model *= temp;
 
 	temp.setIdentity();
-	temp.setRotationY(m_spaceship_rot.m_y);
-	world_cam *= temp;
+	temp.setRotationY(m_current_spaceship_rot.m_y);
+	world_model *= temp;
 
-	m_spaceship_pos  = m_spaceship_pos  + world_cam.getZDirection() * (m_forward) *m_spaceship_speed * m_delta_time;
 
-	
+	m_spaceship_speed = 125.f;
+	if (m_turbo_mode) 
+	{
+		m_spaceship_speed = 305.0f;
+	}
+	m_spaceship_pos = m_spaceship_pos + world_model.getZDirection() * (m_forward)*m_spaceship_speed * m_delta_time;
+
+	m_current_spaceship_pos = Vector3D::lerp(m_current_spaceship_pos, m_spaceship_pos, 3.0f * m_delta_time);
 }
 
 void SpaceShooterGame::drawMesh(const MeshPtr& mesh, const std::vector<MaterialPtr>& list_materials)
@@ -321,35 +315,6 @@ SpaceShooterGame::~SpaceShooterGame()
 void SpaceShooterGame::onCreate()
 {
 
-
-	//#pragma region Loading Textures
-	//	m_wall_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Textures\\wall.jpg");
-	//	m_bricks_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Textures\\brick.png");
-	//	m_earth_color_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Textures\\earth_color.jpg");
-	//#pragma endregion
-	//#pragma region Loading Meshes
-	//
-
-	////m_sand_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Textures\\sand.jpg");
-
-	////m_barrel_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Textures\\barrel.jpg");
-	////m_brick_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Textures\\house_brick.jpg");
-	////m_windows_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Textures\\house_windows.jpg");
-	////m_wood_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Textures\\house_wood.jpg");
-	//	//Mesh
-	//	m_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile
-	//	(L"Meshes\\scene.obj");
-	//	m_torus_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile
-	//	(L"Meshes\\torus.obj");
-	//	m_suzanne_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile
-	//	(L"Meshes\\suzanne.obj");
-	//	m_plane_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile
-	//	(L"Meshes\\plane.obj");
-	//#pragma endregion
-
-	////m_terrain_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"Meshes\\terrain.obj");
-	////m_house_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"Meshes\\house.obj");
-
 	Window::onCreate();
 
 	InputSystem::get()->addListener(this);//Observer desinge pattern. This class can listen to INput Events
@@ -360,6 +325,15 @@ void SpaceShooterGame::onCreate()
 	RECT rc = this->getClientWindowRect();
 	m_swap_chain = GraphicsEngine::get()->getRenderSystem()->createSwapChain(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
+	srand((unsigned int)time(NULL));
+
+	for (unsigned int i = 0; i < 200; i++) 
+	{
+		m_asterids_pos[i] = Vector3D(rand() % 4000 + (-2000), rand() % 4000 + (-2000), rand() % 4000 + (-2000));
+		m_asterids_rot[i] = Vector3D(rand() % 628/ 100, rand() % 628 / 100, rand() % 628 / 100);
+		float scale = rand() % 20 + (6);
+		m_asterids_scale[i] = Vector3D(scale, scale, scale);
+	}
 
 	m_sky_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Textures\\stars_map.jpg");
 	m_sky_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"Meshes\\sphere.obj");
@@ -427,6 +401,9 @@ void SpaceShooterGame::onUpdate()
 	this->update();
 	//RENDER
 	this->render();
+
+	m_delta_mouse_x = 0;
+	m_delta_mouse_y = 0;
 }
 //Release reasources when done 
 void SpaceShooterGame::onDestroy()
@@ -449,6 +426,8 @@ void SpaceShooterGame::onSize()
 {
 	RECT rc = this->getClientWindowRect();
 	m_swap_chain->resize(rc.right - rc.left, rc.bottom - rc.top);
+
+	this->update();
 	this->render();
 }
 
@@ -483,7 +462,10 @@ void SpaceShooterGame::onKeyDown(int key)
 		//m_rot_y -= 3.14f*m_delta_time;
 		m_light_radius += 1.0f * m_delta_time;
 	}
-
+	else if (key == VK_SHIFT)
+	{
+		m_turbo_mode = true;
+	}
 }
 
 void SpaceShooterGame::onKeyUp(int key)
@@ -493,9 +475,9 @@ void SpaceShooterGame::onKeyUp(int key)
 
 	if (key == VK_ESCAPE)
 	{
-		if(m_play_state)
+		if (m_play_state)
 		{
-			m_play_state = false ;
+			m_play_state = false;
 			InputSystem::get()->showCursor(!m_play_state);
 		}
 	}
@@ -509,6 +491,10 @@ void SpaceShooterGame::onKeyUp(int key)
 			m_swap_chain->setFullScreen(m_fullscreen_state, size_screen.right, size_screen.bottom);
 		}
 	}
+	else if (key == VK_SHIFT) 
+	{
+		m_turbo_mode = false;
+	}
 }
 
 void SpaceShooterGame::onMouseMove(const Point& mouse_pos)
@@ -520,13 +506,13 @@ void SpaceShooterGame::onMouseMove(const Point& mouse_pos)
 	int width = (win_size.right - win_size.left);
 	int height = (win_size.bottom - win_size.top);
 
-	m_delta_mouse_x = (int)(mouse_pos.m_x - (win_size.left + (width / 2.0f))) ;
-	m_delta_mouse_y = (int)(mouse_pos.m_y - (win_size.top + (height / 2.0f)));
+	m_delta_mouse_x = (int)(mouse_pos.m_x - (int)(win_size.left + (width / 2.0f)));
+	m_delta_mouse_y = (int)(mouse_pos.m_y - (int)(win_size.top + (height / 2.0f)));
 
 
 	//Changing rotation offset based on the X and Y position of the mouse
 
-	InputSystem::get()->SetCursorPosition(Point(win_size.left + (int)(width / 2.0f), win_size .top+ (int)(height / 2.0f)));
+	InputSystem::get()->SetCursorPosition(Point(win_size.left + (int)(width / 2.0f), win_size.top + (int)(height / 2.0f)));
 }
 
 void SpaceShooterGame::onLeftMouseDown(const Point& mouse_pos)
@@ -542,11 +528,11 @@ void SpaceShooterGame::onLeftMouseUp(const Point& mouse_pos)
 void SpaceShooterGame::onRightMouseDown(const Point& mouse_pos)
 {
 
-		if (!m_play_state)
-		{
-			m_play_state = true;
-			InputSystem::get()->showCursor(!m_play_state);
-		}
+	if (!m_play_state)
+	{
+		m_play_state = true;
+		InputSystem::get()->showCursor(!m_play_state);
+	}
 }
 
 void SpaceShooterGame::onRightMouseUp(const Point& mouse_pos)

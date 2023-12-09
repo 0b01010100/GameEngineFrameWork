@@ -139,7 +139,7 @@ void DeviceContext::setTexture(const PixelShaderPtr& pixel_shader, const Texture
 }
 
 //Release resources
-DeviceContext::~DeviceContext()
+DeviceContext::~DeviceContext() 
 {	
 	m_device_context->Release();
 }
