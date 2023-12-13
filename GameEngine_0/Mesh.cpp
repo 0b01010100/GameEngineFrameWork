@@ -1,15 +1,14 @@
 #include "Mesh.h"
-#include <Windows.h>
+
 #define TINYOBJLOADER_IMPLEMENTATION
 #include <tiny_obj_loader.h>
-#include <exception>
-#include <string>
-#include <sstream>
-//#include <locale>
-//#include <codecvt>
+
+#include <locale>
+#include <codecvt>
 
 #include "GraphicsEngine.h"
 #include "VertexMesh.h"
+
 Mesh::Mesh(const wchar_t* full_path) : Resource(full_path)
 {
 	tinyobj::attrib_t attribs;
@@ -18,114 +17,135 @@ Mesh::Mesh(const wchar_t* full_path) : Resource(full_path)
 
 	std::string warn;
 	std::string err;
-	//std::string inputfile = std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(full_path);
 
-	//bool res = tinyobj::LoadObj(&attribs, &shapes, &materials, &warn, &err, inputfile.c_str());
+	std::string inputfile = std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(full_path);
 
-#pragma region Converting wstring to string
-	std::string converted_str;
-	std::wstring wstr = full_path;
-	for (wchar_t UTF16 : wstr)
+	std::string mtldir = inputfile.substr(0, inputfile.find_last_of("\\/"));
+
+
+	bool res = tinyobj::LoadObj(&attribs, &shapes, &materials, &warn, &err, inputfile.c_str(), mtldir.c_str());
+
+	if (!err.empty()) throw std::exception("Mesh not created successfully");
+
+	if (!res) throw std::exception("Mesh not created successfully");
+
+
+	std::vector<VertexMesh> list_vertices;
+	std::vector<unsigned int> list_indices;
+
+	size_t vertex_buffer_size = 0;
+
+
+	for (size_t s = 0; s < shapes.size(); s++)
 	{
-		char UTF8 = static_cast<char>(UTF16);
-
-		converted_str.push_back(UTF8);
+		vertex_buffer_size += shapes[s].mesh.indices.size();
 	}
-#pragma endregion
 
 
-	std::string mtldir = converted_str.substr(0, converted_str.find_last_of("\\/"));
+	list_vertices.reserve(vertex_buffer_size);
+	list_indices.reserve(vertex_buffer_size);
 
-	bool res = tinyobj::LoadObj(&attribs, &shapes, &materials, &warn, &err, converted_str.c_str(), mtldir.c_str());
 
-	try
+	m_mat_slots.resize(materials.size());
+
+	size_t index_global_offset = 0;
+
+	for (size_t m = 0; m < materials.size(); m++)
 	{
-		if (!err.empty())
+		m_mat_slots[m].start_index = index_global_offset;
+		m_mat_slots[m].material_id = m;
+
+		for (size_t s = 0; s < shapes.size(); s++)
 		{
-			throw std::exception("Mesh Not created Succesfully");
-		}
-		if (!res)
-		{
-			throw std::exception("Mesh was not created successfully");
-		}
-		std::vector<VertexMesh> list_vertices;//Stores the Vertex Layout
-		std::vector<unsigned int> list_indices;//Stores the list of vertices indices, to help map out which modle show be draw first
+			size_t index_offset = 0;
 
-		size_t size_vertex_index_lists = 0;//Is that some of the size of all the indeis list of all the shapes
-		
-		for (size_t s = 0; s < shapes.size(); s++) 
-		{
-			size_vertex_index_lists += shapes[s].mesh.indices.size();//Finding out how many Indices there are in all
-		}
-
-		list_vertices.reserve(size_vertex_index_lists);//Expaneding the campacity of the vector, so more memory dosn't have to be allocated and moved some where else in memory every time a new element is added.
-		list_indices.reserve(size_vertex_index_lists);//Expaneding the campacity of the vector, so more memory dosn't have to be allocated and moved some where else in memory every time a new element is added.
-
-		m_material_slots.resize(materials.size());//Resize the vectory with new memory allocated to sotre information of the materials in the file
-
-		size_t index_global_offset = 0;//
-
-		for (size_t m = 0; m < materials.size(); m++)
-		{
-			m_material_slots[m].start_index = index_global_offset;
-			m_material_slots[m].material_id = m;
-
-			for (size_t s = 0; s < shapes.size(); s++)
+			for (size_t f = 0; f < shapes[s].mesh.num_face_vertices.size(); f++)
 			{
-				size_t index_offset = 0;
+				if (shapes[s].mesh.material_ids[f] != m) continue;
 
+				unsigned char num_face_verts = shapes[s].mesh.num_face_vertices[f];
 
-				for (size_t f = 0; f < shapes[s].mesh.num_face_vertices.size(); f++)
+				Vector3D vertices_face[3];
+				Vector2D texcoords_face[3];
+
+				for (unsigned char v = 0; v < num_face_verts; v++)
 				{
-					if (shapes[s].mesh.material_ids[f] != m) continue;
+					tinyobj::index_t index = shapes[s].mesh.indices[index_offset + v];
 
-					unsigned char num_face_verts = shapes[s].mesh.num_face_vertices[f];
+					tinyobj::real_t vx = attribs.vertices[index.vertex_index * 3 + 0];
+					tinyobj::real_t vy = attribs.vertices[index.vertex_index * 3 + 1];
+					tinyobj::real_t vz = attribs.vertices[index.vertex_index * 3 + 2];
 
-					for (unsigned char v = 0; v < num_face_verts; v++)
+					tinyobj::real_t tx = 0;
+					tinyobj::real_t ty = 0;
+					if (attribs.texcoords.size())
 					{
-						tinyobj::index_t index = shapes[s].mesh.indices[index_offset + v];
+						tx = attribs.texcoords[index.texcoord_index * 2 + 0];
+						ty = attribs.texcoords[index.texcoord_index * 2 + 1];
+					}
+					vertices_face[v] = Vector3D(vx, vy, vz);
+					texcoords_face[v] = Vector2D(tx, ty);
+				}
 
-						tinyobj::real_t vx = attribs.vertices[index.vertex_index * 3 + 0];
-						tinyobj::real_t vy = attribs.vertices[index.vertex_index * 3 + 1];
-						tinyobj::real_t vz = attribs.vertices[index.vertex_index * 3 + 2];
+				Vector3D tangent, binormal;
 
-						tinyobj::real_t tx = attribs.texcoords[index.texcoord_index * 2 + 0];
-						tinyobj::real_t ty = attribs.texcoords[index.texcoord_index * 2 + 1];
+				computeTangents(
+					vertices_face[0], vertices_face[1], vertices_face[2],
+					texcoords_face[0], texcoords_face[1], texcoords_face[2],
+					tangent, binormal);
 
-						tinyobj::real_t nx = attribs.normals[index.normal_index * 3 + 0];
-						tinyobj::real_t ny = attribs.normals[index.normal_index * 3 + 1];
-						tinyobj::real_t nz = attribs.normals[index.normal_index * 3 + 2];
 
-						VertexMesh vertex(Vector3D(vx, vy, vz), Vector2D(tx, ty), Vector3D(nx, ny, nz));
-						list_vertices.push_back(vertex);
+				for (unsigned char v = 0; v < num_face_verts; v++)
+				{
+					tinyobj::index_t index = shapes[s].mesh.indices[index_offset + v];
 
-						list_indices.push_back((unsigned int)index_global_offset + v);
+					tinyobj::real_t vx = attribs.vertices[index.vertex_index * 3 + 0];
+					tinyobj::real_t vy = attribs.vertices[index.vertex_index * 3 + 1];
+					tinyobj::real_t vz = attribs.vertices[index.vertex_index * 3 + 2];
+
+					tinyobj::real_t tx = 0;
+					tinyobj::real_t ty = 0;
+					if (attribs.texcoords.size())
+					{
+						tx = attribs.texcoords[index.texcoord_index * 2 + 0];
+						ty = attribs.texcoords[index.texcoord_index * 2 + 1];
 					}
 
-					index_offset += num_face_verts;
-					index_global_offset += num_face_verts;
+					tinyobj::real_t nx = 0;
+					tinyobj::real_t ny = 0;
+					tinyobj::real_t nz = 0;
+					if (attribs.normals.size())
+					{
+						nx = attribs.normals[index.normal_index * 3 + 0];
+						ny = attribs.normals[index.normal_index * 3 + 1];
+						nz = attribs.normals[index.normal_index * 3 + 2];
+					}
+
+					Vector3D v_tangent, v_binormal;
+					v_binormal = Vector3D::cross(Vector3D(nx, ny, nz), tangent);
+					v_tangent = Vector3D::cross(v_binormal, Vector3D(nx, ny, nz));
+
+
+					VertexMesh vertex(Vector3D(vx, vy, vz), Vector2D(tx, ty), Vector3D(nx, ny, nz), v_tangent, v_binormal);
+					list_vertices.push_back(vertex);
+
+					list_indices.push_back((unsigned int)index_global_offset + v);
 				}
+
+				index_offset += num_face_verts;
+				index_global_offset += num_face_verts;
 			}
-
-			m_material_slots[m].num_indices = index_global_offset - m_material_slots[m].start_index;
-
 		}
 
-		void* shader_byte_code = nullptr;
-		size_t size_shader = 0;
-		GraphicsEngine::get()->getVertexMeshLayoutShaderByteCodeAndSize(&shader_byte_code, &size_shader);
-		m_vertex_buffer = GraphicsEngine::get()->getRenderSystem()->createVertexBuffer(&list_vertices[0], sizeof(VertexMesh),
-			(UINT)list_vertices.size(), shader_byte_code, (UINT)size_shader);
-		m_index_buffer = GraphicsEngine::get()->getRenderSystem()->createIndexBuffer(&list_indices[0], (UINT)list_indices.size());
-	}
-	catch (const std::exception& e)
-	{
-		std::wstringstream msg;
-		msg << L"Exception: " << e.what();
-		OutputDebugStringW(msg.str().c_str());
+		m_mat_slots[m].num_indices = index_global_offset - m_mat_slots[m].start_index;
 	}
 
-
+	void* shader_byte_code = nullptr;
+	size_t size_shader = 0;
+	GraphicsEngine::get()->getVertexMeshLayoutShaderByteCodeAndSize(&shader_byte_code, &size_shader);
+	m_vertex_buffer = GraphicsEngine::get()->getRenderSystem()->createVertexBuffer(&list_vertices[0], sizeof(VertexMesh),
+		(UINT)list_vertices.size(), shader_byte_code, (UINT)size_shader);
+	m_index_buffer = GraphicsEngine::get()->getRenderSystem()->createIndexBuffer(&list_indices[0], (UINT)list_indices.size());
 }
 
 
@@ -143,14 +163,35 @@ const IndexBufferPtr& Mesh::getIndexBuffer()
 	return m_index_buffer;
 }
 
-const MaterialSlot& Mesh::getMaterialSlot(UINT slot)
+const MaterialSlot& Mesh::getMaterialSlot(unsigned int slot)
 {
-	if (slot >= m_material_slots.size()) return MaterialSlot();
-
-	return m_material_slots[slot];
+	return m_mat_slots[slot];
 }
 
 size_t Mesh::getNumMaterialSlots()
 {
-	return m_material_slots.size();
+	return m_mat_slots.size();
 }
+
+void Mesh::computeTangents(const Vector3D& v0,
+	const Vector3D& v1,
+	const Vector3D& v2,
+	const Vector2D& t0,
+	const Vector2D& t1,
+	const Vector2D& t2,
+	Vector3D& tangent, Vector3D& binormal)
+{
+	Vector3D deltaPos1 = v1 - v0;
+	Vector3D deltaPos2 = v2 - v0;
+
+	Vector2D deltaUV1 = t1 - t0;
+	Vector2D deltaUV2 = t2 - t0;
+
+
+	float r = 1.0f / (deltaUV1.m_x * deltaUV2.m_y - deltaUV1.m_y * deltaUV2.m_x);
+	tangent = (deltaPos1 * deltaUV2.m_y - deltaPos2 * deltaUV1.m_y);
+	tangent = Vector3D::normalize(tangent);
+	binormal = (deltaPos2 * deltaUV1.m_x - deltaPos1 * deltaUV2.m_x);
+	binormal = Vector3D::normalize(binormal);
+}
+

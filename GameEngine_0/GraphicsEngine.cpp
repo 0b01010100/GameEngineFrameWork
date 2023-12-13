@@ -82,7 +82,7 @@ void GraphicsEngine::setMaterial(const MaterialPtr& material)
 	getRenderSystem()->getImmediateDeviceContext()->setVertexShader(material->m_vertex_shader);
 	getRenderSystem()->getImmediateDeviceContext()->setPixelShader(material->m_pixel_shader);
 
-	getRenderSystem()->getImmediateDeviceContext()->setTexture(material->m_pixel_shader, &material->m_vec_textures[0], material->m_vec_textures.size());
+	getRenderSystem()->getImmediateDeviceContext()->setTexture(material->m_pixel_shader, &material->m_vec_textures[0], (UINT)material->m_vec_textures.size());
 }
 
 void GraphicsEngine::getVertexMeshLayoutShaderByteCodeAndSize(void** byte_code, size_t* size)

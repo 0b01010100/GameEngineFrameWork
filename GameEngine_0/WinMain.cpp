@@ -1,4 +1,4 @@
-#include "SpaceShooterGame.h"
+#include "BumpMappingDemo.h"
 #include "InputSystem.h"
 int __stdcall WinMain
 (
@@ -20,7 +20,7 @@ int __stdcall WinMain
 	{
 		try
 		{
-			SpaceShooterGame app = {};
+			BumpMappingDemo app = {};
 			while (app.isRun());
 		}
 		catch (const std::exception&)

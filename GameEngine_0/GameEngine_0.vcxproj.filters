@@ -64,6 +64,9 @@
     <ClCompile Include="AppWindow.cpp">
       <Filter>App\OldDemo</Filter>
     </ClCompile>
+    <ClCompile Include="BumpMappingDemo.cpp">
+      <Filter>App\BumpMappingDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameEngine">
@@ -143,6 +146,12 @@
     </Filter>
     <Filter Include="App\GlobalShaders\PointLight">
       <UniqueIdentifier>{d9704b94-f4a7-4a82-b4ec-1a564c3e5e9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\BumpMappingDemo">
+      <UniqueIdentifier>{a996f5c9-1ba6-4b02-9439-d41c002a5ae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\GlobalShaders\DirLightBumpMaping">
+      <UniqueIdentifier>{50a50dc8-fe76-4f22-a178-753fe8a04ccc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -236,6 +245,9 @@
     <ClInclude Include="MathUtils.h">
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
+    <ClInclude Include="BumpMappingDemo.h">
+      <Filter>App\BumpMappingDemo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -243,9 +255,6 @@
     </FxCompile>
     <FxCompile Include="PixelShader.hlsl">
       <Filter>App\OldDemo\Shaders\EarthShaders</Filter>
-    </FxCompile>
-    <FxCompile Include="VertexMeshLayoutShader.hlsl">
-      <Filter>App\OldDemo\Shaders</Filter>
     </FxCompile>
     <FxCompile Include="PointLightVertexShader.hlsl">
       <Filter>App\GlobalShaders\PointLight</Filter>
@@ -264,6 +273,15 @@
     </FxCompile>
     <FxCompile Include="SkyBoxVertexShader.hlsl">
       <Filter>App\GlobalShaders\SkyBox</Filter>
+    </FxCompile>
+    <FxCompile Include="VertexMeshLayoutShader.hlsl">
+      <Filter>GameEngine\GraphicsEngine\ResourceManager</Filter>
+    </FxCompile>
+    <FxCompile Include="DirLightBumpPS.hlsl">
+      <Filter>App\GlobalShaders\DirLightBumpMaping</Filter>
+    </FxCompile>
+    <FxCompile Include="DirLightBumpVS.hlsl">
+      <Filter>App\GlobalShaders\DirLightBumpMaping</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

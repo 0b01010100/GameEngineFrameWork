@@ -127,9 +127,9 @@ bool Window::broadcast()
 		this->m_is_init = true;
 	}
 
-	this->onUpdate();
+	
 	///A message loop that continuously retrieves messages from the application's message queue
-	while (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0)
+	if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0)
 	{
 		///Translates the Message for the next function to be able to read the Message
 		TranslateMessage(&msg);
@@ -137,6 +137,8 @@ bool Window::broadcast()
 		//Based on the Message this Could be used the trgger certian Window Events in the WnProc's Switch cases.
 		DispatchMessage(&msg);
 	}
+
+	this->onUpdate();
 	///Gives the Computer a 1 Milli-second to realeve some streess on the CPU a bit before conutinuing
 	Sleep(1);
 

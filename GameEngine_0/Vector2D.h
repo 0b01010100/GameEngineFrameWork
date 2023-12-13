@@ -21,16 +21,18 @@ public:
 		return v;
 	}
 
-	Vector2D operator *(float num)
+	Vector2D operator *(float num) const
 	{
 		return Vector2D(m_x * num, m_y * num);
 	}
-
-	Vector2D operator +(Vector2D vec)
+	Vector2D operator +(Vector2D vec) const
 	{
 		return Vector2D(m_x + vec.m_x, m_y + vec.m_y);
 	}
-
+	Vector2D operator -(Vector2D vec) const
+	{
+		return Vector2D(m_x - vec.m_x, m_y - vec.m_y);
+	}
 	~Vector2D()
 	{
 	}

@@ -29,6 +29,10 @@ void DeviceContext::clearRenderTargetColor(const SwapChainPtr& swap_chain, float
 	m_device_context->ClearDepthStencilView(swap_chain->m_dsv, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
 	m_device_context->OMSetRenderTargets(1, &swap_chain->m_rtv, swap_chain->m_dsv);
 }
+void DeviceContext::clearDepthStencil(const SwapChainPtr& swap_chain)
+{
+	m_device_context->ClearDepthStencilView(swap_chain->m_dsv, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
+}
 ///Prep for Input Assembler Stage
 //The will tell Our grahpihc card what and where to draw the verties
 void DeviceContext::setVertexBuffer(const VertexBufferPtr& vertex_buffer)
@@ -114,8 +118,8 @@ void DeviceContext::setConstantBuffer(const PixelShaderPtr& pixel_shader, const 
 
 void DeviceContext::setTexture(const VertexShaderPtr& vertex_shader, const TexturePtr* texture, const unsigned int num_textures)
 {
-	ID3D11ShaderResourceView* list_res[32]{};
-	ID3D11SamplerState* list_sampler[32]{};
+	ID3D11ShaderResourceView* list_res[32];
+	ID3D11SamplerState* list_sampler[32];
 	for (unsigned int i = 0; i < num_textures; i++)
 	{
 		list_res[i] = texture[i]->m_shader_res_view;
@@ -127,8 +131,8 @@ void DeviceContext::setTexture(const VertexShaderPtr& vertex_shader, const Textu
 
 void DeviceContext::setTexture(const PixelShaderPtr& pixel_shader, const TexturePtr* texture, const unsigned int num_textures)
 {
-	ID3D11ShaderResourceView* list_res[32]{};
-	ID3D11SamplerState* list_sampler[32]{};
+	ID3D11ShaderResourceView* list_res[32];
+	ID3D11SamplerState* list_sampler[32];
 	for (unsigned int i = 0; i < num_textures; i++)
 	{
 		list_res[i] = texture[i]->m_shader_res_view;
