@@ -67,6 +67,10 @@
     <ClCompile Include="BumpMappingDemo.cpp">
       <Filter>App\BumpMappingDemo</Filter>
     </ClCompile>
+    <ClCompile Include="FrameBufferDemo.cpp">
+      <Filter>App\FrameBufferDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameEngine">
@@ -152,6 +156,9 @@
     </Filter>
     <Filter Include="App\GlobalShaders\DirLightBumpMaping">
       <UniqueIdentifier>{50a50dc8-fe76-4f22-a178-753fe8a04ccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\FrameBufferDemo">
+      <UniqueIdentifier>{d1051b05-6b3f-46fa-804a-064861ca001d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -248,6 +255,13 @@
     <ClInclude Include="BumpMappingDemo.h">
       <Filter>App\BumpMappingDemo</Filter>
     </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>GameEngine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBufferDemo.h">
+      <Filter>App\FrameBufferDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGame.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">

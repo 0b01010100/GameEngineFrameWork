@@ -5,7 +5,7 @@ InputSystem* InputSystem::m_system = nullptr;
 
 InputSystem::InputSystem()
 {
-
+	
 }
 
 

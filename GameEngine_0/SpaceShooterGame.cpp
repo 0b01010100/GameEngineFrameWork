@@ -344,33 +344,7 @@ void SpaceShooterGame::onCreate()
 	m_asteroid_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Textures\\asteroid.jpg");
 	m_asteroid_mesh = GraphicsEngine::get()->getMeshManager()->createMeshFromFile(L"Meshes\\asteroid.obj");
 
-	////m_mat = GraphicsEngine::get()->createMaterial(L"PointLightVertexShader.hlsl", L"SkyBoxPixelShader.hlsl");
-	////m_mat.get()->addTexture(m_wall_tex);
-	////m_mat.get()->setCullMode(CULL_MODE_BACK);//Set different culling mode. Now only the front of the mesh can be seen.
-
-	//m_earth_mat = GraphicsEngine::get()->createMaterial(m_mat);
-	//m_earth_mat.get()->addTexture(m_earth_color_tex);
-	//m_earth_mat.get()->setCullMode(CULL_MODE_BACK);//Set different culling mode. Now only the front of the mesh can be seen.
-
-	////m_terrain_mat = GraphicsEngine::get()->createMaterial(m_mat);
-	////m_terrain_mat.get()->addTexture(m_sand_tex);
-	////m_terrain_mat.get()->setCullMode(CULL_MODE_BACK);//Set different culling mode. Now only the front of the mesh can be seen.
-
-	////m_barrel_mat = GraphicsEngine::get()->createMaterial(m_mat);
-	////m_barrel_mat.get()->addTexture(m_barrel_tex);
-	////m_barrel_mat.get()->setCullMode(CULL_MODE_BACK);//Set different culling mode. Now only the front of the mesh can be seen.
-
-	////m_brick_mat = GraphicsEngine::get()->createMaterial(m_mat);
-	////m_brick_mat.get()->addTexture(m_brick_tex);
-	////m_brick_mat.get()->setCullMode(CULL_MODE_BACK);//Set different culling mode. Now only the front of the mesh can be seen.
-
-	////m_windows_mat = GraphicsEngine::get()->createMaterial(m_mat);
-	////m_windows_mat.get()->addTexture(m_windows_tex);
-	////m_windows_mat.get()->setCullMode(CULL_MODE_BACK);//Set different culling mode. Now only the front of the mesh can be seen.
-
-	////m_wood_mat = GraphicsEngine::get()->createMaterial(m_mat);
-	////m_wood_mat.get()->addTexture(m_wood_tex);
-	////m_wood_mat.get()->setCullMode(CULL_MODE_BACK);//Set different culling mode. Now only the front of the mesh can be seen.
+	
 	m_base_mat = GraphicsEngine::get()->createMaterial(L"DirectionalLightVertexShader.hlsl", L"DirectionalLightPixelShader.hlsl");
 	m_base_mat->setCullMode(CULL_MODE_BACK);
 

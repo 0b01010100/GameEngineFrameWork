@@ -10,13 +10,13 @@
 #include "PixelShader.h"
 #include "InputListener.h"
 #include "Matrix4x4.h"
+#include "MiniGame.h"
 
-
-class BumpMappingDemo : public Window, public InputListener
+class FrameBufferDemo : public Window, public InputListener
 {
 public:
-	BumpMappingDemo();
-	~BumpMappingDemo();
+	FrameBufferDemo();
+	~FrameBufferDemo();
 
 	// Inherited via Window
 	virtual void onCreate() override;
@@ -52,6 +52,11 @@ private:
 	TexturePtr m_brick_normal_tex;
 	MaterialPtr m_brick_mat;
 
+	MeshPtr m_monitor_mesh;
+	MaterialPtr m_monitor_mat;
+	MaterialPtr m_screen_monitor;
+	MaterialPtr m_case_monitor;
+
 
 	TexturePtr m_sky_tex;
 	MeshPtr m_sky_mesh;
@@ -63,7 +68,7 @@ private:
 	float m_delta_time;
 
 	float m_current_cam_distance;
-	float m_cam_distance = 14.0f;
+	float m_cam_distance = 2.4f;
 	Vector3D m_current_cam_rot;
 	Vector3D m_cam_rot;
 	Vector3D m_cam_pos;
@@ -80,5 +85,8 @@ private:
 	bool m_play_state = false;
 	bool m_fullscreen_state = false;
 	std::vector<MaterialPtr> m_list_materials;
+
+
+	MiniGame m_mini_game;
 };
 

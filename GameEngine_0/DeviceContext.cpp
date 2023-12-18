@@ -33,6 +33,24 @@ void DeviceContext::clearDepthStencil(const SwapChainPtr& swap_chain)
 {
 	m_device_context->ClearDepthStencilView(swap_chain->m_dsv, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
 }
+void DeviceContext::clearRenderTargetColor(const TexturePtr& render_target, float red, float green, float blue, float alpha)
+{
+	if (render_target->m_type != Texture::Type::RenderTarget) return;
+	FLOAT clear_color[4] = { red,green,blue,alpha };
+	m_device_context->ClearRenderTargetView(render_target->m_render_target_view, clear_color);
+}
+void DeviceContext::clearDepthStencil(const TexturePtr& depth_stencil)
+{
+	if (depth_stencil->m_type != Texture::Type::DepthStencil) return;
+	m_device_context->ClearDepthStencilView(depth_stencil->m_depth_stencil_view, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
+
+}
+void DeviceContext::setRenderTarget(const TexturePtr& render_target, const TexturePtr& depth_stencil)
+{
+	if (render_target->m_type != Texture::Type::RenderTarget) return;
+	if (depth_stencil->m_type != Texture::Type::DepthStencil) return;
+	m_device_context->OMSetRenderTargets(1, &render_target->m_render_target_view, depth_stencil->m_depth_stencil_view);
+}
 ///Prep for Input Assembler Stage
 //The will tell Our grahpihc card what and where to draw the verties
 void DeviceContext::setVertexBuffer(const VertexBufferPtr& vertex_buffer)
