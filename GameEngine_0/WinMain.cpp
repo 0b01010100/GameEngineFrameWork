@@ -1,4 +1,4 @@
-#include "BumpMappingDemo.h"
+#include "PostProcessingDemo.h"
 #include "InputSystem.h"
 int __stdcall WinMain
 (
@@ -20,7 +20,7 @@ int __stdcall WinMain
 	{
 		try
 		{
-			BumpMappingDemo app = {};
+			PostProcessingDemo app = {};
 			while (app.isRun());
 		}
 		catch (const std::exception&)

@@ -74,15 +74,20 @@ MaterialPtr GraphicsEngine::createMaterial(const MaterialPtr& material)
 
 void GraphicsEngine::setMaterial(const MaterialPtr& material)
 {
-	GraphicsEngine::get()->getRenderSystem()->setRasterizerState((material.get()->m_cull_mode == CULL_MODE_FRONT));
-	getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(material->m_vertex_shader, material->m_constant_buffer);
-	getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(material->m_pixel_shader, material->m_constant_buffer);
+	getRenderSystem()->setRasterizerState((material.get()->m_cull_mode == CULL_MODE_FRONT));
 
+	if (material->m_constant_buffer != NULL)// Check to see if the material has it's own constant buffer
+	{
+		getRenderSystem ( )->getImmediateDeviceContext ( )->setConstantBuffer ( material->m_vertex_shader, material->m_constant_buffer );
+		getRenderSystem ( )->getImmediateDeviceContext ( )->setConstantBuffer ( material->m_pixel_shader, material->m_constant_buffer );
+	}
 	//SET DEFAULT SHADER IN THE GRAPHICS PIPELINE TO BE ABLE TO DRAW
 	getRenderSystem()->getImmediateDeviceContext()->setVertexShader(material->m_vertex_shader);
 	getRenderSystem()->getImmediateDeviceContext()->setPixelShader(material->m_pixel_shader);
-
-	getRenderSystem()->getImmediateDeviceContext()->setTexture(material->m_pixel_shader, &material->m_vec_textures[0], (UINT)material->m_vec_textures.size());
+	if (material->m_vec_textures.size())//Check to see if there are texture avilable
+	{
+		getRenderSystem ( )->getImmediateDeviceContext ( )->setTexture ( material->m_pixel_shader, &material->m_vec_textures[0], (UINT)material->m_vec_textures.size ( ) );
+	}
 }
 
 void GraphicsEngine::getVertexMeshLayoutShaderByteCodeAndSize(void** byte_code, size_t* size)

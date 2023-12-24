@@ -2,8 +2,9 @@
 #include "Vector3D.h"
 #include "Vector2D.h"
 
-struct VertexMesh
+class VertexMesh
 {
+public:
 	VertexMesh() : 
 		m_position(), 
 		m_texcoord(), 
