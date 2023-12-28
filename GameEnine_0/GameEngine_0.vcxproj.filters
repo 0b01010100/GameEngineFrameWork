@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="GameEngine">
+      <UniqueIdentifier>{5ce87104-9182-4ba5-8a02-80fa9bc1d2b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\WindowigSystem">
+      <UniqueIdentifier>{b5f9f8b3-153b-4c6b-ac25-2d12e5641be8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\InputSystem">
+      <UniqueIdentifier>{0197d269-5c44-4162-b0a1-dd8eb7f53995}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Math">
+      <UniqueIdentifier>{f1b2dd66-04b8-45ab-aeef-e1d89b0eea88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App">
+      <UniqueIdentifier>{2b1f6e23-7cb4-43fe-8429-8bd4da6670e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine">
+      <UniqueIdentifier>{e931d346-ecc2-453d-a692-191ba8465e89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\RenderingSystem">
+      <UniqueIdentifier>{20d904e4-6a10-47c5-b87a-489d02162ec5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\RenderingSystem\IndexBuffer">
+      <UniqueIdentifier>{c64e4db0-87a6-464e-b115-a0701a777080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\RenderingSystem\SwapChain">
+      <UniqueIdentifier>{62cdd4d1-dac7-44ea-a6f7-589369f9ec6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\RenderingSystem\VertexBuffer">
+      <UniqueIdentifier>{3f139f59-36f9-436a-a115-2b15c2e81faa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\RenderingSystem\DeviceContext">
+      <UniqueIdentifier>{3da20ffa-2253-4fed-88c1-9c51785cb59b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\RenderingSystem\ConstantBuffer">
+      <UniqueIdentifier>{1d7518a3-7a15-4360-a1b8-d1847dd892fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\ResourceManager">
+      <UniqueIdentifier>{0c501e00-fbbc-4ac3-9f66-6d739098b998}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\ResourceManager\Texturemanager">
+      <UniqueIdentifier>{4e7def69-8a3f-4f35-9a8d-5ab36e7c3df8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\ResourceManager\MeshManager">
+      <UniqueIdentifier>{854883f6-b873-4068-9f63-fed4beb1a08b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\RenderingSystem\PixelShader">
+      <UniqueIdentifier>{840209a3-9676-4092-8efe-d56bb910044b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\RenderingSystem\VertexShader">
+      <UniqueIdentifier>{b4fac325-b535-46b9-80ca-ae6ed3580406}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\Material">
+      <UniqueIdentifier>{6ba0dcf2-0006-417f-bc5b-5966353f2f2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\OldDemo">
+      <UniqueIdentifier>{991a50a0-14d4-4c25-becf-27a068c43600}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\SpaceShooterGame">
+      <UniqueIdentifier>{75e383a8-04ff-4e0e-8eb0-decc00d17523}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\OldDemo\Shaders">
+      <UniqueIdentifier>{438a4f9b-54d0-45c4-893a-af02cb74081f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\OldDemo\Shaders\EarthShaders">
+      <UniqueIdentifier>{1a679821-662f-48a3-a951-93a3e00eaaee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\GlobalShaders">
+      <UniqueIdentifier>{e516ef96-3b2c-498d-a515-8c9916c814da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\GlobalShaders\SkyBox">
+      <UniqueIdentifier>{90767aca-83b0-4490-9107-56a59d5e9fa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\GlobalShaders\DirectionalLight">
+      <UniqueIdentifier>{7a12d95e-68e7-406e-8dc5-c795304412f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\GlobalShaders\PointLight">
+      <UniqueIdentifier>{d9704b94-f4a7-4a82-b4ec-1a564c3e5e9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\BumpMappingDemo">
+      <UniqueIdentifier>{a996f5c9-1ba6-4b02-9439-d41c002a5ae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\GlobalShaders\DirLightBumpMaping">
+      <UniqueIdentifier>{50a50dc8-fe76-4f22-a178-753fe8a04ccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\FrameBufferDemo">
+      <UniqueIdentifier>{d1051b05-6b3f-46fa-804a-064861ca001d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\PostProcessingDemo">
+      <UniqueIdentifier>{70ae5699-91c5-4f17-91bb-434c5ee2bbe8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\GlobalShaders\PostProcessEffect">
+      <UniqueIdentifier>{452f4aec-0298-4984-ae8d-9368b11a37d6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Old\VertexShader.hlsl">
+      <Filter>App\OldDemo\Shaders\EarthShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Old\PixelShader.hlsl">
+      <Filter>App\OldDemo\Shaders\EarthShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Old\PointLightVertexShader.hlsl">
+      <Filter>App\GlobalShaders\PointLight</Filter>
+    </FxCompile>
+    <FxCompile Include="Old\PointLightPixelShader.hlsl">
+      <Filter>App\GlobalShaders\PointLight</Filter>
+    </FxCompile>
+    <FxCompile Include="Old\DirectionalLightVertexShader.hlsl">
+      <Filter>App\GlobalShaders\DirectionalLight</Filter>
+    </FxCompile>
+    <FxCompile Include="Old\DirectionalLightPixelShader.hlsl">
+      <Filter>App\GlobalShaders\DirectionalLight</Filter>
+    </FxCompile>
+    <FxCompile Include="Old\SkyBoxPixelShader.hlsl">
+      <Filter>App\GlobalShaders\SkyBox</Filter>
+    </FxCompile>
+    <FxCompile Include="Old\SkyBoxVertexShader.hlsl">
+      <Filter>App\GlobalShaders\SkyBox</Filter>
+    </FxCompile>
+    <FxCompile Include="Old\VertexMeshLayoutShader.hlsl">
+      <Filter>GameEngine\GraphicsEngine\ResourceManager</Filter>
+    </FxCompile>
+    <FxCompile Include="Old\DirLightBumpPS.hlsl">
+      <Filter>App\GlobalShaders\DirLightBumpMaping</Filter>
+    </FxCompile>
+    <FxCompile Include="Old\DirLightBumpVS.hlsl">
+      <Filter>App\GlobalShaders\DirLightBumpMaping</Filter>
+    </FxCompile>
+    <FxCompile Include="Old\PostProcessVS.hlsl">
+      <Filter>App\GlobalShaders\PostProcessEffect</Filter>
+    </FxCompile>
+    <FxCompile Include="Old\DistortionEffect.hlsl">
+      <Filter>App\GlobalShaders\PostProcessEffect</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DX3D\Include\DX3D\Window\Window.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Math\Rect.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Prerequisites.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Game\Game.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\GraphicsEngine.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\ConstantBuffer.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\DeviceContext.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\IndexBuffer.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\PixelShader.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\RenderSystem.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\SwapChain.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\VertexBuffer.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\VertexShader.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Game\Display.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Resource\ResourceManager.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Resource\Resource.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Resource\Mesh.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\Texture2D.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Resource\Texture.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Resource\Material.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Input\InputSystem.h" />
+    <ClInclude Include="Game\MyGame.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DX3D\Source\DX3D\Window\Window.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Game\Game.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Game\Win32\Win32Game.cpp" />
+    <ClCompile Include="Game\WinMain.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Graphics\GraphicsEngine.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Graphics\ConstantBuffer.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Graphics\DeviceContext.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Graphics\IndexBuffer.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Graphics\PixelShader.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Graphics\RenderSystem.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Graphics\SwapChain.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Graphics\VertexBuffer.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Graphics\VertexShader.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Game\Display.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Resource\ResourceManager.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Resource\Resource.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Resource\Mesh.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Graphics\Texture2D.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Resource\Texture.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Resource\Material.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Input\InputSystem.cpp" />
+    <ClCompile Include="Game\MyGame.cpp" />
+  </ItemGroup>
+</Project>
