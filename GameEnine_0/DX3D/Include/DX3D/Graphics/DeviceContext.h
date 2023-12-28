@@ -20,11 +20,11 @@ public:
 	void setIndexBuffer(const IndexBufferPtr& index_buffer);
 
 
-	void drawTriangleList(UINT vertex_count, UINT start_vertex_index);
-	void drawIndexedTriangleList(UINT index_count, UINT start_vertex_index, UINT start_index_location);
-	void drawTriangleStrip(UINT vertex_count, UINT start_vertex_index);
+	void drawTriangleList(ui32 vertex_count, ui32 start_vertex_index);
+	void drawIndexedTriangleList(ui32 index_count, ui32 start_vertex_index, ui32 start_index_location);
+	void drawTriangleStrip(ui32 vertex_count, ui32 start_vertex_index);
 
-	void setViewportSize(UINT width, UINT height);
+	void setViewportSize(ui32 width, ui32 height);
 
 	void setVertexShader(const VertexShaderPtr& vertex_shader);
 	void setPixelShader(const PixelShaderPtr& pixel_shader);

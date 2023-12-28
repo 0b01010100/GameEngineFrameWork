@@ -6,10 +6,10 @@
 class IndexBuffer
 {
 public:
-	IndexBuffer(void* list_indices, UINT size_list, RenderSystem* system);
-	UINT getSizeIndexList();
+	IndexBuffer(void* list_indices, ui32 size_list, RenderSystem* system);
+	ui32 getSizeIndexList();
 private:
-	UINT m_size_list;
+	ui32 m_size_list;
 private:
 	Microsoft::WRL::ComPtr < ID3D11Buffer > m_buffer;
 	RenderSystem* m_system = nullptr;

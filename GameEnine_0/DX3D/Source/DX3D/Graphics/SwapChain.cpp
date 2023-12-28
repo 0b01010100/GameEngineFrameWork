@@ -2,7 +2,7 @@
 #include <DX3D/Graphics/RenderSystem.h>
 #include <exception>
 //This will do all of the set up needed for the Swap Chain
-SwapChain::SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system) : m_system(system)
+SwapChain::SwapChain(HWND hwnd, ui32 width, ui32 height, RenderSystem* system) : m_system(system)
 {
 	ID3D11Device* device = m_system->m_d3d_device.Get();
 	DXGI_SWAP_CHAIN_DESC desc;
@@ -31,13 +31,13 @@ SwapChain::SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system) :
 }
 
 
-void SwapChain::setFullScreen(bool fullscreen, UINT width, UINT height)
+void SwapChain::setFullScreen(bool fullscreen, ui32 width, ui32 height)
 {
 	resize(width, height);
 	m_swap_chain->SetFullscreenState(fullscreen, nullptr);
 }
 
-void SwapChain::resize(UINT width, UINT height)
+void SwapChain::resize(ui32 width, ui32 height)
 {
 	m_rtv.Reset ( );
 	m_dsv.Reset ( );
@@ -53,7 +53,7 @@ bool SwapChain::present(bool vsync)
 	return true;
 }
 
-void SwapChain::reloadBuffers(UINT width, UINT height)
+void SwapChain::reloadBuffers(ui32 width, ui32 height)
 {
 	ID3D11Device* device = m_system->m_d3d_device.Get();
 	HRESULT hr;
@@ -79,7 +79,7 @@ void SwapChain::reloadBuffers(UINT width, UINT height)
 
 	D3D11_TEXTURE2D_DESC tex_desc = {};
 	tex_desc.Width = width;
-	tex_desc.Height = height;
+	tex_desc.Height = (height <= 0) ? 1 : height;//Stops the height from being negative or 0
 	tex_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	tex_desc.Usage = D3D11_USAGE_DEFAULT;
 	tex_desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;

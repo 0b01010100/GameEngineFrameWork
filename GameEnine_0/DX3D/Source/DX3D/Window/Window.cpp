@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include <exception>
 //this   function   is     used   for	   handling    Envents
-LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CALLBACK WndProc(HWND hwnd, ui32 msg, WPARAM wparam, LPARAM lparam)
 {
 	//The WndProc a function that processes messages sent to a window and determines how the application responds to different events using these messages.
 	switch (msg)

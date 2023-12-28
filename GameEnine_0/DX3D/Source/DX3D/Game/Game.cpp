@@ -7,6 +7,7 @@
 #include <DX3D/Resource/Texture.h>
 #include <DX3D/Resource/Material.h>
 #include <DX3D/Input/InputSystem.h>
+#include <DX3D/Game/World.h>
 
 
 Game::Game ( )
@@ -15,6 +16,7 @@ Game::Game ( )
 	m_graphicsEngine = std::make_unique < GraphicsEngine > ( this );
 	m_display = std::make_unique < Display > ( this );
 	m_resourceManager = std::make_unique < ResourceManager > ( this );
+	m_world = std::make_unique < World > ( );
 
 
 	m_mesh = m_resourceManager->createResourceFromFile<Mesh> ( L"Assests/Meshes/house.obj" );
@@ -25,12 +27,15 @@ Game::Game ( )
 	m_material->addTexture ( tex );
 
 	m_inputSystem->SetlockArea ( m_display->getClientSize ( ) );
-	m_inputSystem->lockCursor ( true );
 }
 Game::~Game ( ) {}
 GraphicsEngine* Game::getGraphicsEngine ( )
 {
 	return this->m_graphicsEngine.get ( );
+}
+World* Game::getWorld ( )
+{
+	return m_world.get();
 }
 void Game::onDisplaySize ( const Rect& size )
 {
@@ -40,21 +45,21 @@ void Game::onDisplaySize ( const Rect& size )
 }
 void Game::onInternalUpdate ( )
 {
+	//COMPUTING DELTA TIME
+	auto currentTime = std::chrono::system_clock::now ( );
+	auto elapsedSeconds = std::chrono::duration<double> ( );//elapsed Time
+
+	if (m_previousTime.time_since_epoch ( ).count ( ))//if m_previousTime is not zero do elapsedSeconds = currentTime - m_previousTime;
+		elapsedSeconds = currentTime - m_previousTime;
+	m_previousTime = currentTime;
+
+	auto deltaTime = (f32)elapsedSeconds.count ( );
+
+
 	m_inputSystem->update ( );
-	
-	if ( m_inputSystem->isKeyDown ( Key::Escape ) )
-	{
-		m_inputSystem->lockCursor ( false );
-	}
-	else if (m_inputSystem->isKeyDown ( Key::Enter ))
-	{
-		m_inputSystem->lockCursor ( true );
-	}
-	auto deltaPos = m_inputSystem->getDeltaMousePosition();
-	DX3DInfo ( "Delta Mouse Pos: X:" << deltaPos.m_x << " Y: " << deltaPos.m_y );
 
-
-
+	onUpdate ( deltaTime );
+	m_world->update ( deltaTime );
 
 	m_graphicsEngine->update ( { m_mesh,m_material } );
 }

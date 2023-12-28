@@ -2,7 +2,7 @@
 #include <DX3D/Graphics/RenderSystem.h>
 #include <exception>
 
-VertexBuffer::VertexBuffer( void* list_vertices, UINT size_vertex, UINT size_list, RenderSystem* system ) :
+VertexBuffer::VertexBuffer( void* list_vertices, ui32 size_vertex, ui32 size_list, RenderSystem* system ) :
 	m_system(system), m_layout(0), m_buffer(0)
 {
 
@@ -34,7 +34,7 @@ VertexBuffer::VertexBuffer( void* list_vertices, UINT size_vertex, UINT size_lis
 		{ "BINORMAL", 0,  DXGI_FORMAT_R32G32B32_FLOAT, 0, 44, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 
-	UINT size_layout = ARRAYSIZE(layout);
+	ui32 size_layout = ARRAYSIZE(layout);
 
 	if (FAILED(m_system->m_d3d_device->CreateInputLayout(layout, size_layout, m_system->m_meshLayoutByteCode, m_system->m_meshLayoutSize, &m_layout)))
 	{
@@ -43,7 +43,7 @@ VertexBuffer::VertexBuffer( void* list_vertices, UINT size_vertex, UINT size_lis
 
 }
 
-UINT VertexBuffer::getSizeVertexList()
+ui32 VertexBuffer::getSizeVertexList()
 {
 	return this->m_size_list;
 }

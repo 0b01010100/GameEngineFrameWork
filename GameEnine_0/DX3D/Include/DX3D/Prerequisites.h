@@ -26,6 +26,9 @@ class Game;
 class Display;
 class InputSystem;
 
+class Entity;
+class World;
+
 typedef std::shared_ptr<SwapChain> SwapChainPtr;
 typedef std::shared_ptr<DeviceContext> DeviceContextPtr;
 typedef std::shared_ptr<VertexBuffer> VertexBufferPtr;
@@ -40,6 +43,10 @@ typedef std::shared_ptr<Texture> TexturePtr;
 typedef std::shared_ptr<Mesh> MeshPtr;
 typedef std::shared_ptr<Material> MaterialPtr;
 
+typedef unsigned int ui32;
+typedef int				  i32;
+typedef float				  f32;
+typedef float				  d64;
 
 enum class Key
 {

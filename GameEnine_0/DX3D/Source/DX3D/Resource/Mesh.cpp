@@ -151,8 +151,8 @@ Mesh::Mesh(const wchar_t* full_path, ResourceManager* manager ) : Resource(full_
 	auto rsys = m_manager->getGame ( )->getGraphicsEngine ( )->getRenderSystem ( );
 
 	m_vertex_buffer = rsys->createVertexBuffer(&list_vertices[0], sizeof(VertexMesh),
-		(UINT)list_vertices.size());
-	m_index_buffer = rsys->createIndexBuffer(&list_indices[0], (UINT)list_indices.size());
+		(ui32)list_vertices.size());
+	m_index_buffer = rsys->createIndexBuffer(&list_indices[0], (ui32)list_indices.size());
 }
 
 Mesh::Mesh ( 
@@ -166,9 +166,9 @@ Mesh::Mesh (
 
 	m_vertex_buffer = rsys->createVertexBuffer ( vertex_list_data,
 		sizeof ( VertexMesh ),
-		(UINT)vertex_list_size);
+		(ui32)vertex_list_size);
 	m_index_buffer = rsys->createIndexBuffer ( index_list_data,
-		(UINT)index_list_size );
+		(ui32)index_list_size );
 
 	m_mat_slots.resize ( material_slot_list_size );
 

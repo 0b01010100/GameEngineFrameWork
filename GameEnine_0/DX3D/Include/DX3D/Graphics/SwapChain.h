@@ -6,14 +6,14 @@ class SwapChain
 {
 public:
 	//Initialize SwapChain for a window
-	SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system);
+	SwapChain(HWND hwnd, ui32 width, ui32 height, RenderSystem* system);
 	
-	void setFullScreen(bool fullscreen, UINT width, UINT height);
-	void resize(UINT width, UINT height);
+	void setFullScreen(bool fullscreen, ui32 width, ui32 height);
+	void resize(ui32 width, ui32 height);
 	bool present(bool vsync);
 
 private:
-	void reloadBuffers(UINT width, UINT height);
+	void reloadBuffers(ui32 width, ui32 height);
 private:
 	Microsoft::WRL::ComPtr < IDXGISwapChain > m_swap_chain = nullptr;
 	Microsoft::WRL::ComPtr < ID3D11RenderTargetView> m_rtv = nullptr;

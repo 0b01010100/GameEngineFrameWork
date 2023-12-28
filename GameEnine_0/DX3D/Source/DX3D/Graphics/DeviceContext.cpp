@@ -62,9 +62,9 @@ void DeviceContext::clearDepthStencil(const SwapChainPtr& swap_chain)
 void DeviceContext::setVertexBuffer(const VertexBufferPtr& vertex_buffer)
 {
 	//Size of the Vertex
-	UINT stride = vertex_buffer->m_size_vertex;
+	ui32 stride = vertex_buffer->m_size_vertex;
 	//Distance betteen Each Vertex Vairable in Computer Memory
-	UINT offset = 0;
+	ui32 offset = 0;
 	auto buffer = vertex_buffer->m_buffer.Get ( );
 
 	//to specify which vertex buffers to use during rendering.
@@ -80,7 +80,7 @@ void DeviceContext::setIndexBuffer(const IndexBufferPtr& index_buffer)
 	m_device_context->IASetIndexBuffer(index_buffer->m_buffer.Get(), DXGI_FORMAT_R32_UINT, 0 );
 }
 
-void DeviceContext::drawTriangleList(UINT vertex_count, UINT start_vertex_index)
+void DeviceContext::drawTriangleList(ui32 vertex_count, ui32 start_vertex_index)
 {
 	//Specifies how the Verties should be conneted to for the primitive
 	//It basically helps use tell the computer how we want our primitve draw.
@@ -90,7 +90,7 @@ void DeviceContext::drawTriangleList(UINT vertex_count, UINT start_vertex_index)
 	m_device_context->Draw(vertex_count, start_vertex_index);
 }
 
-void DeviceContext::drawIndexedTriangleList(UINT index_count, UINT start_vertex_index, UINT start_index_location)
+void DeviceContext::drawIndexedTriangleList(ui32 index_count, ui32 start_vertex_index, ui32 start_index_location)
 {
 	//Specifies how the Verties should be conneted to for the primitive
 	//It basically helps use tell the computer how we want our primitve draw.
@@ -100,7 +100,7 @@ void DeviceContext::drawIndexedTriangleList(UINT index_count, UINT start_vertex_
 	m_device_context->DrawIndexed(index_count, start_index_location, start_vertex_index);
 }
 
-void DeviceContext::drawTriangleStrip(UINT vertex_count, UINT start_vertex_index)
+void DeviceContext::drawTriangleStrip(ui32 vertex_count, ui32 start_vertex_index)
 {
 	//Specifies how the Verties should be conneted to for the primitive
 	//It basically helps use tell the computer how we want our primitve draw.
@@ -111,7 +111,7 @@ void DeviceContext::drawTriangleStrip(UINT vertex_count, UINT start_vertex_index
 }
 //Changing settings of the viewport.
 //The view port allows us to see in this 3d world we are creating
-void DeviceContext::setViewportSize(UINT width, UINT height)
+void DeviceContext::setViewportSize(ui32 width, ui32 height)
 {
 	D3D11_VIEWPORT vp = {};
 	vp.Width = (FLOAT)width;

@@ -24,7 +24,7 @@ RenderSystem::RenderSystem()
 	};
 	//Gets the amount of objects int the Array and assigns them to a integral variable 
 	//called num_driver_types
-	UINT num_driver_types = ARRAYSIZE(driver_types);
+	ui32 num_driver_types = ARRAYSIZE(driver_types);
 	//The rendering feature from DirectX to target 
 	D3D_FEATURE_LEVEL feature_levels[] =
 	{
@@ -32,14 +32,14 @@ RenderSystem::RenderSystem()
 	};
 	//Gets the amount of objects int the Array and assigns them to a integral variable 
 	//called num_feature_levels
-	UINT num_feature_levels = ARRAYSIZE(feature_levels);
+	ui32 num_feature_levels = ARRAYSIZE(feature_levels);
 	//An integral Variable which will somehow make sure that The
 	//Variables below are handled corretly before exiting the function
 	HRESULT res = 0;
 
 	D3D_FEATURE_LEVEL featureLevel = {};
 
-	for (UINT driver_type_index = 0; driver_type_index < num_driver_types;)
+	for (ui32 driver_type_index = 0; driver_type_index < num_driver_types;)
 	{
 		//This Functions allows us the Create a Divece which will allow use the draw things on the Screen.
 		res = D3D11CreateDevice(NULL, driver_types[driver_type_index], NULL, NULL, feature_levels,
@@ -74,7 +74,7 @@ RenderSystem::~RenderSystem ( )
 }
 
 //Creates a Swap Chain so we can do Double Buffering 
-SwapChainPtr RenderSystem::createSwapChain(HWND hwnd, UINT width, UINT height)
+SwapChainPtr RenderSystem::createSwapChain(HWND hwnd, ui32 width, ui32 height)
 {
 	return std::make_shared<SwapChain>(hwnd, width, height, this);
 }
@@ -85,17 +85,17 @@ DeviceContextPtr RenderSystem::getImmediateDeviceContext()
 	return this->m_imm_device_context;
 }
 //Creates a Vetex Shader
-VertexBufferPtr RenderSystem::createVertexBuffer(void* list_vertices, UINT size_vertex, UINT size_list)
+VertexBufferPtr RenderSystem::createVertexBuffer(void* list_vertices, ui32 size_vertex, ui32 size_list)
 {
 	return std::make_shared< VertexBuffer>(list_vertices, size_vertex, size_list, this);
 }
 
-IndexBufferPtr RenderSystem::createIndexBuffer(void* list_indices, UINT size_list)
+IndexBufferPtr RenderSystem::createIndexBuffer(void* list_indices, ui32 size_list)
 {
 	return std::make_shared< IndexBuffer>(list_indices, size_list ,this);
 }
 
-ConstantBufferPtr RenderSystem::createConstantBuffer(void* buffer, UINT size_buffer)
+ConstantBufferPtr RenderSystem::createConstantBuffer(void* buffer, ui32 size_buffer)
 {
 	return std::make_shared<ConstantBuffer>(buffer, size_buffer ,this);
 }

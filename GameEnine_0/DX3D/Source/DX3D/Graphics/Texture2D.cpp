@@ -17,7 +17,7 @@ Texture2D::Texture2D (const wchar_t* full_path, RenderSystem* system ): m_system
 		D3D11_SHADER_RESOURCE_VIEW_DESC desc = {};
 		desc.Format = image_data.GetMetadata().format;
 		desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-		desc.Texture2D.MipLevels = (UINT)image_data.GetMetadata().mipLevels;
+		desc.Texture2D.MipLevels = (ui32)image_data.GetMetadata().mipLevels;
 		desc.Texture2D.MostDetailedMip = 0;
 
 
@@ -28,7 +28,7 @@ Texture2D::Texture2D (const wchar_t* full_path, RenderSystem* system ): m_system
 		sampler_desc.AddressW= D3D11_TEXTURE_ADDRESS_WRAP;
 		sampler_desc.Filter = D3D11_FILTER_ANISOTROPIC;
 		sampler_desc.MinLOD = 0;
-		sampler_desc.MaxLOD = (UINT)image_data.GetMetadata().mipLevels;
+		sampler_desc.MaxLOD = (ui32)image_data.GetMetadata().mipLevels;
 
 		res = m_system->m_d3d_device.Get ( )->CreateSamplerState(&sampler_desc, &m_sampler_state);
 		if (FAILED(res)) DX3DError("Texture not created successfully");

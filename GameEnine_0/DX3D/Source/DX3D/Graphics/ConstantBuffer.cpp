@@ -2,7 +2,7 @@
 #include <DX3D/Graphics/RenderSystem.h>
 #include <DX3D/Graphics/DeviceContext.h>
 #include <exception>
-ConstantBuffer::ConstantBuffer(void* buffer, UINT size_buffer, RenderSystem* system) : m_system(system)
+ConstantBuffer::ConstantBuffer(void* buffer, ui32 size_buffer, RenderSystem* system) : m_system(system)
 {
 	//Allows us to customize the behavior of our buffer
 	D3D11_BUFFER_DESC buff_desc = {};

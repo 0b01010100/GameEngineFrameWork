@@ -1,15 +1,15 @@
 #pragma once
 #include <DX3D/All.h>
 
-class MyGame : public Game
+class Player : public Entity
 {
 public:
-	MyGame ( );
-	~MyGame ( );
+	Player ( );
+	virtual ~Player ( );
+
 protected:
 	virtual void onCreate ( ) override;
 	virtual void onUpdate ( f32 deltaTime ) override;
-
 
 private:
 	Entity* m_entity = nullptr;
