@@ -208,10 +208,10 @@ void Mesh::computeTangents(const Vector3D& v0,
 	Vector2D deltaUV2 = t2 - t0;
 
 
-	float r = 1.0f / (deltaUV1.m_x * deltaUV2.m_y - deltaUV1.m_y * deltaUV2.m_x);
-	tangent = (deltaPos1 * deltaUV2.m_y - deltaPos2 * deltaUV1.m_y);
+	float r = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
+	tangent = (deltaPos1 * deltaUV2.y - deltaPos2 * deltaUV1.y);
 	tangent = Vector3D::normalize(tangent);
-	binormal = (deltaPos2 * deltaUV1.m_x - deltaPos1 * deltaUV2.m_x);
+	binormal = (deltaPos2 * deltaUV1.x - deltaPos1 * deltaUV2.x);
 	binormal = Vector3D::normalize(binormal);
 }
 

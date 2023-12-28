@@ -26,6 +26,8 @@ class Game;
 class Display;
 class InputSystem;
 
+class Component;
+class TransformComponent;
 class Entity;
 class World;
 

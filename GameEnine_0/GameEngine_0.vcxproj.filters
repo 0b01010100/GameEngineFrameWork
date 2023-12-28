@@ -159,6 +159,12 @@
     <ClInclude Include="DX3D\Include\DX3D\Resource\Material.h" />
     <ClInclude Include="DX3D\Include\DX3D\Input\InputSystem.h" />
     <ClInclude Include="Game\MyGame.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Game\World.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Entity\Entity.h" />
+    <ClInclude Include="DX3D\Include\DX3D\All.h" />
+    <ClInclude Include="Game\Player.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Entity\Component.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Entity\TransformComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX3D\Source\DX3D\Window\Window.cpp" />
@@ -183,5 +189,10 @@
     <ClCompile Include="DX3D\Source\DX3D\Resource\Material.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Input\InputSystem.cpp" />
     <ClCompile Include="Game\MyGame.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Game\World.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Entity\Entity.cpp" />
+    <ClCompile Include="Game\Player.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Entity\Component.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Entity\TransformComponent.cpp" />
   </ItemGroup>
 </Project>

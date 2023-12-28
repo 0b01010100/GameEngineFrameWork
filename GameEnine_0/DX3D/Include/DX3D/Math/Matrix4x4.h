@@ -20,16 +20,16 @@ public:
 
 	void setTranslation(const Vector3D& translation)
 	{
-		m_mat[3][0] = translation.m_x;
-		m_mat[3][1] = translation.m_y;
-		m_mat[3][2] = translation.m_z;
+		m_mat[3][0] = translation.x;
+		m_mat[3][1] = translation.y;
+		m_mat[3][2] = translation.z;
 	}
 
 	void setScale(const Vector3D& scale)
 	{
-		m_mat[0][0] = scale.m_x;
-		m_mat[1][1] = scale.m_y;
-		m_mat[2][2] = scale.m_z;
+		m_mat[0][0] = scale.x;
+		m_mat[1][1] = scale.y;
+		m_mat[2][2] = scale.z;
 	}
 
 	void setRotationX(float x)
@@ -67,8 +67,8 @@ public:
 
 
 		minor.cross(v1, v2, v3);
-		det = -(this->m_mat[0][3] * minor.m_x + this->m_mat[1][3] * minor.m_y + this->m_mat[2][3] * minor.m_z +
-			this->m_mat[3][3] * minor.m_w);
+		det = -(this->m_mat[0][3] * minor.x + this->m_mat[1][3] * minor.y + this->m_mat[2][3] * minor.z +
+			this->m_mat[3][3] * minor.w);
 		return det;
 	}
 
@@ -89,18 +89,18 @@ public:
 				{
 					a = j;
 					if (j > i) a = a - 1;
-					vec[a].m_x = (this->m_mat[j][0]);
-					vec[a].m_y = (this->m_mat[j][1]);
-					vec[a].m_z = (this->m_mat[j][2]);
-					vec[a].m_w = (this->m_mat[j][3]);
+					vec[a].x = (this->m_mat[j][0]);
+					vec[a].y = (this->m_mat[j][1]);
+					vec[a].z = (this->m_mat[j][2]);
+					vec[a].w = (this->m_mat[j][3]);
 				}
 			}
 			v.cross(vec[0], vec[1], vec[2]);
 
-			out.m_mat[0][i] = pow(-1.0f, i) * v.m_x / det;
-			out.m_mat[1][i] = pow(-1.0f, i) * v.m_y / det;
-			out.m_mat[2][i] = pow(-1.0f, i) * v.m_z / det;
-			out.m_mat[3][i] = pow(-1.0f, i) * v.m_w / det;
+			out.m_mat[0][i] = pow(-1.0f, i) * v.x / det;
+			out.m_mat[1][i] = pow(-1.0f, i) * v.y / det;
+			out.m_mat[2][i] = pow(-1.0f, i) * v.z / det;
+			out.m_mat[3][i] = pow(-1.0f, i) * v.w / det;
 		}
 
 		this->setMatrix(out);

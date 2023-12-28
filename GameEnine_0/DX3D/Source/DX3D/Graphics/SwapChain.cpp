@@ -78,7 +78,7 @@ void SwapChain::reloadBuffers(ui32 width, ui32 height)
 	}
 
 	D3D11_TEXTURE2D_DESC tex_desc = {};
-	tex_desc.Width = width;
+	tex_desc.Width = (width <= 0) ? 1 : width;
 	tex_desc.Height = (height <= 0) ? 1 : height;//Stops the height from being negative or 0
 	tex_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	tex_desc.Usage = D3D11_USAGE_DEFAULT;

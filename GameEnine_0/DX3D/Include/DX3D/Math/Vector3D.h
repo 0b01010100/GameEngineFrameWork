@@ -3,61 +3,61 @@
 class Vector3D
 {
 public:
-	Vector3D():m_x(0),m_y(0),m_z(0)
+	Vector3D():x(0),y(0),z(0)
 	{
 	}
-	Vector3D(float x,float y, float z) :m_x(x), m_y(y), m_z(z)
+	Vector3D(float x,float y, float z) :x(x), y(y), z(z)
 	{
 	}
-	Vector3D(const Vector3D& vector) :m_x(vector.m_x), m_y(vector.m_y), m_z(vector.m_z)
+	Vector3D(const Vector3D& vector) :x(vector.x), y(vector.y), z(vector.z)
 	{
 	}
 
 	static Vector3D lerp(const Vector3D& start, const Vector3D& end, float delta)
 	{
 		Vector3D v;
-		v.m_x = start.m_x*(1.0f - delta) + end.m_x*(delta);
-		v.m_y = start.m_y*(1.0f - delta) + end.m_y*(delta);
-		v.m_z = start.m_z*(1.0f - delta) + end.m_z*(delta);
+		v.x = start.x*(1.0f - delta) + end.x*(delta);
+		v.y = start.y*(1.0f - delta) + end.y*(delta);
+		v.z = start.z*(1.0f - delta) + end.z*(delta);
 		return v;
 	}
 
 	Vector3D operator *(const float num) const
 	{
-		return Vector3D(m_x * num, m_y * num, m_z * num);
+		return Vector3D(x * num, y * num, z * num);
 	}
 
 	Vector3D operator +(const Vector3D& vec) const
 	{
-		return Vector3D(m_x + vec.m_x, m_y + vec.m_y, m_z + vec.m_z);
+		return Vector3D(x + vec.x, y + vec.y, z + vec.z);
 	}
 	Vector3D operator -(const Vector3D& vec) const
 	{
-		return Vector3D(m_x - vec.m_x, m_y - vec.m_y, m_z - vec.m_z);
+		return Vector3D(x - vec.x, y - vec.y, z - vec.z);
 	}
 	Vector3D operator *(const Vector3D& vec) const
 	{
-		return Vector3D(m_x * vec.m_x, m_y * vec.m_y, m_z * vec.m_z);
+		return Vector3D(x * vec.x, y * vec.y, z * vec.z);
 	}
 
 	static Vector3D normalize(const Vector3D& vec) 
 	{
 		Vector3D res = {};
-		float len = sqrt((vec.m_x * vec.m_x) + (vec.m_y * vec.m_y) + (vec.m_z * vec.m_z));
+		float len = sqrt((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z));
 		if (!len) return Vector3D();
 		
 		//else
-		res.m_x = vec.m_x / len;
-		res.m_y = vec.m_y / len;
-		res.m_z = vec.m_z / len;
+		res.x = vec.x / len;
+		res.y = vec.y / len;
+		res.z = vec.z / len;
 		return res;
 	}
 	static Vector3D cross(const Vector3D& v1, const Vector3D& v2)
 	{
 		Vector3D res;
-		res.m_x = (v1.m_y * v2.m_z) - (v1.m_z * v2.m_y);
-		res.m_y = (v1.m_z * v2.m_x) - (v1.m_x * v2.m_z);
-		res.m_z = (v1.m_x * v2.m_y) - (v1.m_y * v2.m_x);
+		res.x = (v1.y * v2.z) - (v1.z * v2.y);
+		res.y = (v1.z * v2.x) - (v1.x * v2.z);
+		res.z = (v1.x * v2.y) - (v1.y * v2.x);
 		return res;
 	}
 
@@ -66,5 +66,5 @@ public:
 	}
 
 public:
-	float m_x, m_y, m_z;
+	float x, y, z;
 };

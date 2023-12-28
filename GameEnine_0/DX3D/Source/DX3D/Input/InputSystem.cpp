@@ -43,10 +43,10 @@ void InputSystem::update()
 	POINT current_mouse_pos = {};
 	::GetCursorPos(&current_mouse_pos);
 
-	if(current_mouse_pos.x != m_old_mouse_pos.m_x || current_mouse_pos.y != m_old_mouse_pos.m_y)
+	if(current_mouse_pos.x != m_old_mouse_pos.x || current_mouse_pos.y != m_old_mouse_pos.y)
 	{
-		m_deltaMousePos = Vector2D ( (float)current_mouse_pos.x - (float)m_old_mouse_pos.m_x, 
-			(float)current_mouse_pos.y - (float)m_old_mouse_pos.m_y );
+		m_deltaMousePos = Vector2D ( (float)current_mouse_pos.x - (float)m_old_mouse_pos.x, 
+			(float)current_mouse_pos.y - (float)m_old_mouse_pos.y );
 	}
 	else
 	{
@@ -56,7 +56,7 @@ void InputSystem::update()
 		m_old_mouse_pos = Vector2D ( current_mouse_pos.x, current_mouse_pos.y );
 	else 
 	{
-		SetCursorPos ( (int)m_lockAreaCenter.m_x, (int)m_lockAreaCenter.m_y);
+		SetCursorPos ( (int)m_lockAreaCenter.x, (int)m_lockAreaCenter.y);
 		m_old_mouse_pos = m_lockAreaCenter;
 	}
 
