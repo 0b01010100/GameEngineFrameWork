@@ -16,15 +16,7 @@ Game::Game ( )
 	m_graphicsEngine = std::make_unique < GraphicsEngine > ( this );
 	m_display = std::make_unique < Display > ( this );
 	m_resourceManager = std::make_unique < ResourceManager > ( this );
-	m_world = std::make_unique < World > ( );
-
-
-	m_mesh = m_resourceManager->createResourceFromFile<Mesh> ( L"Assests/Meshes/house.obj" );
-
-	auto tex = m_resourceManager->createResourceFromFile<Texture> ( L"Assests/Textures/wood.jpg" );
-
-	m_material = m_resourceManager->createResourceFromFile<Material> ( L"Assests/Shaders/MyMaterial.hlsl" );
-	m_material->addTexture ( tex );
+	m_world = std::make_unique < World > ( this );
 
 	m_inputSystem->SetlockArea ( m_display->getClientSize ( ) );
 }
@@ -36,6 +28,10 @@ GraphicsEngine* Game::getGraphicsEngine ( )
 World* Game::getWorld ( )
 {
 	return m_world.get();
+}
+ResourceManager* Game::getResourceManager ( )
+{
+	return m_resourceManager.get();
 }
 void Game::onDisplaySize ( const Rect& size )
 {
@@ -61,7 +57,7 @@ void Game::onInternalUpdate ( )
 	onUpdate ( deltaTime );
 	m_world->update ( deltaTime );
 
-	m_graphicsEngine->update ( { m_mesh,m_material } );
+	m_graphicsEngine->update ( );
 }
 void Game::quit ( )
 {

@@ -1,6 +1,7 @@
 #pragma once
 //#include <d3d11.h> #include <wrl.h>
 #include <DX3D/Prerequisites.h>
+#include <set>
 //#include <DX3D/Graphics/RenderSystem.h>
 //#include "TextureManager.h"
 //#include "MeshManager.h"
@@ -21,12 +22,19 @@ public:
 	~GraphicsEngine();
 	
 
-	void update ( const MeshData& data );
+	void update ();
 
 public:
 	RenderSystem* getRenderSystem();
+
+	void addComponent ( Component* component );
+	void removeComponent ( Component* component );
 private:
 	std::unique_ptr<RenderSystem> m_render_system = nullptr;
 	Game* m_game = nullptr;
+
+
+
+	std::set<MeshComponent* > m_meshes;
 };
 

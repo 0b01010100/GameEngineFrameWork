@@ -11,7 +11,7 @@ Player::~Player ( )
 void Player::onCreate ( )
 {
 	Entity::onCreate ( );
-	m_entity = getWorld ( )->createEntity<Entity> ( );
+	m_entity = getWorld ( )->createEntity< Entity > ( );
 	m_entity->createComponent < Component > ();
 }
 

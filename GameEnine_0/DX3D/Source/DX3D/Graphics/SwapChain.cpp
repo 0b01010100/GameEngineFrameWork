@@ -76,19 +76,18 @@ void SwapChain::reloadBuffers(ui32 width, ui32 height)
 	{
 		DX3DError("SwapChain not Created successfully");
 	}
-
 	D3D11_TEXTURE2D_DESC tex_desc = {};
 	tex_desc.Width = (width <= 0) ? 1 : width;
 	tex_desc.Height = (height <= 0) ? 1 : height;//Stops the height from being negative or 0
-	tex_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	tex_desc.Usage = D3D11_USAGE_DEFAULT;
-	tex_desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-	tex_desc.MipLevels = 1;
-	tex_desc.SampleDesc.Count = 1;
-	tex_desc.SampleDesc.Quality = 0;
+	tex_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;// Depth value type unsigned normalized integer; Stencil vaule type: unsigned integer
+	tex_desc.Usage = D3D11_USAGE_DEFAULT;//GPU can read and write to the resource and not directly modifyable by the CPU
+	tex_desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;//Since texture sever multiple purposes  we have to tell the computer what is the purpose of he texture. This turture will store depth data so parts of an obj can overlap another
+	tex_desc.MipLevels = 1;// Amount of precomputed, smaller versions of a original texture. These textures have a dilation of 1/2  of the previous texture
+	tex_desc.SampleDesc.Count = 1;//How much to sample
+	tex_desc.SampleDesc.Quality = 0;//The Quality of the sample
 	tex_desc.MiscFlags = 0;
 	tex_desc.ArraySize = 1;
-	tex_desc.CPUAccessFlags = 0;
+	tex_desc.CPUAccessFlags = 0;//The CPU has no access rights
 
 	device->CreateTexture2D(&tex_desc, nullptr, &buffer);
 

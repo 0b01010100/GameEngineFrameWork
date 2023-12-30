@@ -17,7 +17,6 @@ void TransformComponent::setPosition ( const Vector3D& position )
 Vector3D TransformComponent::getPosition ( )
 {
 	return this->m_position;
-	updateWorldMatrix ( );
 }
 
 void TransformComponent::setRotation ( const Vector3D& rotation )

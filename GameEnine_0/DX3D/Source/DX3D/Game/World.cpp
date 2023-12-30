@@ -1,7 +1,7 @@
 #include <DX3D/Game/World.h>
 #include <DX3D/Entity/Entity.h>
 
-World::World ( )
+World::World ( Game* game ) : m_game(game )
 {
 
 }
@@ -25,6 +25,11 @@ void World::update ( f32 deltaTime )
 			ptr->onUpdate ( deltaTime );
 		}
 	}
+}
+
+Game* World::getGame ( )
+{
+	return m_game;
 }
 
 void World::createEntityInternal ( Entity* entity, size_t id )

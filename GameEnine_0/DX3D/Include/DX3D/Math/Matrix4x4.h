@@ -7,6 +7,10 @@ class Matrix4x4
 public:
 	Matrix4x4()
 	{
+		m_mat[0][0] = 1;
+		m_mat[1] [1] = 1;
+		m_mat[2][2] = 1;
+		m_mat[3][3] = 1;
 	}
 
 	void setIdentity()

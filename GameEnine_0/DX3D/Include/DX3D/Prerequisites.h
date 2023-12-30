@@ -28,6 +28,7 @@ class InputSystem;
 
 class Component;
 class TransformComponent;
+class MeshComponent;
 class Entity;
 class World;
 

@@ -26,7 +26,7 @@ void Entity::createComponentInternal ( Component* component, size_t id )
 	component->m_typeId = id;
 	component->m_entity = this;
 
-	component = nullptr;
+	component->onCreateInternal ( );
 }
 
 Component* Entity::getComponentInternal ( size_t id )

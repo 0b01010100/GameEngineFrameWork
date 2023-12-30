@@ -14,6 +14,7 @@ public:
 
 	GraphicsEngine* getGraphicsEngine ( );
 	World* getWorld ( );
+	ResourceManager* getResourceManager ( );
 protected:
 	virtual void onCreate ( ) {}
 	virtual void onUpdate ( float deltaTime ) {}
@@ -28,12 +29,8 @@ private:
 	std::unique_ptr<  ResourceManager > m_resourceManager;
 	std::unique_ptr<  World > m_world;
 
-	MeshPtr m_mesh;
-	MaterialPtr m_material;
-
 	bool m_isRunning = true;
 	std::chrono::system_clock::time_point m_previousTime;
-
 
 private:
 	friend class GraphicsEngine;

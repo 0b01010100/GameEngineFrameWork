@@ -158,7 +158,12 @@
     <ClInclude Include="DX3D\Include\DX3D\Graphics\VertexBuffer.h" />
     <ClInclude Include="DX3D\Include\DX3D\Graphics\VertexShader.h" />
     <ClInclude Include="DX3D\Include\DX3D\Input\InputSystem.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Math\Matrix4x4.h" />
     <ClInclude Include="DX3D\Include\DX3D\Math\Rect.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Math\Vector2D.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Math\Vector3D.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Math\Vector4D.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Math\VertexMesh.h" />
     <ClInclude Include="DX3D\Include\DX3D\Prerequisites.h" />
     <ClInclude Include="DX3D\Include\DX3D\Resource\Material.h" />
     <ClInclude Include="DX3D\Include\DX3D\Resource\Mesh.h" />
@@ -172,6 +177,7 @@
     <ClInclude Include="DX3D\Include\DX3D\Game\World.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="DX3D\Include\DX3D\Entity\TransformComponent.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Entity\MeshComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX3D\Source\DX3D\Entity\Component.cpp" />
@@ -201,6 +207,7 @@
     <ClCompile Include="DX3D\Source\DX3D\Game\World.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Entity\TransformComponent.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Entity\MeshComponent.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
