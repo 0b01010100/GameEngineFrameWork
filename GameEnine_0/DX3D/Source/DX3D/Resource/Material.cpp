@@ -45,12 +45,12 @@ void Material::setData(void* data, unsigned int size)
 		m_constant_buffer->update( rsys->getImmediateDeviceContext(), data);
 }
 
-void Material::setCullMode(CULL_MODE mode)
+void Material::setCullMode( const CullMode& mode)
 {
 	m_cull_mode = mode;
 }
 
-const CULL_MODE Material::getCullMode()
+const CullMode Material::getCullMode()
 {
 	return m_cull_mode;
 }

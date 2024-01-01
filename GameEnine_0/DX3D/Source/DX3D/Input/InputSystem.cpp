@@ -30,12 +30,14 @@ Vector2D InputSystem::getDeltaMousePosition ( )
 void InputSystem::lockCursor ( bool lock )
 {
 	m_cursorLocked = lock;
+	if (lock) while (ShowCursor ( false ) >= 0);
+	else while( ShowCursor ( true ) <= 1);
 }
 
 void InputSystem::SetlockArea ( const Rect& area )
 {
 	m_lockArea = area;
-	m_lockAreaCenter = Vector2D ( area.left + (float)area.width / 2.0f, area.top + (float)area.height / 2.0f );
+	m_lockAreaCenter = Vector2D ( floor(area.left + (float)area.width / 2.0f), floor(area.top + (float)area.height / 2.0f) );
 }
 
 void InputSystem::update()

@@ -10,6 +10,7 @@ public:
 	void release ( );
 
 	World* getWorld ( );
+	InputSystem* getInputSystem ( );
 	TransformComponent* getTransform();
 
 	template< typename T>

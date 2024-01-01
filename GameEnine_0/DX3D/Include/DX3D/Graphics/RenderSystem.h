@@ -31,10 +31,10 @@ public:
 
 	//void releaseCompiledShader();
 
-	void setRasterizerState(bool cull_front);
+	void setCullMode ( const CullMode& mode );
 private:
 	void compilePrivateShaders ( );
-	void initRasterizerState();
+	void initRasterizerStates();
 private:
 	DeviceContextPtr m_imm_device_context;
 private:
@@ -48,6 +48,7 @@ private:
 
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> m_cull_front_state = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> m_cull_back_state = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11RasterizerState> m_cull_none_state = nullptr;
 
 	Microsoft::WRL::ComPtr<ID3DBlob> m_vsblob = nullptr;
 	Microsoft::WRL::ComPtr<ID3DBlob> m_psblob = nullptr;

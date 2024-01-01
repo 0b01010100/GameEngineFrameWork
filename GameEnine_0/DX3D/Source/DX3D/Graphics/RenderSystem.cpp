@@ -65,7 +65,7 @@ RenderSystem::RenderSystem()
 	//Helps use obtain the IDXGIFactory interface, which is responsible for creating and managing resources related to graphics adapters, such as swap chains, rendering targets, and more. 
 	m_dxgi_adapter->GetParent(__uuidof(IDXGIFactory), (void**)&m_dxgi_factory);
 
-	initRasterizerState();
+	initRasterizerStates();
 	compilePrivateShaders ( );
 }
 
@@ -155,16 +155,21 @@ Texture2DPtr RenderSystem::createTexture ( const Rect& size, Texture2D::Type typ
 //	if (m_blob)m_blob->Release();
 //}
 
-void RenderSystem::setRasterizerState(bool cull_front)
+void RenderSystem::setCullMode(const CullMode& mode)
 {
-	if (cull_front) 
+	if (mode == CullMode::Front)
 	{
 		//Cull the front face of an object when rasterizing it
 		m_imm_context->RSSetState(m_cull_front_state.Get());
 	}
-	else 
+	else if (mode == CullMode::Back)
 		//Cull the back face of an object when rasterizing it
 		m_imm_context->RSSetState(m_cull_back_state.Get());
+	else if (mode == CullMode::None) 
+	{
+		m_imm_context->RSSetState ( m_cull_none_state.Get ( ) );
+	}
+
 }
 
 void RenderSystem::compilePrivateShaders ( )
@@ -210,16 +215,20 @@ VS_OUTPUT main(VS_INPUT input)
 	m_meshLayoutSize = blob->GetBufferSize ( );
 }
 
-void RenderSystem::initRasterizerState()
+void RenderSystem::initRasterizerStates()
 {
 	D3D11_RASTERIZER_DESC desc = {};
-	desc.CullMode = D3D11_CULL_FRONT;
 	desc.DepthClipEnable = true;
 	desc.FillMode = D3D11_FILL_SOLID;
+	desc.FrontCounterClockwise = true;
 
-	m_d3d_device->CreateRasterizerState(&desc, &m_cull_front_state);
+	desc.CullMode = D3D11_CULL_FRONT;
+	m_d3d_device->CreateRasterizerState( &desc, &m_cull_front_state);
 
 	desc.CullMode = D3D11_CULL_BACK;
-	m_d3d_device->CreateRasterizerState(&desc, &m_cull_back_state);
+	m_d3d_device->CreateRasterizerState( &desc, &m_cull_back_state);
+
+	desc.CullMode = D3D11_CULL_NONE;
+	m_d3d_device->CreateRasterizerState ( &desc, &m_cull_none_state );
 }
 

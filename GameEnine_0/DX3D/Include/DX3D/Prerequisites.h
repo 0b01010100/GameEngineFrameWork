@@ -29,6 +29,9 @@ class InputSystem;
 class Component;
 class TransformComponent;
 class MeshComponent;
+class CameraComponent;
+
+
 class Entity;
 class World;
 
@@ -98,7 +101,17 @@ enum class Key
 	RightMouseButton
 };
 
-
+enum class CameraType
+{
+	Orthogonal = 0,
+	Perspective
+};
+enum class CullMode
+{
+	None = 0,
+	Front,
+	Back
+};
 
 
 #define DX3DError(message)\

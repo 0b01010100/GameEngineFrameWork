@@ -14,6 +14,7 @@ public:
 
 	GraphicsEngine* getGraphicsEngine ( );
 	World* getWorld ( );
+	InputSystem* getInputSystem ( );
 	ResourceManager* getResourceManager ( );
 protected:
 	virtual void onCreate ( ) {}

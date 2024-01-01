@@ -2,11 +2,7 @@
 #include <DX3D/Resource/Resource.h>
 #include <vector>
 
-enum CULL_MODE
-{
-	CULL_MODE_FRONT = 0b0,
-	CULL_MODE_BACK = 0x1
-};
+
 class GraphicsEngine;
 class Material : public Resource
 {
@@ -18,14 +14,14 @@ public:
 	void removeTexture(unsigned int index);
 	void setData(void* data, unsigned int size);
 
-	void setCullMode(CULL_MODE mode) ;
-	const CULL_MODE getCullMode() ;
+	void setCullMode( const CullMode& mode) ;
+	const CullMode getCullMode() ;
 private:
 	VertexShaderPtr m_vertex_shader = __nullptr;
 	PixelShaderPtr m_pixel_shader = __nullptr;
 	ConstantBufferPtr m_constant_buffer = __nullptr;
 	std::vector<Texture2DPtr> m_vec_textures;
-	CULL_MODE m_cull_mode = {};
+	CullMode m_cull_mode = CullMode::Back;
 private:
 	friend class GraphicsEngine;
 };

@@ -82,14 +82,14 @@ Mesh::Mesh(const wchar_t* full_path, ResourceManager* manager ) : Resource(full_
 
 					tinyobj::real_t vx = attribs.vertices[index.vertex_index * 3 + 0];
 					tinyobj::real_t vy = attribs.vertices[index.vertex_index * 3 + 1];
-					tinyobj::real_t vz = attribs.vertices[index.vertex_index * 3 + 2];
+					tinyobj::real_t vz = -attribs.vertices[index.vertex_index * 3 + 2];
 
 					tinyobj::real_t tx = 0;
 					tinyobj::real_t ty = 0;
 					if (attribs.texcoords.size())
 					{
 						tx = attribs.texcoords[index.texcoord_index * 2 + 0];
-						ty = attribs.texcoords[index.texcoord_index * 2 + 1];
+						ty = 1.0f - attribs.texcoords[index.texcoord_index * 2 + 1];
 					}
 					vertices_face[v] = Vector3D(vx, vy, vz);
 					texcoords_face[v] = Vector2D(tx, ty);
@@ -109,14 +109,14 @@ Mesh::Mesh(const wchar_t* full_path, ResourceManager* manager ) : Resource(full_
 
 					tinyobj::real_t vx = attribs.vertices[index.vertex_index * 3 + 0];
 					tinyobj::real_t vy = attribs.vertices[index.vertex_index * 3 + 1];
-					tinyobj::real_t vz = attribs.vertices[index.vertex_index * 3 + 2];
+					tinyobj::real_t vz = -attribs.vertices[index.vertex_index * 3 + 2];
 
 					tinyobj::real_t tx = 0;
 					tinyobj::real_t ty = 0;
 					if (attribs.texcoords.size())
 					{
 						tx = attribs.texcoords[index.texcoord_index * 2 + 0];
-						ty = attribs.texcoords[index.texcoord_index * 2 + 1];
+						ty = 1.0f - attribs.texcoords[index.texcoord_index * 2 + 1];
 					}
 
 					tinyobj::real_t nx = 0;
@@ -126,7 +126,7 @@ Mesh::Mesh(const wchar_t* full_path, ResourceManager* manager ) : Resource(full_
 					{
 						nx = attribs.normals[index.normal_index * 3 + 0];
 						ny = attribs.normals[index.normal_index * 3 + 1];
-						nz = attribs.normals[index.normal_index * 3 + 2];
+						nz = -attribs.normals[index.normal_index * 3 + 2];
 					}
 
 					Vector3D v_tangent, v_binormal;

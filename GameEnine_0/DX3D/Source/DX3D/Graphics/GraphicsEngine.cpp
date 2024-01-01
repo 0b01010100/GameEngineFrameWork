@@ -17,6 +17,7 @@
 #include <DX3D/Entity/MeshComponent.h>
 #include <DX3D/Entity/Entity.h>
 #include <DX3D/Entity/TransformComponent.h>
+#include <DX3D/Entity/CameraComponent.h>
 struct alignas(16) ConstantData
 {
 	Matrix4x4 world;
@@ -35,21 +36,20 @@ void GraphicsEngine::update ()
 
 	auto context = m_render_system->getImmediateDeviceContext ( );
 
-	context->clearRenderTargetColor ( swapChain, 1, 0, 0, 1 );
+	context->clearRenderTargetColor ( swapChain, 0, 0, 0, 1 );
 	auto winSize = m_game->m_display->getClientSize ( );
 	context->setViewportSize ( winSize.width, winSize.height );
+	
+	
+	
 	ConstantData constData = {};
 
-	constData.world.setIdentity ( );
-	constData.view.setIdentity ( );
-	constData.proj.setIdentity ( );
-
-	
-
-	constData.view.setTranslation ( Vector3D ( 0.f, 0.f, -10.0f ) );
-	constData.view.inverse ( );
-
-	constData.proj.setPerspectiveFovLH ( 1.3f, (float)winSize.width / (float)winSize.height, 0.01f, 1000.0f );
+	for (auto c : m_cameras) 
+	{
+		c->setScreenArea ( winSize );
+		c->getViewMatrix ( constData.view );
+		c->getProjectionMatrix ( constData.proj );
+	}
 
 	for (auto m : m_meshes) {
 
@@ -67,6 +67,9 @@ void GraphicsEngine::update ()
 		{
 			if (i >= materials.size ( )) break;
 			auto mat = materials[i].get ( );
+
+			m_render_system->setCullMode( mat->getCullMode ( ));
+
 
 			mat->setData ( &constData, sizeof ( ConstantData ) );
 			context->setConstantBuffer ( mat->m_constant_buffer );
@@ -90,14 +93,19 @@ RenderSystem* GraphicsEngine::getRenderSystem()
 
 void GraphicsEngine::addComponent ( Component* component )
 {
+
 	if (auto c = dynamic_cast<MeshComponent*>(component))
 		m_meshes.emplace ( c );
+	else if (auto c = dynamic_cast<CameraComponent*>(component))
+		if (!m_cameras.size()) m_cameras.emplace ( c );
 }
 
 void GraphicsEngine::removeComponent ( Component* component )
 {
 	if (auto c = dynamic_cast<MeshComponent*>(component))
 		this->m_meshes.erase ( c );
+	else if (auto c = dynamic_cast<CameraComponent*>(component))
+		m_cameras.erase ( c );
 }
 
 GraphicsEngine::~GraphicsEngine ( )

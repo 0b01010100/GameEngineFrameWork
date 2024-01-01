@@ -29,6 +29,10 @@ World* Game::getWorld ( )
 {
 	return m_world.get();
 }
+InputSystem* Game::getInputSystem ( )
+{
+	return m_inputSystem.get();
+}
 ResourceManager* Game::getResourceManager ( )
 {
 	return m_resourceManager.get();

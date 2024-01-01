@@ -3,6 +3,7 @@
 #include <DX3D/Entity/TransformComponent.h>
 
 #include <DX3D/Game/World.h>
+#include <DX3D/Game/Game.h>
 
 Entity::Entity ( )
 {
@@ -44,6 +45,11 @@ void Entity::removeComponent ( size_t id )
 World* Entity::getWorld ( )
 {
 	return m_world;
+}
+
+InputSystem* Entity::getInputSystem ( )
+{
+	return m_world->getGame()->getInputSystem();
 }
 
 TransformComponent* Entity::getTransform ( )

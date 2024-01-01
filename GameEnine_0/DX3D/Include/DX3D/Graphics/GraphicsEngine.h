@@ -1,17 +1,6 @@
 #pragma once
-//#include <d3d11.h> #include <wrl.h>
 #include <DX3D/Prerequisites.h>
 #include <set>
-//#include <DX3D/Graphics/RenderSystem.h>
-//#include "TextureManager.h"
-//#include "MeshManager.h"
-//#include "Material.h"
-
-struct MeshData 
-{
-	MeshPtr mesh;
-	MaterialPtr material;
-};
 
 class GraphicsEngine
 {
@@ -34,7 +23,7 @@ private:
 	Game* m_game = nullptr;
 
 
-
 	std::set<MeshComponent* > m_meshes;
+	std::set<CameraComponent* > m_cameras;
 };
 
