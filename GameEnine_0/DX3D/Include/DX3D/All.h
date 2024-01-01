@@ -6,6 +6,7 @@
 #include <DX3D/Entity/TransformComponent.h>
 #include <DX3D/Entity/MeshComponent.h>
 #include <DX3D/Entity/CameraComponent.h>
+#include <DX3D/Entity/LightComponent.h>
 
 #include <DX3D/Resource/ResourceManager.h>
 #include <DX3D/Resource/Mesh.h>
