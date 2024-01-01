@@ -11,7 +11,6 @@ struct VS_OUTPUT
 {
     float4 position : SV_POSITION;
     float2 texcoord : TEXCOORD0;
-    float3 normal : NORMAL0;
 };
 
 //Retrive data is c++ version of the constant buffer
@@ -34,8 +33,7 @@ VS_OUTPUT vsmain(VS_INPUT input)
 	//SCREEN SPACE
     output.position = mul(output.position, proj);
     output.texcoord = input.texcoord;
-    //Computing World Normal
-    output.normal = normalize(mul(input.normal, (float3x3) world));
+    
     return output;
 }
 
@@ -62,7 +60,6 @@ struct PS_INPUT
 {
     float4 position : SV_POSITION;
     float2 texcoord : TEXCOORD0;
-    float3 normal : NORMAL0;
 };
 
 //Retrive Earth texture
@@ -71,36 +68,5 @@ sampler ColorSampler : register(s0);
 
 float4 psmain(PS_INPUT input) : SV_TARGET
 {
-    //Sample texture's data. This will allow us to get the color of every part of the texture and to 
-    //help use assinge that color to the pixels that need it one the screen.
-    float4 color = Color.Sample(ColorSampler, input.texcoord);
-    float3 light_direction = normalize(float3(-1, 1, 1));
-    
-    
-	//AMBIENT LIGHT
-    float ka = 8.5;
-    float3 ia = float3(0.09, 0.082, 0.082);
-    ia *= (color.rgb);
-
-    float3 ambient_light = ka * ia;
-
-	//DIFFUSE LIGHT
-    float kd = 0.7;
-    float amount_diffuse_light = max(dot(light_direction.xyz, input.normal), 0.0f);
-    float3 id = float3(1, 1, 1);
-    id *= (color.rgb);
-    float3 diffuse_light = kd * id * amount_diffuse_light;
-
-	//SPECULAR LIGHT
-    //float ks = 0.0;
-    //float3 is = float3(1.0, 1.0, 1.0);
-    //float3 reflected_light = reflect(light_direction.xyz, input.normal);
-    //float shininess = 30.0;
-    //float amount_specular_light = pow(max(0.0, dot(reflected_light, input.direction_to_camera)), shininess);
-
-    //float3 specular_light = ks * amount_specular_light * is;
-
-    float3 final_light = ambient_light + diffuse_light;
-
-    return float4(final_light, 1.0);
+    return float4(Color.Sample(ColorSampler, input.texcoord));
 }
