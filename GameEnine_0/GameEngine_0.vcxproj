@@ -163,6 +163,7 @@
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="DX3D\Include\DX3D\Entity\TransformComponent.h" />
     <ClInclude Include="DX3D\Include\DX3D\Entity\MeshComponent.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Entity\LightComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX3D\Source\DX3D\Entity\CameraComponent.cpp" />
@@ -194,6 +195,7 @@
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Entity\TransformComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Entity\MeshComponent.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Entity\LightComponent.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
