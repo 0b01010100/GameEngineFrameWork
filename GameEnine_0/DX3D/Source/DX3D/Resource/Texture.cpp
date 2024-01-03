@@ -8,3 +8,8 @@ Texture::Texture ( const wchar_t* full_path, ResourceManager* manager ) : Resour
 {
 	m_texture = manager->getGame ( )->getGraphicsEngine ( )->getRenderSystem ( )->createTexture ( full_path );
 }
+
+const Texture2DPtr& Texture::getTexture ( )
+{
+	return this->m_texture;
+}

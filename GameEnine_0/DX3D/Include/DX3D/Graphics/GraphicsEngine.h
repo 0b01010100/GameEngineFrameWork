@@ -26,5 +26,8 @@ private:
 	std::set<MeshComponent* > m_meshes;
 	std::set<CameraComponent* > m_cameras;
 	std::set<LightComponent*> m_lights;
+	std::set<TerrainComponent*> m_terrains;
+
+	
 };
 

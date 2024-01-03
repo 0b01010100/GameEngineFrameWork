@@ -40,6 +40,7 @@ Texture2D::Texture2D (const wchar_t* full_path, RenderSystem* system ): m_system
 	{
 		DX3DError("Texture not created successfully");
 	}
+	m_size = Rect ( 0, 0, (i32)image_data.GetMetadata ( ).width, (i32)image_data.GetMetadata ( ).height );
 }
 
 Texture2D::Texture2D (const Rect& size, Texture2D::Type type, RenderSystem* system ) : m_system(system)

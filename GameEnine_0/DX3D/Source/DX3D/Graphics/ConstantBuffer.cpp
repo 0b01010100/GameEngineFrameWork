@@ -22,7 +22,7 @@ ConstantBuffer::ConstantBuffer(void* buffer, ui32 size_buffer, RenderSystem* sys
 
 }
 //Updates the data in GPU memory
-void ConstantBuffer::update(DeviceContextPtr context, void* buffer)
+void ConstantBuffer::update(const DeviceContextPtr& context, void* buffer)
 {
 	 context->m_device_context->UpdateSubresource(this->m_buffer.Get(), NULL, NULL, buffer, NULL, NULL );
 }

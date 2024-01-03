@@ -2,8 +2,8 @@
 #include <memory>
 #include <iostream>
 #include <stdexcept>
-
-class SwapChain;
+ 
+class SwapChain; 
 class DeviceContext;
 class VertexBuffer;
 class IndexBuffer;
@@ -31,6 +31,7 @@ class TransformComponent;
 class MeshComponent;
 class CameraComponent;
 class LightComponent;
+class TerrainComponent;
 
 
 class Entity;
