@@ -167,6 +167,7 @@
     <ClInclude Include="DX3D\Include\DX3D\Math\VertexMesh.h" />
     <ClInclude Include="DX3D\Include\DX3D\Entity\CameraComponent.h" />
     <ClInclude Include="DX3D\Include\DX3D\Entity\LightComponent.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Entity\TerrainComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX3D\Source\DX3D\Window\Window.cpp" />
@@ -199,5 +200,6 @@
     <ClCompile Include="DX3D\Source\DX3D\Entity\MeshComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Entity\CameraComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Entity\LightComponent.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Entity\TerrainComponent.cpp" />
   </ItemGroup>
 </Project>

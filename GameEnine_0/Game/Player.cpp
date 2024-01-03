@@ -11,7 +11,7 @@ void Player::onCreate ( )
 {
 	Entity::onCreate ( );
 	auto cam = createComponent<CameraComponent> ( ); 
-	cam->setFarPlane ( 2000.0f );
+	cam->setFarPlane ( 7000.0f );
 	getTransform ( )->setPosition ( Vector3D (0,0,-10.f ) );
 }
 
@@ -50,8 +50,8 @@ void Player::onUpdate ( f32 deltaTime )
 	transform->getWorldMatrix ( world );
 
 	auto pos = transform->getPosition ( );
-	pos = pos + world.getZDirection ( ) * m_forward * 8.0f * deltaTime;
-	pos = pos + world.getXDirection ( ) *m_rightward * 8.0f * deltaTime;
+	pos = pos + world.getZDirection ( ) * m_forward * 58.0f * deltaTime;
+	pos = pos + world.getXDirection ( ) *m_rightward * 58.0f * deltaTime;
 
 	transform->setPosition ( pos );
 	transform->setRotation ( rot );
